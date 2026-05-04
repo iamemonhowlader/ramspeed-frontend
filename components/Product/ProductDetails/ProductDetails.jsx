@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import ImageGallery from "./ImageGallery";
 import useCartStore from "@/store/cartStore";
 import useAuthStore from "@/store/authStore";
@@ -61,7 +61,7 @@ const ProductDetails = ({ product, slug }) => {
 
     if (product) {
       addItem(product, quantity);
-      toast.success(`${product.name} added to cart!`, {
+      toast.success("Product added to cart successfully!", {
         position: "bottom-right",
         autoClose: 1500,
         theme: "colored",
@@ -322,7 +322,7 @@ const ProductDetails = ({ product, slug }) => {
               />
             </svg>
           </button>
-          <ToastContainer />
+
         </div>
 
         {/* Share */}

@@ -18,7 +18,7 @@ import { default as Paypal } from "../../../public/payment/paypal.png";
 export default function Checkout() {
   const router = useRouter();
   const { user, setRedirectPath } = useAuthStore();
-  const { items, getSubtotal, getTotalItems, addItem, removeItem, updateQuantity, clearCart } = useCartStore();
+  const { items, getSubtotal, getTotalItems, addItem, removeItem, updateQuantity, clearCart, updateItemOption } = useCartStore();
 
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -45,6 +45,8 @@ export default function Checkout() {
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState("");
   const [vatZero, setVatZero] = useState(0); // 0 = 19%, 1 = 0%
+  const [totalDiscount, setTotalDiscount] = useState(0);
+  const [discountType, setDiscountType] = useState("amount"); // "amount" or "percentage"
 
   useEffect(() => {
     setMounted(true);
@@ -163,7 +165,8 @@ export default function Checkout() {
           quantity: item.quantity,
           price: item.calculated_price || item.price,
           is_custom: item.is_custom || false,
-          name: item.name
+          name: item.name,
+          options_msg: item.options_msg || ""
         })),
         total: total,
         subtotal: subtotal,
@@ -171,6 +174,7 @@ export default function Checkout() {
         shipping: shipping,
         vatZero: vatZero,
         client_id: selectedClient,
+        totalDiscount: calculatedDiscount,
       };
 
       const response = await apiFetch("/api/frontend/checkout/save", {
@@ -181,7 +185,7 @@ export default function Checkout() {
       if (response.success) {
         clearCart();
         toast.success("Order placed successfully!");
-        router.push("/order-placed");
+        router.push(`/order-placed?order_id=${response.order_id}`);
       } else {
         toast.error(response.message || "Failed to place order");
       }
@@ -192,14 +196,22 @@ export default function Checkout() {
     }
   };
 
-  const subtotal = mounted ? getSubtotal() : 0;
-  const discount = 0; // Logic for discount can be added here
-  
-  // Tax logic (VAT 19% if not ZeroVAT)
   const isPrinter = user?.type === "printer";
   const isWholesaler = user?.type === "wholesaler";
+  
+  const subtotal = mounted ? getSubtotal() : 0;
+  
+  let calculatedDiscount = 0;
+  if (isPrinter) {
+    if (discountType === "amount") {
+      calculatedDiscount = parseFloat(totalDiscount || 0);
+    } else {
+      calculatedDiscount = subtotal * (parseFloat(totalDiscount || 0) / 100);
+    }
+  }
+
   const taxRate = (isWholesaler || vatZero === 1) ? 0 : 0.19;
-  const tax = subtotal * taxRate;
+  const tax = (subtotal - calculatedDiscount) * taxRate;
   
   const shippingOptions = {
     free: 0.0,
@@ -207,9 +219,13 @@ export default function Checkout() {
     express: 7.0,
   };
   const shipping = shippingOptions[shippingMethod];
-  const total = subtotal - discount + tax + shipping;
+  const total = subtotal - calculatedDiscount + tax + shipping;
 
-  const paymentMethods = [
+  const paymentMethods = isPrinter ? [
+    { id: "cash", label: "Cash", icon: CODPaymentIcon },
+    { id: "credit", label: "Credit", icon: Card, disabled: !selectedClient },
+    { id: "card", label: "Visa Card", icon: Card },
+  ] : [
     { id: "cash", label: "Cash on Delivery", icon: CODPaymentIcon },
     { id: "paypal", label: "Paypal", icon: Paypal },
     { id: "apple", label: "Apple pay", icon: ApplePay },
@@ -455,11 +471,14 @@ export default function Checkout() {
                   <div key={item.id} className="flex gap-4 group">
                     <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 relative">
                       <Image
-                        src={item.image || "/product-placeholder.png"}
+                        src={item.image 
+                          ? `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://ramspeed-laravel-api.test'}/storage/product_images/${item.image}`
+                          : "/product-placeholder.png"
+                        }
                         alt={item.name}
                         fill
                         unoptimized
-                        className="object-cover p-2"
+                        className="object-contain p-2"
                       />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -484,6 +503,21 @@ export default function Checkout() {
                            )}
                         </div>
                       </div>
+                      
+                      {item.options && (
+                        <div className="mt-2">
+                          <p className="text-[10px] text-blue-600 font-semibold mb-1 italic">
+                            * Product has options: {item.options}
+                          </p>
+                          <input 
+                            type="text"
+                            placeholder="Specify option (color, size, etc.)"
+                            className="w-full text-[11px] p-1.5 border border-gray-200 rounded bg-gray-50 focus:bg-white outline-none"
+                            value={item.options_msg || ""}
+                            onChange={(e) => updateItemOption(item.id, e.target.value)}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -517,6 +551,36 @@ export default function Checkout() {
                   <span className="text-gray-600">Subtotal</span>
                   <span className="font-bold text-black">€{subtotal.toFixed(2)}</span>
                 </div>
+                
+                {isPrinter && (
+                  <div className="space-y-2 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                    <div className="flex justify-between items-center text-sm mb-1">
+                      <span className="text-blue-800 font-bold">Discount</span>
+                      <select 
+                        className="bg-white border border-blue-200 text-[10px] rounded px-1"
+                        value={discountType}
+                        onChange={(e) => setDiscountType(e.target.value)}
+                      >
+                        <option value="amount">Amount (€)</option>
+                        <option value="percentage">Percent (%)</option>
+                      </select>
+                    </div>
+                    <input 
+                      type="number"
+                      className="w-full p-2 text-sm border border-blue-200 rounded-lg outline-none focus:ring-1 focus:ring-blue-400"
+                      placeholder={discountType === "amount" ? "€0.00" : "0%"}
+                      value={totalDiscount || ""}
+                      onChange={(e) => setTotalDiscount(e.target.value)}
+                    />
+                    {calculatedDiscount > 0 && (
+                      <div className="flex justify-between text-xs text-blue-600 font-bold italic">
+                        <span>Applied:</span>
+                        <span>-€{calculatedDiscount.toFixed(2)}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">VAT ({Math.round(taxRate * 100)}%)</span>
                   <span className="font-bold text-black">€{tax.toFixed(2)}</span>

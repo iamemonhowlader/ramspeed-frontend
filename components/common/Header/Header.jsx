@@ -31,10 +31,15 @@ const Header = () => {
 
   useEffect(() => {
     if (mounted) {
-      setCartCount(getTotalItems());
-      setCartTotal(getSubtotal());
+      if (user) {
+        setCartCount(getTotalItems());
+        setCartTotal(getSubtotal());
+      } else {
+        setCartCount(0);
+        setCartTotal(0);
+      }
     }
-  }, [items, mounted, getTotalItems, getSubtotal]);
+  }, [items, mounted, getTotalItems, getSubtotal, user]);
 
   const checkoutRedirect = () => {
     router.push("/checkout");

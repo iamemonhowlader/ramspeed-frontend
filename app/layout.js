@@ -5,6 +5,8 @@ import SmoothScrolling from "@/components/common/SmoothScrolling";
 import { Mulish, Public_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistMulish = Mulish({
   variable: "--font-geist-mulish",
@@ -35,6 +37,7 @@ export default function RootLayout({ children }) {
         <SmoothScrolling>
           <Header />
           <Toaster />
+          <ToastContainer />
           {children}
           <Footer />
           <ScrollToTop />

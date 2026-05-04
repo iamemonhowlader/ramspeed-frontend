@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useAuthStore from "@/store/authStore";
+import useCartStore from "@/store/cartStore";
 
 export default function Product({ data, ProductlayoutItem }) {
   const { user } = useAuthStore();
@@ -21,7 +23,18 @@ export default function Product({ data, ProductlayoutItem }) {
     if (newQuantity >= 1) setQuantity(newQuantity);
   };
 
+  const { addItem } = useCartStore();
+  const { setRedirectPath } = useAuthStore();
+  const router = useRouter();
+
   const addedToCart = () => {
+    if (!user) {
+      setRedirectPath(pathname);
+      router.push("/my-account/login");
+      return;
+    }
+    addItem(data, quantity);
+    toast.success("Product added to cart successfully!");
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event("cart:open"));
     }
@@ -77,23 +90,41 @@ export default function Product({ data, ProductlayoutItem }) {
           <Link href={productHref}>{product.title}</Link>
         </h2>
 
-        <div className="flex flex-col sm:flex-row items-start gap-1 sm:items-center justify-between text-sm mb-4">
-          <span>
-            Availability:{" "}
-            <span className="text-green-600 font-medium">
-              {product.availability} pcs
-            </span>
-          </span>
-          <span>
-            SKU: <span className="text-blue-600">{product.sku}</span>
-          </span>
+        <div className="flex flex-col gap-2 text-sm mb-4">
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500">Availability:</span>
+            <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold ${
+              parseInt(product.availability_cy) >= 3 ? "text-green-700 bg-green-50" :
+              parseInt(product.availability_cy) >= 1 ? "text-orange-700 bg-orange-50" :
+              (parseInt(product.availability) > 0 ? "text-blue-700 bg-blue-50" : "text-red-700 bg-red-50")
+            }`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                parseInt(product.availability_cy) >= 3 ? "bg-green-500" :
+                parseInt(product.availability_cy) >= 1 ? "bg-orange-500" :
+                (parseInt(product.availability) > 0 ? "bg-blue-500" : "bg-red-500")
+              }`}></span>
+              {parseInt(product.availability_cy) >= 3 ? (
+                <>In Stock – Available Now / Σε Απόθεμα</>
+              ) : parseInt(product.availability_cy) >= 1 ? (
+                <>Low Stock – Only few left / Περιορισμένο Απόθεμα</>
+              ) : parseInt(product.availability) > 0 ? (
+                <>Available on Order / Διαθέσιμο κατόπιν παραγγελίας</>
+              ) : (
+                <>Out of Stock / Εξαντλημένο</>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-500">SKU:</span>
+            <span className="text-blue-600 font-medium">{product.sku}</span>
+          </div>
         </div>
 
         {/* Pricing Logic based on User Type */}
         <div className="mb-6 flex flex-col gap-2">
           {customerType === "wholesaler" ? (
             <div className="bg-[#e6ebef] text-primary p-3 w-full flex justify-between font-bold rounded-lg">
-              <span>Wholesaler</span>
+              <span>Wholesaler Price</span>
               <span>€{product.wholesaler_price.toFixed(2)}</span>
             </div>
           ) : (
@@ -104,8 +135,8 @@ export default function Product({ data, ProductlayoutItem }) {
             </div>
           )}
           
-          {/* Always show Cyprus price for info if applicable */}
-          {product.price_cy > 0 && (
+          {/* Always show Cyprus price for info if applicable (for Retail users) */}
+          {customerType !== "wholesaler" && product.price_cy > 0 && (
             <div className="border border-primary/20 text-primary p-2 w-full flex justify-between text-sm font-semibold rounded-lg bg-primary/5">
               <span>Price in Cyprus</span>
               <span>€{product.price_cy.toFixed(2)}</span>
@@ -136,9 +167,14 @@ export default function Product({ data, ProductlayoutItem }) {
 
           <button
             onClick={addedToCart}
-            className="w-full bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide"
+            disabled={parseInt(product.availability_cy) <= 0 && parseInt(product.availability) <= 0}
+            className={`w-full py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide ${
+              (parseInt(product.availability_cy) <= 0 && parseInt(product.availability) <= 0)
+                ? "bg-gray-400 cursor-not-allowed" 
+                : "bg-primary hover:bg-primary/90 text-white"
+            }`}
           >
-            Add to Cart
+            {(parseInt(product.availability_cy) <= 0 && parseInt(product.availability) <= 0) ? "Out of Stock" : "Add to Cart"}
           </button>
         </div>
       </div>
