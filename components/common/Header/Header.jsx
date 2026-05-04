@@ -19,7 +19,7 @@ import useCartStore from "@/store/cartStore";
 const Header = () => {
   const router = useRouter();
   const { user, logout } = useAuthStore();
-  const { items, getTotalItems, getSubtotal, clearCart } = useCartStore();
+  const { items, getTotalItems, getSubtotal, clearCart, updateQuantity, removeItem } = useCartStore();
   
   const [mounted, setMounted] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -259,6 +259,7 @@ const Header = () => {
                   </ul>
 
                   <div className="relative group">
+                    {/* Cart Button */}
                     <Link href="/shopping-cart" className="relative cr-right-bar-item transition-all duration-300 flex items-center gap-3">
                       <span className="relative inline-flex">
                         <IoCartOutline size={26} color="#0068c8" />
@@ -273,6 +274,72 @@ const Header = () => {
                         </span>
                       </span>
                     </Link>
+
+                    {/* Cart Hover Dropdown */}
+                    {mounted && (
+                      <div className="absolute right-0 top-full mt-1 w-[320px] bg-white rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.15)] border border-gray-100 opacity-0 invisible translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[99]">
+                        {/* Arrow */}
+                        <div className="absolute -top-2 right-6 w-4 h-4 bg-white border-l border-t border-gray-100 rotate-45" />
+
+                        {/* Header */}
+                        <div className="px-4 pt-4 pb-3 border-b border-gray-100">
+                          <span className="text-sm font-bold text-gray-800">Cart ({cartCount})</span>
+                          <span className="float-right text-sm font-bold text-primary">€{cartTotal.toFixed(2)}</span>
+                        </div>
+
+                        {/* Items */}
+                        <div className="max-h-[300px] overflow-y-auto px-4 py-2 space-y-3">
+                          {items.length === 0 ? (
+                            <p className="text-sm text-gray-400 text-center py-4">Your cart is empty</p>
+                          ) : (
+                            items.map((item) => (
+                              <div key={item.id} className="flex items-center gap-3 py-2 border-b border-gray-50 last:border-0">
+                                {/* Item info */}
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-semibold text-gray-800 truncate leading-tight">{item.name}</p>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <button
+                                      onClick={(e) => { e.preventDefault(); updateQuantity(item.id, item.quantity - 1); }}
+                                      className="w-5 h-5 flex items-center justify-center rounded border border-gray-200 text-gray-600 text-xs hover:bg-gray-100 transition-colors"
+                                    >−</button>
+                                    <span className="text-xs font-medium text-gray-700 w-4 text-center">{item.quantity}</span>
+                                    <button
+                                      onClick={(e) => { e.preventDefault(); updateQuantity(item.id, item.quantity + 1); }}
+                                      className="w-5 h-5 flex items-center justify-center rounded border border-gray-200 text-gray-600 text-xs hover:bg-gray-100 transition-colors"
+                                    >+</button>
+                                  </div>
+                                </div>
+                                {/* Price & Remove */}
+                                <div className="flex flex-col items-end gap-1 shrink-0">
+                                  <span className="text-xs font-bold text-primary">€{(item.price * item.quantity).toFixed(2)}</span>
+                                  <span className="text-[10px] text-gray-400">€{item.price.toFixed(2)} each</span>
+                                  <button
+                                    onClick={(e) => { e.preventDefault(); removeItem(item.id); }}
+                                    className="text-[10px] text-red-400 hover:text-red-600 font-bold transition-colors"
+                                  >✕</button>
+                                </div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+
+                        {/* Footer */}
+                        {items.length > 0 && (
+                          <div className="px-4 py-3 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+                            <div className="flex justify-between items-center mb-3">
+                              <span className="text-sm font-semibold text-gray-700">Subtotal:</span>
+                              <span className="text-sm font-bold text-primary">€{cartTotal.toFixed(2)}</span>
+                            </div>
+                            <Link
+                              href="/shopping-cart"
+                              className="block w-full text-center bg-primary hover:bg-blue-700 text-white text-sm font-semibold py-2 rounded-lg transition-colors"
+                            >
+                              View Cart
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

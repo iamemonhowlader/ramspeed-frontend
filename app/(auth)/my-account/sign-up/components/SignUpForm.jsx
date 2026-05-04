@@ -74,7 +74,8 @@ const SignUpForm = () => {
           country: data.country,
           phone: data.mobile,
           fax: data.telephone,
-          type: 'client'
+          type: 'member',
+          subscribe: data.newsletter ? 'yes' : 'no'
         })
       });
 
@@ -170,15 +171,7 @@ const SignUpForm = () => {
             {...register("confirmPassword")}
             error={errors.confirmPassword}
           />
-          <Input
-            containerClassName={"!gap-1"}
-            label="Email address"
-            labelClass={"!text-sm !text-gray-700"}
-            id="email"
-            placeholder="Enter email address"
-            {...register("email")}
-            error={errors.email}
-          />
+
           <Input
             containerClassName={"!gap-1"}
             label="Mobile"

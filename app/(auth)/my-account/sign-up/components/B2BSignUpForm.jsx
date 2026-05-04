@@ -90,7 +90,8 @@ const B2BSignUpForm = () => {
           type: 'wholesaler',
           vat_num: data.companyVATNumber,
           company_reg_num: data.companyRegistrationNumber,
-          cperson: `${data.firstName} ${data.lastName}`
+          cperson: `${data.firstName} ${data.lastName}`,
+          subscribe: data.newsletter ? 'yes' : 'no'
         })
       });
 
