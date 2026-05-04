@@ -2,11 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import BadgeTable from "@/components/common/BadgeTable";
-import { Check, Cross, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Table UI helpers
 const TableHeader = ({ children, className }) => (
@@ -34,16 +35,16 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-export const membersColumn = [
+export const membersColumn = (onDelete) => [
   {
     accessorKey: "id",
     header: () => <TableHeader>ID</TableHeader>,
     cell: ({ row }) => <TableCell>{row.getValue("id")}</TableCell>,
   },
   {
-    accessorKey: "fullName",
+    accessorKey: "full_name",
     header: () => <TableHeader>Full name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("fullName")}</TableCell>,
+    cell: ({ row }) => <TableCell>{row.getValue("full_name")}</TableCell>,
   },
   {
     accessorKey: "username",
@@ -59,7 +60,8 @@ export const membersColumn = [
     accessorKey: "active",
     header: () => <TableHeader>Active</TableHeader>,
     cell: ({ row }) => {
-      const isActive = row.getValue("active");
+      const active = row.getValue("active");
+      const isActive = active === "yes" || active === 1 || active === true;
       return (
         <TableCell
           className={`${isActive ? "border-green-400" : "border-red-600"}`}
@@ -79,52 +81,33 @@ export const membersColumn = [
     cell: ({ row }) => {
       return (
         <TableCell className={"py-2"}>
-          <BadgeTable className="bg-[#0068C8] text-white px-4">
+          <BadgeTable className="bg-[#0068C8] text-white px-4 uppercase">
             {row.getValue("type")}
           </BadgeTable>
         </TableCell>
       );
     },
   },
-  // {
-  //   id: "options",
-  //   header: () => <TableHeader>Options</TableHeader>,
-  //   cell: () => {
-  //     return (
-  //       <TableCell className="flex justify-center gap-2">
-  //         <Button
-  //           variant={"outline"}
-  //           onClick={() => notImplemented()}
-  //           className={"font-medium"}
-  //           size={"sm"}
-  //         >
-  //           Edit
-  //         </Button>
-  //         <Button
-  //           variant={"outline"}
-  //           onClick={() => notImplemented()}
-  //           size={"sm"}
-  //           className={
-  //             "border-red-600 text-red-600 font-medium hover:bg-red-600"
-  //           }
-  //         >
-  //           delete
-  //         </Button>
-  //         <div
-  //           className={
-  //             " bg-transparent p-1 hover:bg-white border border-[#2B8EDF] rounded"
-  //           }
-  //         >
-  //           <Checkbox className={"bg-white cursor-pointer"} />
-  //         </div>
-  //       </TableCell>
-  //     );
-  //   },
-  // },
   {
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (!confirm("Are you sure you want to delete this member?")) return;
+        
+        try {
+          const response = await apiFetch(`/api/admin/members/delete/${row.original.id}`, {
+            method: 'DELETE'
+          });
+          if (response.success) {
+            toast.success("Member deleted successfully");
+            onDelete && onDelete();
+          }
+        } catch (error) {
+          toast.error("Failed to delete member");
+        }
+      };
+
       return (
         <TableCell className="flex justify-center gap-1  px-0">
           <Link
@@ -141,7 +124,7 @@ export const membersColumn = [
           </Link>
           <Button
             variant={"outline"}
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
             size={"sm"}
             className={
               "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"

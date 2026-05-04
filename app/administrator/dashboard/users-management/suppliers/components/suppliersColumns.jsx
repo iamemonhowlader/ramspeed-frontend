@@ -1,12 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import BadgeTable from "@/components/common/BadgeTable";
 import { Check, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Table UI helpers
 const TableHeader = ({ children, className }) => (
@@ -34,20 +34,20 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-const suppliersColumns = [
+export const suppliersColumns = (onDelete) => [
   {
-    accessorKey: "serial",
-    header: () => <TableHeader>Serial</TableHeader>,
+    accessorKey: "id",
+    header: () => <TableHeader>ID</TableHeader>,
     cell: ({ row }) => (
       <TableCell className={"text-[#0068C8]"}>
-        {row.getValue("serial")}
+        {row.getValue("id")}
       </TableCell>
     ),
   },
   {
-    accessorKey: "fullName",
+    accessorKey: "full_name",
     header: () => <TableHeader>Full name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("fullName")}</TableCell>,
+    cell: ({ row }) => <TableCell>{row.getValue("full_name")}</TableCell>,
   },
   {
     accessorKey: "username",
@@ -63,7 +63,8 @@ const suppliersColumns = [
     accessorKey: "active",
     header: () => <TableHeader>Active</TableHeader>,
     cell: ({ row }) => {
-      const isActive = row.getValue("active");
+      const active = row.getValue("active");
+      const isActive = active === "yes" || active === 1 || active === true;
       return (
         <TableCell
           className={`${isActive ? "border-green-400" : "border-red-600"}`}
@@ -81,11 +82,26 @@ const suppliersColumns = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (!confirm("Are you sure you want to delete this supplier?")) return;
+        try {
+          const response = await apiFetch(`/api/admin/suppliers/delete/${row.original.id}`, {
+            method: 'DELETE'
+          });
+          if (response.success) {
+            toast.success("Supplier deleted successfully");
+            onDelete && onDelete();
+          }
+        } catch (error) {
+          toast.error("Failed to delete supplier");
+        }
+      };
+
       return (
-        <TableCell className="flex justify-center gap-1  px-0">
+        <TableCell className="flex justify-center gap-1 px-0">
           <Link
             className="flex-1"
-            href={`/administrator/dashboard/users-management/suppliers/edit/${row.original.serial}`}
+            href={`/administrator/dashboard/users-management/suppliers/edit/${row.original.id}`}
           >
             <Button
               variant={"outline"}
@@ -97,33 +113,23 @@ const suppliersColumns = [
           </Link>
           <Button
             variant={"outline"}
-            onClick={() => notImplemented()}
+            onClick={() => toast.info("View products coming soon")}
             size={"sm"}
             className={
               "border-[#179BD7] flex-1 text-[#179BD7] font-medium hover:bg-[#179BD7]"
             }
           >
-            View products
+            Products
           </Button>
           <Button
             variant={"outline"}
-            onClick={() => notImplemented()}
-            size={"sm"}
-            className={
-              "border-[#0068C8] flex-1 text-[#0068C8] font-medium hover:bg-[#0068C8]"
-            }
-          >
-            Discount
-          </Button>
-          <Button
-            variant={"outline"}
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
             size={"sm"}
             className={
               "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"
             }
           >
-            delete
+            Delete
           </Button>
           <div
             className={

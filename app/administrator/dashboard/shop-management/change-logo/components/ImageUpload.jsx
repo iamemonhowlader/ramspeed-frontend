@@ -102,6 +102,7 @@ function ImageUpload({
                 alt="Uploaded image"
                 fill
                 className="object-cover object-center"
+                unoptimized
               />
             </div>
 
@@ -127,6 +128,7 @@ function ImageUpload({
                 alt="Uploaded image"
                 fill
                 className="object-cover object-center"
+                unoptimized
               />
             </div>
 

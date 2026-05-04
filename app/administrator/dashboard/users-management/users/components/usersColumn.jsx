@@ -1,12 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import BadgeTable from "@/components/common/BadgeTable";
-import { Check, Cross, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Table UI helpers
 const TableHeader = ({ children, className }) => (
@@ -34,16 +33,16 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-export const usersColumn = [
+export const usersColumn = (onDelete) => [
   {
     accessorKey: "id",
     header: () => <TableHeader>ID</TableHeader>,
     cell: ({ row }) => <TableCell>{row.getValue("id")}</TableCell>,
   },
   {
-    accessorKey: "fullName",
+    accessorKey: "full_name",
     header: () => <TableHeader>Full name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("fullName")}</TableCell>,
+    cell: ({ row }) => <TableCell>{row.getValue("full_name")}</TableCell>,
   },
   {
     accessorKey: "username",
@@ -59,7 +58,8 @@ export const usersColumn = [
     accessorKey: "active",
     header: () => <TableHeader>Active</TableHeader>,
     cell: ({ row }) => {
-      const isActive = row.getValue("active");
+      const active = row.getValue("active");
+      const isActive = active === "yes" || active === 1 || active === true;
       return (
         <TableCell
           className={`${isActive ? "border-green-400" : "border-red-600"}`}
@@ -77,6 +77,21 @@ export const usersColumn = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (!confirm("Are you sure you want to delete this user?")) return;
+        try {
+          const response = await apiFetch(`/api/admin/users/delete/${row.original.id}`, {
+            method: 'DELETE'
+          });
+          if (response.success) {
+            toast.success("User deleted successfully");
+            onDelete && onDelete();
+          }
+        } catch (error) {
+          toast.error("Failed to delete user");
+        }
+      };
+
       return (
         <TableCell className="flex justify-center gap-1  px-0">
           <Link
@@ -89,7 +104,7 @@ export const usersColumn = [
           </Link>
           <Button
             variant={"outline"}
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
             size={"sm"}
             className={
               "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"

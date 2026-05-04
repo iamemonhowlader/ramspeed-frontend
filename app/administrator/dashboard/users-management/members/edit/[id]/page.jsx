@@ -12,34 +12,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
-const defaultValues = {
-  type: "Business",
-  fullName: "AS Andrew car center",
-  contactPerson: "Michael Ross",
-  vatNumber: "CY12345678A",
-  companyRegisterNumber: "HE987654",
-  address: "45 Kings Avenue, Office 3A",
-  postCode: "3105",
-  city: "Limassol",
-  country: "Cyprus",
-  email: "Kilma@gmail.com",
-  telephone: "+357 99988877",
-  username: "As andrew34556",
-  password: "Pass@1234",
-  confirmPassword: "Pass@1234",
-  active: "yes",
-};
-
-const passwordSchema = z
-  .string()
-  .min(8, "Password must be at least 8 characters long")
-  .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-  .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-  .regex(/[0-9]/, "Password must contain at least one number")
-  .regex(
-    /[@$!%*?&]/,
-    "Password must contain at least one special character (!, @, #, $, %, ^, &, *)"
-  );
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 const schema = z
   .object({
@@ -57,16 +31,24 @@ const schema = z
     email: z.string().email("Invalid email address"),
     telephone: z.string().min(1, "Telephone is required"),
     username: z.string().min(1, "Username is required"),
-    password: passwordSchema,
-    confirmPassword: z.string().min(1, "Confirm password is required"),
+    password: z.string().optional(),
+    confirmPassword: z.string().optional(),
     active: z.string().min(1, "Active status is required"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => {
+    if (data.password && data.password !== data.confirmPassword) {
+      return false;
+    }
+    return true;
+  }, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
 const EditMembers = () => {
+  const { id } = useParams();
+  const [loading, setLoading] = React.useState(true);
+  
   const {
     register,
     handleSubmit,
@@ -75,19 +57,79 @@ const EditMembers = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues,
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  React.useEffect(() => {
+    const fetchMember = async () => {
+      try {
+        const response = await apiFetch(`/api/admin/members/${id}`);
+        if (response.success) {
+          const m = response.data;
+          reset({
+            type: m.type || "",
+            fullName: m.full_name || "",
+            contactPerson: m.cperson || "",
+            vatNumber: m.vat_num || "",
+            companyRegisterNumber: m.company_reg_num || "",
+            address: m.address || "",
+            postCode: m.post_code || "",
+            city: m.city || "",
+            country: m.country || "",
+            email: m.email || "",
+            telephone: m.phone || "",
+            username: m.username || "",
+            active: m.active || "yes",
+          });
+        }
+      } catch (error) {
+        toast.error("Failed to fetch member details");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMember();
+  }, [id, reset]);
+
+  const onSubmit = async (data) => {
+    try {
+      const payload = {
+        full_name: data.fullName,
+        email: data.email,
+        phone: data.telephone,
+        address: data.address,
+        city: data.city,
+        post_code: data.postCode,
+        country: data.country,
+        active: data.active,
+        type: data.type,
+        cperson: data.contactPerson,
+        vat_num: data.vatNumber,
+        company_reg_num: data.companyRegisterNumber,
+      };
+
+      if (data.password) {
+        payload.password = data.password;
+      }
+
+      const response = await apiFetch(`/api/admin/members/update/${id}`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      if (response.success) {
+        toast.success("Member updated successfully");
+        window.location.href = "/administrator/dashboard/users-management/members";
+      }
+    } catch (error) {
+      toast.error(error.message || "Failed to update member");
+    }
   };
 
   const onCancel = () => {
-    toast.info("Member edit canceled");
-    reset();
+    window.location.href = "/administrator/dashboard/users-management/members";
   };
+
+  if (loading) return <div className="p-10 text-center">Loading member details...</div>;
 
   return (
     <DashboardFormContainer

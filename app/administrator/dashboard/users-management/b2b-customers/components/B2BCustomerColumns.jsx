@@ -1,12 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import BadgeTable from "@/components/common/BadgeTable";
-import { Check, Cross, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Table UI helpers
 const TableHeader = ({ children, className }) => (
@@ -34,7 +33,7 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-const B2BCustomerColumns = [
+export const B2BCustomerColumns = (onUpdate) => [
   {
     accessorKey: "id",
     header: () => <TableHeader>ID</TableHeader>,
@@ -43,9 +42,9 @@ const B2BCustomerColumns = [
     ),
   },
   {
-    accessorKey: "customerName",
+    accessorKey: "full_name",
     header: () => <TableHeader>Customer name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("customerName")}</TableCell>,
+    cell: ({ row }) => <TableCell>{row.getValue("full_name")}</TableCell>,
   },
   {
     accessorKey: "email",
@@ -58,9 +57,9 @@ const B2BCustomerColumns = [
     cell: ({ row }) => <TableCell>{row.getValue("phone")}</TableCell>,
   },
   {
-    accessorKey: "company",
-    header: () => <TableHeader>Company name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("company")}</TableCell>,
+    accessorKey: "company_reg_num",
+    header: () => <TableHeader>Reg Number</TableHeader>,
+    cell: ({ row }) => <TableCell>{row.getValue("company_reg_num")}</TableCell>,
   },
   {
     accessorKey: "country",
@@ -71,12 +70,25 @@ const B2BCustomerColumns = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleToggle = async (status) => {
+        try {
+          const response = await apiFetch(`/api/admin/members/toggle-b2b-approval/${row.original.id}`, {
+            method: 'POST'
+          });
+          if (response.success) {
+            toast.success(`B2B Customer status updated`);
+            onUpdate && onUpdate();
+          }
+        } catch (error) {
+          toast.error("Failed to update status");
+        }
+      };
+
       return (
         <TableCell className="flex justify-center gap-1 px-0">
-          {/* details  */}
           <Link
             className="flex-1"
-            href={`/administrator/dashboard/users-management/b2b-customers/${row.original.serial}`}
+            href={`/administrator/dashboard/users-management/members/edit/${row.original.id}`}
           >
             <Button
               variant={"outline"}
@@ -89,29 +101,29 @@ const B2BCustomerColumns = [
             </Button>
           </Link>
 
-          {/* active  */}
-          <Button
-            variant={"outline"}
-            onClick={() => notImplemented()}
-            size={"sm"}
-            className={
-              "border-[#0068C8] flex-1 text-[#0068C8] bg-[#D9EDFF] font-medium hover:bg-[#0068C8] hover:text-white"
-            }
-          >
-            Active
-          </Button>
-
-          {/* decline  */}
-          <Button
-            variant={"outline"}
-            onClick={() => notImplemented()}
-            size={"sm"}
-            className={
-              "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"
-            }
-          >
-            Decline
-          </Button>
+          {row.original.b2b_approved !== 'yes' ? (
+            <Button
+              variant={"outline"}
+              onClick={() => handleToggle('yes')}
+              size={"sm"}
+              className={
+                "border-[#0068C8] flex-1 text-[#0068C8] bg-[#D9EDFF] font-medium hover:bg-[#0068C8] hover:text-white"
+              }
+            >
+              Activate
+            </Button>
+          ) : (
+            <Button
+              variant={"outline"}
+              onClick={() => handleToggle('no')}
+              size={"sm"}
+              className={
+                "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"
+              }
+            >
+              Decline
+            </Button>
+          )}
         </TableCell>
       );
     },

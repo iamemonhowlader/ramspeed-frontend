@@ -5,7 +5,7 @@ import DashboardFormContainer from "@/app/administrator/dashboard/components/Das
 import InputPassword from "@/components/common/InputPassword";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -62,15 +62,45 @@ const AddMember = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      // Map frontend fields to database columns
+      const payload = {
+        full_name: data.fullName,
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        phone: data.telephone,
+        address: data.address,
+        city: data.city,
+        post_code: data.postCode,
+        country: data.country,
+        active: data.active,
+        type: data.type,
+        cperson: data.contactPerson,
+        vat_num: data.vatNumber,
+        company_reg_num: data.companyRegisterNumber,
+      };
+
+      const response = await apiFetch("/api/admin/members/store", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      if (response.success) {
+        toast.success("Member created successfully");
+        reset();
+        // Redirect to members list
+        window.location.href = "/administrator/dashboard/users-management/members";
+      }
+    } catch (error) {
+      console.error("Failed to create member:", error);
+      toast.error(error.message || "Failed to create member");
+    }
   };
 
   const onCancel = () => {
-    toast.info("Member edit canceled");
-    reset();
+    window.location.href = "/administrator/dashboard/users-management/members";
   };
 
   return (

@@ -2,11 +2,11 @@
 
 import { cn } from "@/lib/utils";
 import BadgeTable from "@/components/common/BadgeTable";
-import { Check, Cross, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
+import { Check, X, History, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Table UI helpers
 const TableHeader = ({ children, className }) => (
@@ -34,7 +34,7 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-export const clientsColumn = [
+export const clientsColumn = (onDelete) => [
   {
     accessorKey: "id",
     header: () => <TableHeader>ID</TableHeader>,
@@ -43,21 +43,27 @@ export const clientsColumn = [
     ),
   },
   {
-    accessorKey: "fullName",
+    accessorKey: "full_name",
     header: () => <TableHeader>Full name</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("fullName")}</TableCell>,
+    cell: ({ row }) => <TableCell>{row.getValue("full_name")}</TableCell>,
   },
   {
     accessorKey: "address",
     header: () => <TableHeader>Address</TableHeader>,
-    cell: ({ row }) => <TableCell>{row.getValue("address")}</TableCell>,
+    cell: ({ row }) => {
+      const address = row.original.address;
+      const city = row.original.city;
+      return <TableCell>{address}{address && city ? ", " : ""}{city}</TableCell>;
+    },
   },
   {
     accessorKey: "balance",
     header: () => <TableHeader>Balance</TableHeader>,
     cell: ({ row }) => (
       <TableCell>
-        <BadgeTable>€ {row.getValue("balance")}</BadgeTable>
+        <BadgeTable className={row.getValue("balance") > 0 ? "bg-red-100 text-red-600" : ""}>
+          € {Number(row.getValue("balance")).toFixed(2)}
+        </BadgeTable>
       </TableCell>
     ),
   },
@@ -65,7 +71,8 @@ export const clientsColumn = [
     accessorKey: "active",
     header: () => <TableHeader>Active</TableHeader>,
     cell: ({ row }) => {
-      const isActive = row.getValue("active");
+      const active = row.getValue("active");
+      const isActive = active === "yes" || active === 1 || active === true;
       return (
         <TableCell
           className={`${isActive ? "border-green-400" : "border-red-600"}`}
@@ -83,29 +90,39 @@ export const clientsColumn = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (!confirm("Are you sure you want to delete this client?")) return;
+        try {
+          const response = await apiFetch(`/api/admin/members/delete/${row.original.id}`, {
+            method: 'DELETE'
+          });
+          if (response.success) {
+            toast.success("Client deleted successfully");
+            onDelete && onDelete();
+          }
+        } catch (error) {
+          toast.error("Failed to delete client");
+        }
+      };
+
       return (
-        <TableCell className="flex justify-center gap-1  px-0">
+        <TableCell className="flex justify-center gap-1 px-0">
           <Link
             className="flex-1"
-            href={`/administrator/dashboard/users-management/clients/edit/${row.original.id}`}
+            href={`/administrator/dashboard/users-management/members/edit/${row.original.id}`}
           >
-            <Button
-              variant={"outline"}
-              className={"font-medium w-full"}
-              size={"sm"}
-            >
+            <Button variant="outline" className="font-medium w-full" size="sm">
               Edit
             </Button>
           </Link>
+          
           <Button
-            variant={"outline"}
-            onClick={() => notImplemented()}
-            size={"sm"}
-            className={
-              "border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"
-            }
+            variant="outline"
+            onClick={handleDelete}
+            size="sm"
+            className="border-red-600 flex-1 text-red-600 font-medium hover:bg-red-600"
           >
-            delete
+            Delete
           </Button>
         </TableCell>
       );

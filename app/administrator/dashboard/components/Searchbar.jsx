@@ -9,13 +9,17 @@ import notImplemented from "@/lib/notImplemented";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const Searchbar = ({ placeholder }) => {
+const Searchbar = ({ placeholder, onSearch, defaultValue = "" }) => {
   const form = useForm({
-    defaultValues: { search: "" },
+    defaultValues: { search: defaultValue },
   });
 
   const onSubmit = (values) => {
-    notImplemented();
+    if (onSearch) {
+      onSearch(values.search);
+    } else {
+      notImplemented();
+    }
   };
 
   useEffect(() => {

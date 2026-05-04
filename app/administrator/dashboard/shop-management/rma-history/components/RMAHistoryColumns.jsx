@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import BadgeTable from "@/components/common/BadgeTable";
 import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { formatDate } from "@/utils/formatDate";
@@ -137,20 +138,30 @@ export const RMAHistoryColumns = [
       const delivered = row?.original?.delivered;
       const ticketId = row?.original?.ticketId;
 
-      const handleDelivered = (status) => {
-        const newRmaHistory = rmaHistory.map((history) => {
-          if (history.ticketId === ticketId) {
-            return { ...history, delivered: status };
+      const handleDelivered = async (status) => {
+        try {
+          const response = await apiFetch(`/api/admin/rma-history/toggle-delivered/${row.original.id}`, {
+            method: "POST",
+            body: JSON.stringify({ delivered: status }),
+          });
+          if (response.success) {
+            const newRmaHistory = rmaHistory.map((history) => {
+              if (history.id === row.original.id) {
+                return { ...history, delivered: status };
+              }
+              return history;
+            });
+            setRmaHistory(newRmaHistory);
           }
-          return history;
-        });
-        setRmaHistory(newRmaHistory);
+        } catch (error) {
+          console.error("Failed to update status:", error);
+        }
       };
 
       return (
         <TableCell className="flex justify-center gap-1  px-0">
           <Link
-            href={`/administrator/dashboard/shop-management/rma-history/${ticketId}`}
+            href={`/administrator/dashboard/shop-management/rma-history/${row.original.id}`}
           >
             <Button
               variant={"outline"}
@@ -184,7 +195,7 @@ export const RMAHistoryColumns = [
               "border-[#006fd7]  flex-1 text-white hover:text-[#006fd7] font-medium hover:bg-white bg-[#006fd7]"
             }
           >
-            Print RMA
+            Print Ticket
           </Button>
 
           {/* checkbox  */}

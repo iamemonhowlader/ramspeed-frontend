@@ -12,33 +12,32 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
-const passwordSchema = z
-  .string()
-  .min(8, "Password must be at least 8 characters long")
-  .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-  .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-  .regex(/[0-9]/, "Password must contain at least one number")
-  .regex(
-    /[@$!%*?&]/,
-    "Password must contain at least one special character (!, @, #, $, %, ^, &, *)"
-  );
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 const schema = z
   .object({
     name: z.string().min(1, "Name is required"),
     email: z.string().email("Invalid email address"),
     username: z.string().min(1, "Username is required"),
-    password: passwordSchema,
-    confirmPassword: z.string().min(1, "Confirm password is required"),
+    password: z.string().optional(),
+    confirmPassword: z.string().optional(),
     active: z.string().min(1, "Active status is required"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => {
+    if (data.password && data.password !== data.confirmPassword) {
+      return false;
+    }
+    return true;
+  }, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
 const EditUser = () => {
-  const user = users[0];
+  const { id } = useParams();
+  const [loading, setLoading] = React.useState(true);
+
   const {
     register,
     handleSubmit,
@@ -47,26 +46,62 @@ const EditUser = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      name: user.fullName,
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      confirmPassword: user.password,
-      active: "yes",
-    },
   });
 
-  const onSubmit = (data) => {
-    toast.success("User updated successfully");
-    console.log(data);
-    reset();
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await apiFetch(`/api/admin/users/${id}`);
+        if (response.success) {
+          const u = response.data;
+          reset({
+            name: u.full_name || "",
+            email: u.email || "",
+            username: u.username || "",
+            active: u.active || "yes",
+          });
+        }
+      } catch (error) {
+        toast.error("Failed to fetch user details");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [id, reset]);
+
+  const onSubmit = async (data) => {
+    try {
+      const payload = {
+        full_name: data.name,
+        email: data.email,
+        active: data.active,
+        user_type: "staff"
+      };
+
+      if (data.password) {
+        payload.password = data.password;
+      }
+
+      const response = await apiFetch(`/api/admin/users/update/${id}`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+
+      if (response.success) {
+        toast.success("Admin user updated successfully");
+        window.location.href = "/administrator/dashboard/users-management/users";
+      }
+    } catch (error) {
+      toast.error(error.message || "Failed to update user");
+    }
   };
 
   const onCancel = () => {
-    toast.info("User update canceled");
-    reset();
+    window.location.href = "/administrator/dashboard/users-management/users";
   };
+
+  if (loading) return <div className="p-10 text-center">Loading user details...</div>;
 
   return (
     <DashboardFormContainer

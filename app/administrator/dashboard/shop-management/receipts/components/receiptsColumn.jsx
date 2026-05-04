@@ -67,9 +67,12 @@ export const receiptsColumn = [
   {
     id: "actions",
     header: () => <TableHeader>Receipt print</TableHeader>,
-    cell: () => (
+    cell: ({ row }) => (
       <TableCell>
-        <Button onClick={() => notImplemented()} className={"rounded-full"}>
+        <Button 
+          onClick={() => window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/admin/receipts/${row.original.id}/print`, '_blank')} 
+          className={"rounded-full"}
+        >
           Print receipt
         </Button>
       </TableCell>

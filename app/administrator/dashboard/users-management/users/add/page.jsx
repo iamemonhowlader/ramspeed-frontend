@@ -37,6 +37,8 @@ const schema = z
     path: ["confirmPassword"],
   });
 
+import { apiFetch } from "@/lib/api";
+
 const AddUser = () => {
   const {
     register,
@@ -51,15 +53,31 @@ const AddUser = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await apiFetch("/api/admin/users/store", {
+        method: "POST",
+        body: JSON.stringify({
+          full_name: data.name,
+          email: data.email,
+          username: data.username,
+          password: data.password,
+          active: data.active,
+          user_type: "staff" // Default type
+        }),
+      });
+
+      if (response.success) {
+        toast.success("Admin user created successfully");
+        window.location.href = "/administrator/dashboard/users-management/users";
+      }
+    } catch (error) {
+      toast.error(error.message || "Failed to create user");
+    }
   };
 
   const onCancel = () => {
-    toast.info("User update canceled");
-    reset();
+    window.location.href = "/administrator/dashboard/users-management/users";
   };
 
   return (
