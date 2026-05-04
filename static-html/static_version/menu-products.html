@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Products | MikeOnouf</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Premium Row Header (Duplicate for static navigation) -->
+    <header class="glass-header sticky-top py-2">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link d-xl-none p-0 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list fs-2"></i>
+                    </button>
+                    <a href="dashboard.html" class="navbar-brand fw-bold fs-4 d-flex align-items-center">
+                        <span class="text-primary">Mike</span>Onouf
+                    </a>
+                </div>
+                <nav class="d-none d-xl-flex align-items-center gap-1 overflow-auto no-scrollbar">
+                    <a href="dashboard.html" class="nav-link-premium">
+                        <i class="bi bi-house"></i> Home
+                    </a>
+                    <a href="menu-products.html" class="nav-link-premium active">
+                        <i class="bi bi-menu-button-wide"></i> Menu
+                    </a>
+                    <div class="dropdown">
+                        <button class="nav-link-premium border-0 bg-transparent dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-shop"></i> Shop Management
+                        </button>
+                        <ul class="dropdown-menu border-0 shadow-lg rounded-4">
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Expenses</a></li>
+                            <li><a class="dropdown-item" href="#">Receipts</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="d-flex align-items-center justify-content-end gap-2 gap-sm-4 flex-grow-1">
+                    <div class="search-container-premium d-none d-md-block">
+                        <i class="bi bi-search search-icon-premium"></i>
+                        <input type="text" class="search-input-premium form-control" placeholder="Search menu...">
+                    </div>
+                    <div class="d-flex align-items-center gap-2 ps-2">
+                        <div class="text-end d-none d-lg-block">
+                            <p class="mb-0 fw-bold small">John Karter</p>
+                            <p class="mb-0 text-muted smaller" style="font-size: 0.7rem;">Administrator</p>
+                        </div>
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="rounded-circle border" width="40" height="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar (Offcanvas) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fw-bold"><span class="text-primary">Mike</span>Onouf</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-4">
+            <nav class="nav flex-column gap-2">
+                <a href="dashboard.html" class="nav-link-premium py-3">
+                    <i class="bi bi-house fs-5"></i> Home
+                </a>
+                <a href="menu-products.html" class="nav-link-premium active py-3">
+                    <i class="bi bi-menu-button-wide fs-5"></i> Menu
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="py-5 bg-light min-vh-100">
+        <div class="container-fluid px-lg-5">
+            
+            <!-- Heading Section -->
+            <div class="row align-items-center mb-5">
+                <div class="col-12 col-md">
+                    <div class="d-flex align-items-center gap-2 mb-2 text-muted small">
+                        <a href="dashboard.html" class="text-decoration-none text-muted">Dashboard</a>
+                        <span>/</span>
+                        <span>Menu Products</span>
+                    </div>
+                    <h1 class="fw-bold mb-1">Manage your <span class="text-primary">menu products</span></h1>
+                    <p class="text-muted">Easily add, edit or delete products from your menu.</p>
+                </div>
+                <div class="col-12 col-md-auto mt-3 mt-md-0 d-flex gap-2">
+                    <button class="btn btn-outline-secondary d-flex align-items-center gap-2 px-4 rounded-3">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </button>
+                    <button class="btn btn-primary d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+                        <i class="bi bi-plus-lg"></i> Add Menu Item
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Table Card -->
+            <div class="card card-premium overflow-hidden">
+                <div class="card-header bg-white py-3 px-4 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <h5 class="fw-bold mb-0">Total Products: 48</h5>
+                    <div class="d-flex gap-2">
+                        <div class="input-group input-group-sm" style="width: 200px;">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-filter"></i></span>
+                            <select class="form-select bg-light border-start-0 text-muted small">
+                                <option selected>All Categories</option>
+                                <option>Main Courses</option>
+                                <option>Drinks</option>
+                                <option>Desserts</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Product</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock Status</th>
+                                <th>last Updated</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light p-1 rounded-2 shadow-sm border">
+                                            <i class="bi bi-cup-hot-fill text-muted px-2"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 fw-semibold">Signature Latte</p>
+                                            <p class="mb-0 smaller text-muted" style="font-size: 0.75rem;">Premium Arabic Beans</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="small">Hot Drinks</span></td>
+                                <td class="fw-bold">€4.50</td>
+                                <td><span class="badge text-success bg-success bg-opacity-10 border border-success border-opacity-10">In Stock</span></td>
+                                <td class="text-muted small">2 hours ago</td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm shadow-sm rounded-3">
+                                        <button class="btn btn-white border"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-white border text-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light p-1 rounded-2 shadow-sm border">
+                                            <i class="bi bi-patch-question-fill text-muted px-2"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 fw-semibold">Avocado Toast</p>
+                                            <p class="mb-0 smaller text-muted" style="font-size: 0.75rem;">Organic Sourdough</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="small">Breakfast</span></td>
+                                <td class="fw-bold">€12.00</td>
+                                <td><span class="badge text-warning bg-warning bg-opacity-10 border border-warning border-opacity-10">Low Stock</span></td>
+                                <td class="text-muted small">Yesterday</td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm shadow-sm rounded-3">
+                                        <button class="btn btn-white border"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-white border text-danger"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer bg-white py-3 px-4">
+                    <nav class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted small">Showing 1 to 10 of 48 results</span>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 bg-white border-top text-center">
+        <p class="mb-0 text-muted small">&copy; 2026 MikeOnouf. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

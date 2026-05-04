@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MikeOnouf</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .login-image {
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000') no-repeat center center;
+            background-size: cover;
+            min-height: 400px;
+        }
+        @media (min-width: 992px) {
+            .login-image { min-height: 100vh; }
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container-fluid p-0">
+        <div class="row g-0 min-vh-100">
+            <!-- Left Side: Image -->
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="login-image w-100 h-100"></div>
+            </div>
+
+            <!-- Right Side: Form -->
+            <div class="col-lg-6 d-flex align-items-center justify-content-center bg-white">
+                <div class="p-4 p-sm-5 py-lg-0 w-100" style="max-width: 500px;">
+                    <div class="text-center mb-5">
+                        <a href="dashboard.html" class="navbar-brand fw-bold fs-3 d-inline-block mb-4">
+                            <span class="text-primary">Mike</span>Onouf
+                        </a>
+                        <h1 class="fw-bold mb-3">Login at Ramspeed</h1>
+                        <p class="text-muted">You can reach us anytime via <a href="mailto:info@ramspeedcy.com" class="text-primary text-decoration-none">info@ramspeedcy.com</a></p>
+                    </div>
+
+                    <form action="dashboard.html" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="email" class="form-label small fw-semibold">Email address</label>
+                            <input type="email" class="form-control py-3 rounded-3" id="email" placeholder="Enter email address" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label small fw-semibold">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control py-3 border-end-0 rounded-start-3" id="password" placeholder="Enter password" required>
+                                <button class="btn btn-outline-secondary border-start-0 py-3 rounded-end-3" type="button">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="keep">
+                                <label class="form-check-label small" for="keep">Keep me signed in</label>
+                            </div>
+                            <a href="#" class="small text-primary text-decoration-none fw-medium">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-full py-3 mb-4 rounded-3 shadow-sm fw-bold">Login</button>
+
+                        <div class="text-center small fw-medium">
+                            Don't have an account? <a href="register.html" class="text-primary text-decoration-none">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Information | MikeOnouf Administration</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+    <!-- Header -->
+    <header class="glass-header sticky-top py-2">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link d-xl-none p-0 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list fs-2"></i>
+                    </button>
+                    <a href="dashboard.html" class="navbar-brand fw-bold fs-4 d-flex align-items-center text-decoration-none">
+                        <span class="text-primary">Mike</span>Onouf
+                    </a>
+                </div>
+                <nav class="d-none d-xl-flex align-items-center gap-1 overflow-auto no-scrollbar">
+                    <a href="dashboard.html" class="nav-link-premium">
+                        <i class="bi bi-house"></i> Home
+                    </a>
+                    <div class="dropdown">
+                        <button class="nav-link-premium border-0 bg-transparent dropdown-toggle active" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-shop"></i> Shop Management
+                        </button>
+                        <ul class="dropdown-menu border-0 shadow-lg rounded-4">
+                            <li><a class="dropdown-item" href="orders.html">Orders</a></li>
+                            <li><a class="dropdown-item active" href="store-info.html">Store Information</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="d-flex align-items-center justify-content-end gap-2 gap-sm-4 flex-grow-1">
+                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="rounded-circle border" width="40" height="40">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-5 bg-light min-vh-100">
+        <div class="container px-lg-5">
+            <div class="card card-premium shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-white py-4 px-5 border-bottom">
+                    <h3 class="fw-bold mb-1">Update Store Information</h3>
+                    <p class="text-muted small mb-0">Edit your store settings and contact details.</p>
+                </div>
+                <div class="card-body p-5">
+                    <form>
+                        <div class="row g-4">
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold small">Store Info</label>
+                                <input type="text" class="form-control py-3" placeholder="About the store..." value="MikeOnouf Premium Electronics & Accessories">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Name</label>
+                                <input type="text" class="form-control py-3" placeholder="Your store name" value="MikeOnouf Store">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">VAT Number</label>
+                                <input type="text" class="form-control py-3" placeholder="Enter VAT number" value="CY12345678X">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold small">Address</label>
+                                <textarea class="form-control" rows="4" placeholder="205, Ferenhaaas avenue, Country: Cyprus">205, Ferenhaaas avenue, Limassol, Cyprus</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Phone</label>
+                                <input type="text" class="form-control py-3" placeholder="+3349499" value="+357 25 123456">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Email</label>
+                                <input type="email" class="form-control py-3" placeholder="store@example.com" value="info@ramspeedcy.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Website URL</label>
+                                <input type="url" class="form-control py-3" placeholder="https://example.com" value="https://ramspeedcy.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold small">Skype</label>
+                                <input type="text" class="form-control py-3" placeholder="skype.username" value="mikeonouf.support">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top">
+                            <button type="button" class="btn btn-outline-secondary px-5 py-3 rounded-3 fw-bold">Cancel</button>
+                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-3 fw-bold shadow-sm">Update Store</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 bg-white border-top text-center">
+        <p class="mb-0 text-muted small">&copy; 2026 MikeOnouf. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

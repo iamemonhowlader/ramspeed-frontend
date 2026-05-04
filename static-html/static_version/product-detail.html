@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | RAMSPEED CY</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .product-image-main {
+            border-radius: 20px;
+            overflow: hidden;
+            background: #fff;
+            padding: 20px;
+        }
+        .thumb-nav img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .thumb-nav img:hover, .thumb-nav img.active {
+            border-color: var(--primary-color);
+        }
+        .spec-label {
+            width: 120px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .spec-value {
+            font-weight: 600;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Public Header (Linked to static files) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <span class="text-primary">RAM</span>SPEED
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navPublic">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navPublic">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="shop.html">Shop Now</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="#">Trending</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="#">Deals</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="login.html" class="btn btn-outline-dark px-4 rounded-pill small fw-bold">Login</a>
+                    <a href="register.html" class="btn btn-primary px-4 rounded-pill small fw-bold shadow-sm">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- breadcrumb -->
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-muted small">Home</a></li>
+                <li class="breadcrumb-item"><a href="shop.html" class="text-decoration-none text-muted small">Shop</a></li>
+                <li class="breadcrumb-item active small" aria-current="page">Wireless Headphones Pro</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Product Gallery -->
+                <div class="col-lg-6">
+                    <div class="product-image-main mb-4 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000" class="img-fluid w-100" alt="Main Product">
+                    </div>
+                    <div class="thumb-nav d-flex gap-3 justify-content-center">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=200" class="active" alt="Thumb">
+                        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&q=80&w=200" alt="Thumb">
+                        <img src="https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&q=80&w=200" alt="Thumb">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-lg-6">
+                    <div class="ps-lg-4">
+                        <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-bold">Best Seller</span>
+                        <h1 class="display-5 fw-bold mb-3">Wireless Headphones Pro Max</h1>
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <div class="text-warning">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <span class="text-muted small">(124 Customer Reviews)</span>
+                        </div>
+                        <h2 class="text-primary fw-bold mb-4">€249.00 <span class="text-muted text-decoration-line-through fs-5 fw-normal ms-2">€320.00</span></h2>
+                        <p class="text-muted mb-5 lead">Experience sound like never before with the next generation of wireless technology. Featuring industry-leading noise cancellation and up to 40 hours of battery life.</p>
+
+                        <div class="mb-5">
+                            <h6 class="fw-bold mb-3">Specifications</h6>
+                            <div class="d-grid gap-2">
+                                <div class="hstack">
+                                    <span class="spec-label">Brand</span>
+                                    <span class="spec-value">RamSpeed</span>
+                                </div>
+                                <div class="hstack">
+                                    <span class="spec-label">Battery</span>
+                                    <span class="spec-value">40 Hours</span>
+                                </div>
+                                <div class="hstack">
+                                    <span class="spec-label">Bluetooth</span>
+                                    <span class="spec-value">5.3</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 mb-5">
+                            <div class="input-group" style="width: 140px;">
+                                <button class="btn btn-outline-secondary border-end-0" type="button">-</button>
+                                <input type="text" class="form-control text-center border-start-0 border-end-0" value="1">
+                                <button class="btn btn-outline-secondary border-start-0" type="button">+</button>
+                            </div>
+                            <button class="btn btn-primary flex-grow-1 py-3 rounded-pill fw-bold shadow-sm">
+                                <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-outline-danger py-3 px-4 rounded-pill"><i class="bi bi-heart"></i></button>
+                        </div>
+
+                        <div class="border-top pt-4">
+                            <div class="hstack gap-4">
+                                <div class="hstack gap-2 small text-muted">
+                                    <i class="bi bi-truck fs-5 text-primary"></i>
+                                    <span>Free Shipping</span>
+                                </div>
+                                <div class="hstack gap-2 small text-muted">
+                                    <i class="bi bi-arrow-repeat fs-5 text-primary"></i>
+                                    <span>30-Day Returns</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs Section -->
+            <div class="row mt-5 pt-lg-5">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-4 bg-white p-2 rounded-pill d-inline-flex shadow-sm" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active rounded-pill px-4" id="pills-desc-tab" data-bs-toggle="pill" data-bs-target="#pills-desc" type="button">Description</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-4" id="pills-specs-tab" data-bs-toggle="pill" data-bs-target="#pills-specs" type="button">Technical Details</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content bg-white p-4 p-md-5 rounded-4 shadow-sm" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-desc" role="tabpanel">
+                            <h4 class="fw-bold mb-4">Unmatched Sound Quality</h4>
+                            <p class="text-muted">Designed for the ultimate listening experience, our Wireless Headphones Pro Max features custom-built drivers that deliver crisp highs and deep, resonant bass. The active noise cancellation technology ensures you only hear what you want, while the transparency mode allows you to stay aware of your surroundings when needed.</p>
+                            <p class="text-muted mb-0">Crafted with premium materials, including memory foam ear cushions and a sleek metallic finish, these headphones provide all-day comfort without sacrificing style.</p>
+                        </div>
+                        <div class="tab-pane fade" id="pills-specs" role="tabpanel">
+                            <table class="table table-borderless align-middle mb-0">
+                                <tr>
+                                    <td class="fw-semibold text-muted" style="width: 200px;">Weight</td>
+                                    <td>320g</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-muted">Connectivity</td>
+                                    <td>Wireless, 3.5mm Aux</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-muted">Water Resistance</td>
+                                    <td>IPX4</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+             <section class="py-5 mt-5">
+                <h2 class="fw-bold mb-4">Related Products</h2>
+                <div class="row g-4">
+                    <div class="col-6 col-md-3">
+                        <div class="card product-card bg-white shadow-sm border-0">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                            <div class="card-body">
+                                <h6 class="text-muted small mb-1">Accessories</h6>
+                                <h6 class="fw-bold mb-2">Compact Travel Case</h6>
+                                <span class="text-primary fw-bold">€35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card product-card bg-white shadow-sm border-0">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                            <div class="card-body">
+                                <h6 class="text-muted small mb-1">Electronics</h6>
+                                <h6 class="fw-bold mb-2">Smart Dock Pro</h6>
+                                <span class="text-primary fw-bold">€89.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-top py-5 mt-5">
+        <div class="container text-center">
+            <p class="text-muted small mb-0">&copy; 2026 RAMSPEED CY. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

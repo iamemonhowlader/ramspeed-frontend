@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | MikeOnouf Administration</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Premium Row Header -->
+    <header class="glass-header sticky-top py-2">
+      <div class="container-fluid px-lg-5">
+        <div class="d-flex align-items-center justify-content-between gap-3">
+          <!-- Left: Branding & Mobile Menu -->
+          <div class="d-flex align-items-center gap-3">
+            <button
+              class="btn btn-link d-xl-none p-0 text-dark"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#mobileSidebar"
+            >
+              <i class="bi bi-list fs-2"></i>
+            </button>
+            <a
+              href="dashboard.html"
+              class="navbar-brand fw-bold fs-4 d-flex align-items-center"
+            >
+              <span class="text-primary">Mike</span>Onouf
+            </a>
+          </div>
+
+          <!-- Center: Navigation (Desktop) -->
+          <nav
+            class="d-none d-xl-flex align-items-center gap-1 overflow-auto no-scrollbar"
+          >
+            <a href="dashboard.html" class="nav-link-premium active">
+              <i class="bi bi-house"></i> Home
+            </a>
+            <a href="menu-products.html" class="nav-link-premium">
+              <i class="bi bi-menu-button-wide"></i> Menu
+            </a>
+            <div class="dropdown">
+              <button
+                class="nav-link-premium border-0 bg-transparent dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-shop"></i> Shop Management
+              </button>
+              <ul class="dropdown-menu border-0 shadow-lg rounded-4">
+                <li><a class="dropdown-item" href="orders.html">Orders</a></li>
+                <li><a class="dropdown-item" href="expenses.html">Expenses</a></li>
+                <li><a class="dropdown-item" href="receipts.html">Receipts</a></li>
+                <li><a class="dropdown-item" href="rma-history.html">RMA History</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="stock.html">All Stock</a></li>
+                <li><a class="dropdown-item" href="active-stock.html">Active Stock</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="store-info.html">Store Information</a></li>
+                <li><a class="dropdown-item" href="change-logo.html">Change Logo</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <button
+                class="nav-link-premium border-0 bg-transparent dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-people"></i> Users
+              </button>
+              <ul class="dropdown-menu border-0 shadow-lg rounded-4">
+                <li><a class="dropdown-item" href="users.html">All Users</a></li>
+                <li><a class="dropdown-item" href="clients.html">Clients</a></li>
+                <li><a class="dropdown-item" href="suppliers.html">Suppliers</a></li>
+                <li><a class="dropdown-item" href="b2b-customers.html">B2B Customers</a></li>
+                <li><a class="dropdown-item" href="members.html">Members</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="access-levels.html">Access Levels</a></li>
+              </ul>
+            </div>
+            <a href="advertisements.html" class="nav-link-premium">
+              <i class="bi bi-megaphone"></i> Ads
+            </a>
+          </nav>
+
+          <!-- Right: Search & Actions -->
+          <div
+            class="d-flex align-items-center justify-content-end gap-2 gap-sm-4 flex-grow-1"
+          >
+            <!-- Search Bar -->
+            <div class="search-container-premium d-none d-md-block">
+              <i class="bi bi-search search-icon-premium"></i>
+              <input
+                type="text"
+                class="search-input-premium form-control"
+                placeholder="Search anything..."
+              />
+            </div>
+
+            <!-- Quick Actions -->
+            <div
+              class="d-none d-sm-flex align-items-center gap-1 border-start ps-3 border-light opacity-75"
+            >
+              <button class="btn btn-action-premium position-relative">
+                <i class="bi bi-bell"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+                  style="transform: translate(-15px, 8px) !important"
+                ></span>
+              </button>
+              <button class="btn btn-action-premium">
+                <i class="bi bi-gear"></i>
+              </button>
+            </div>
+
+            <!-- User Profile -->
+            <div class="d-flex align-items-center gap-2 ps-2">
+              <div class="text-end d-none d-lg-block">
+                <p class="mb-0 fw-bold small">John Karter</p>
+                <p class="mb-0 text-muted smaller" style="font-size: 0.7rem">
+                  Administrator
+                </p>
+              </div>
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="user"
+                class="rounded-circle border"
+                width="40"
+                height="40"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Sidebar (Offcanvas) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+      <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold">
+          <span class="text-primary">Mike</span>Onouf
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body p-4">
+        <nav class="nav flex-column gap-2">
+          <a href="dashboard.html" class="nav-link-premium active py-3">
+            <i class="bi bi-house fs-5"></i> Home
+          </a>
+          <a href="menu-products.html" class="nav-link-premium py-3">
+            <i class="bi bi-menu-button-wide fs-5"></i> Menu
+          </a>
+          <a href="orders.html" class="nav-link-premium py-3">
+            <i class="bi bi-shop fs-5"></i> Orders
+          </a>
+          <a href="users.html" class="nav-link-premium py-3">
+            <i class="bi bi-people fs-5"></i> User Management
+          </a>
+          <a href="flash-sale.html" class="nav-link-premium py-3">
+            <i class="bi bi-lightning fs-5"></i> Flash Sale
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="py-5 bg-light min-vh-100">
+      <div class="container-fluid px-lg-5">
+        <div class="row align-items-center mb-5">
+          <div class="col">
+            <h1 class="fw-bold mb-1">
+              Welcome Back, <span class="text-primary">John!</span>
+            </h1>
+            <p class="text-muted">
+              Here's what's happening with your store today.
+            </p>
+          </div>
+          <div class="col-auto">
+            <button
+              class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 rounded-3 shadow-sm"
+            >
+              <i class="bi bi-plus-lg"></i> New Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Overview Cards -->
+        <div class="row g-4 mb-5">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card card-premium p-4 h-100">
+              <div
+                class="d-flex justify-content-between align-items-start mb-3"
+              >
+                <div
+                  class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"
+                >
+                  <i class="bi bi-cart fs-4"></i>
+                </div>
+                <span class="badge text-success bg-success bg-opacity-10"
+                  >+12.5%</span
+                >
+              </div>
+              <h6 class="text-muted fw-normal mb-1">Total Sales</h6>
+              <h3 class="fw-bold mb-0">€24,560.00</h3>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card card-premium p-4 h-100">
+              <div
+                class="d-flex justify-content-between align-items-start mb-3"
+              >
+                <div class="bg-info bg-opacity-10 p-2 rounded-3 text-info">
+                  <i class="bi bi-bag-check fs-4"></i>
+                </div>
+                <span class="badge text-success bg-success bg-opacity-10"
+                  >+8.2%</span
+                >
+              </div>
+              <h6 class="text-muted fw-normal mb-1">Total Orders</h6>
+              <h3 class="fw-bold mb-0">1,234</h3>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card card-premium p-4 h-100">
+              <div
+                class="d-flex justify-content-between align-items-start mb-3"
+              >
+                <div
+                  class="bg-warning bg-opacity-10 p-2 rounded-3 text-warning"
+                >
+                  <i class="bi bi-people fs-4"></i>
+                </div>
+                <span class="badge text-danger bg-danger bg-opacity-10"
+                  >-3.1%</span
+                >
+              </div>
+              <h6 class="text-muted fw-normal mb-1">New Customers</h6>
+              <h3 class="fw-bold mb-0">456</h3>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card card-premium p-4 h-100">
+              <div
+                class="d-flex justify-content-between align-items-start mb-3"
+              >
+                <div
+                  class="bg-success bg-opacity-10 p-2 rounded-3 text-success"
+                >
+                  <i class="bi bi-graph-up-arrow fs-4"></i>
+                </div>
+                <span class="badge text-success bg-success bg-opacity-10"
+                  >+24%</span
+                >
+              </div>
+              <h6 class="text-muted fw-normal mb-1">Net Profits</h6>
+              <h3 class="fw-bold mb-0">€8,120.00</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Table Section -->
+        <div class="card card-premium overflow-hidden">
+          <div
+            class="card-header bg-white py-3 px-4 d-flex justify-content-between align-items-center"
+          >
+            <h5 class="fw-bold mb-0">Recent Orders</h5>
+            <a href="#" class="btn btn-light btn-sm px-3">View All</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="ps-4">Order ID</th>
+                  <th>Customer</th>
+                  <th>Product</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ps-4 fw-medium text-primary">#ORD-9921</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://i.pravatar.cc/150?u=1"
+                        width="32"
+                        height="32"
+                        class="rounded-circle"
+                      />
+                      <span>Alex Johnson</span>
+                    </div>
+                  </td>
+                  <td>MacBook Pro M2</td>
+                  <td class="fw-bold">€2,499.00</td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-success"
+                      >Completed</span
+                    >
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-light btn-sm px-2">
+                      <i class="bi bi-three-dots"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="ps-4 fw-medium text-primary">#ORD-9922</td>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img
+                        src="https://i.pravatar.cc/150?u=2"
+                        width="32"
+                        height="32"
+                        class="rounded-circle"
+                      />
+                      <span>Maria Garcia</span>
+                    </div>
+                  </td>
+                  <td>iPhone 15 Pro</td>
+                  <td class="fw-bold">€1,199.00</td>
+                  <td>
+                    <span class="badge rounded-pill text-bg-warning"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-light btn-sm px-2">
+                      <i class="bi bi-three-dots"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="py-4 bg-white border-top text-center">
+      <p class="mb-0 text-muted small">
+        &copy; 2026 MikeOnouf. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

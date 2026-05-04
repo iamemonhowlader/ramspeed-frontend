@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Logo | MikeOnouf Administration</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+    <!-- Header -->
+    <header class="glass-header sticky-top py-2">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link d-xl-none p-0 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list fs-2"></i>
+                    </button>
+                    <a href="dashboard.html" class="navbar-brand fw-bold fs-4 d-flex align-items-center text-decoration-none">
+                        <span class="text-primary">Mike</span>Onouf
+                    </a>
+                </div>
+                <nav class="d-none d-xl-flex align-items-center gap-1 overflow-auto no-scrollbar">
+                    <a href="dashboard.html" class="nav-link-premium">
+                        <i class="bi bi-house"></i> Home
+                    </a>
+                    <a href="change-logo.html" class="nav-link-premium active">
+                        <i class="bi bi-image"></i> Change Logo
+                    </a>
+                </nav>
+                <div class="d-flex align-items-center justify-content-end gap-2 gap-sm-4 flex-grow-1">
+                     <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="rounded-circle border" width="40" height="40">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-5 bg-light min-vh-100">
+        <div class="container px-lg-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card card-premium shadow-sm border-0 rounded-4 overflow-hidden text-center">
+                        <div class="card-header bg-white py-4 px-5 border-bottom">
+                            <h3 class="fw-bold mb-1">Change your logo</h3>
+                            <p class="text-muted small mb-0">Customize your brand identity across the entire website.</p>
+                        </div>
+                        <div class="card-body p-5">
+                            <div class="mb-5">
+                                <p class="text-muted small mb-3">Current Logo Preview</p>
+                                <div class="bg-light d-inline-block p-4 rounded-3 border">
+                                    <h4 class="fw-bold mb-0 text-dark"><span class="text-primary">Mike</span>Onouf</h4>
+                                </div>
+                            </div>
+                            
+                            <h5 class="fw-bold mb-4">Upload new logo here</h5>
+                            <div class="upload-area border-2 border-dashed rounded-4 p-5 text-center bg-light cursor-pointer mb-5">
+                                <i class="bi bi-image fs-1 text-primary mb-3 d-block"></i>
+                                <p class="mb-1 fw-bold">Select a file to upload</p>
+                                <p class="text-muted small">Recommended size: 200x50 PNG (Transparent)</p>
+                                <input type="file" class="d-none" id="logoUpload">
+                            </div>
+
+                            <div class="d-flex flex-column flex-md-row gap-3">
+                                <button type="button" class="btn btn-secondary py-3 flex-grow-1 border-0 fw-bold" style="background: #D0D5DD; color: #000;">Cancel</button>
+                                <button type="submit" class="btn btn-primary py-3 flex-grow-1 fw-bold shadow-sm">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

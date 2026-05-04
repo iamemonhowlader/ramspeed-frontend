@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAMSPEED CY - About Us</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700&family=Public+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0068c8",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --font-geist-mulish: "Mulish", system-ui, sans-serif;
+      --font-geist-public-sans: "Public Sans", system-ui, sans-serif;
+      --radius: 0.625rem;
+    }
+    body {
+      font-family: var(--font-geist-mulish);
+      font-size: 16px;
+    }
+    textarea { resize: none; }
+  </style>
+</head>
+
+<body class="relative flex flex-col antialiased bg-[#F8F8F8]">
+  <!-- ================= HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <!-- Top bar -->
+    <div class="bg-primary text-white">
+      <div class="container mx-auto px-4 lg:px-0 py-3 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div class="flex items-center gap-4 text-xs sm:text-sm">
+          <span>English</span>
+          <span class="hidden sm:inline-block text-white/80">Free Shipping On All Orders Over €100</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 text-[10px] sm:text-xs font-semibold">
+          <a href="/flash-sale" class="px-3 py-1.5 bg-yellow-400 text-[#3F3F3F] rounded-lg">Flash Sale</a>
+          <a href="/rma-form" class="px-3 py-1.5 bg-black text-white rounded-lg">RMA Form</a>
+          <a href="/repair-tracking" class="px-3 py-1.5 bg-black text-white rounded-lg">Track your repair</a>
+          <a href="/about-us" class="px-3 py-1.5 bg-black text-white rounded-lg">About Us</a>
+          <a href="/contact-us" class="px-3 py-1.5 bg-black text-white rounded-lg">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main header -->
+    <div class="bg-white">
+      <div class="container mx-auto px-4 lg:px-0 py-4 flex flex-col sm:flex-row items-center gap-4">
+        <!-- Logo -->
+        <a href="/" class="flex items-center justify-center sm:justify-start w-full sm:w-auto">
+          <img
+            src="/logo.png"
+            alt="logo"
+            class="h-auto w-auto max-h-[80px] max-w-[240px] object-contain"
+          />
+        </a>
+
+        <!-- Search -->
+        <form class="flex-1 max-w-[600px] w-full">
+          <div class="flex items-center border border-primary bg-white h-[46px] rounded-xl overflow-hidden pl-4 gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#6B7280" viewBox="0 0 24 24">
+              <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.39-1.41 1.41-4.39-4.39A8 8 0 1 1 10 2m0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12"/>
+            </svg>
+            <input
+              type="text"
+              class="w-full h-full outline-none text-sm text-gray-500"
+              placeholder="Search Your Product"
+            />
+            <button
+              type="submit"
+              class="bg-primary text-white text-sm font-semibold px-4 h-9 rounded-md mr-[5px]"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
+        <!-- Right account + cart -->
+        <div class="hidden lg:flex items-center gap-6">
+          <a href="tel:+35724400601" class="flex items-center gap-3 text-sm font-semibold text-black">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">☎</span>
+            <span class="flex flex-col leading-tight">
+              <span class="text-xs text-gray-500">Need Help?</span>
+              <span class="text-primary font-bold">+357 24-400601</span>
+            </span>
+          </a>
+          <div class="relative group">
+            <a href="/my-account/login" class="flex items-center gap-2 text-sm font-semibold text-black">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">👤</span>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="relative">
+            <a href="/shopping-cart" class="flex items-center gap-2 text-sm font-semibold text-black">
+              <span class="relative inline-flex">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">🛒</span>
+                <span class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white ring-2 ring-white">2</span>
+              </span>
+              <span class="flex flex-col leading-tight">
+                <span>My Cart</span>
+                <span class="text-xs text-primary">€279.99</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop main nav -->
+      <div class="border-t border-gray-100">
+        <div class="container mx-auto px-4 lg:px-0">
+          <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-800 py-3">
+            <a href="/" class="hover:text-primary">Home</a>
+            <a href="/shop-now/networking" class="hover:text-primary">Networking</a>
+            <a href="/shop-now/laptop-desktop" class="hover:text-primary">Laptop/desktop</a>
+            <a href="/shop-now/television" class="hover:text-primary">Television</a>
+            <a href="/shop-now/printers" class="hover:text-primary">Printers</a>
+            <a href="/shop-now/phones" class="hover:text-primary">Phones</a>
+            <a href="/shop-now/mobile-phone-accessories" class="hover:text-primary">Mobile phone accessories</a>
+            <a href="/shop-now/car-accessories" class="hover:text-primary">Car accessories</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT (app/(all)/about-us/page.js) ================= -->
+  <main class="flex-1">
+    <div class="bg-[#F8F8F8]">
+      <div class="container mx-auto px-4 lg:px-0">
+        <!-- TopInfo -->
+        <div class="py-8 sm:py-12">
+          <div class="w-full">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-10 sm:gap-25 py-8 sm:py-12">
+              <div class="w-full sm:w-1/2">
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-6 sm:mb-10 leading-10 md:leading-[64px]">
+                  <span class="text-primary">Ramspeed </span>, Exclusive
+                  electronics retail shop in the world.
+                </h1>
+                <p class="text-xl leading-[36px] text-justify">
+                  Pellentesque ultrices, dui vel hendrerit iaculis, ipsum velit
+                  vestibulum risus, ac tincidunt diam lectus id magna. Praesent
+                  maximus lobortis neque sit amet rhoncus. Nullam tempus lectus a dui
+                  aliquet, non ultricies nibh elementum. Nulla ac nulla dolor.
+                </p>
+              </div>
+              <div class="w-1/2">
+                <img
+                  src="/about-1.png"
+                  alt="About Us"
+                  class="max-h-[620px] w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </div>
+            <!-- Second Info -->
+            <div class="flex flex-col sm:flex-row-reverse justify-between items-center gap-10 sm:gap-25 py-8 sm:py-12">
+              <div class="w-full sm:w-1/2">
+                <h1 class="text-3xl md:text-5xl font-bold text-black mb-6 sm:mb-10 leading-10 md:leading-[64px]">
+                  <span class="text-primary">Who </span>
+                  we are
+                </h1>
+                <p class="text-xl leading-[36px] text-justify">
+                  Pellentesque ultrices, dui vel hendrerit iaculis, ipsum velit
+                  vestibulum risus, ac tincidunt diam lectus id magna. Praesent
+                  maximus lobortis neque sit amet rhoncus. Nullam tempus lectus a dui
+                  aliquet, non ultricies nibh elementum. Nulla ac nulla dolor.
+                </p>
+              </div>
+              <div class="w-1/2">
+                <img
+                  src="/about-2.png"
+                  alt="About Us"
+                  class="max-h-[620px] w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OurMission -->
+        <div class="py-8 sm:py-12">
+          <div class="w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 sm:gap-17 md:gap-20">
+              <!-- Mission -->
+              <div>
+                <span class="bg-primary w-20 h-20 flex items-center justify-center rounded-full mb-8 text-white">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clipPath="url(#clip0_15444_29927)">
+                      <path d="M21.2565 24.7551L25.7263 20.2852C24.7211 19.6436 23.5292 19.27 22.2508 19.27C18.6781 19.27 15.7715 22.1766 15.7715 25.7494C15.7715 29.3221 18.6781 32.2287 22.2508 32.2287C25.8235 32.2287 28.7302 29.3221 28.7302 25.7494C28.7302 24.4711 28.3566 23.2791 27.715 22.2739L23.2451 26.7437L21.2565 24.7551Z" fill="white"/>
+                      <path d="M44.5014 25.7493C44.5014 21.9278 43.5252 18.1908 41.6718 14.8835L36.1313 15.6427C38.2033 18.4806 39.4282 21.9743 39.4282 25.7493C39.4282 35.221 31.7225 42.9269 22.2506 42.9269C12.7788 42.9269 5.07309 35.221 5.07309 25.7493C5.07309 16.2775 12.779 8.57172 22.2507 8.57172C26.0257 8.57172 29.5193 9.79666 32.3573 11.8686L33.1164 6.32819C29.8092 4.47475 26.0722 3.49854 22.2507 3.49854C16.3073 3.49854 10.7197 5.81304 6.51713 10.0157C2.3145 14.2182 0 19.8059 0 25.7493C0 31.6926 2.3145 37.2803 6.51713 41.4828C10.7197 45.6856 16.3073 48 22.2507 48C28.1942 48 33.7818 45.6855 37.9843 41.4828C42.1869 37.2803 44.5014 31.6927 44.5014 25.7493Z" fill="white"/>
+                      <path d="M22.2509 11.3843C14.3299 11.3843 7.88574 17.8283 7.88574 25.7494C7.88574 33.6704 14.3298 40.1145 22.2509 40.1145C30.1719 40.1145 36.616 33.6704 36.616 25.7494C36.616 22.2942 35.3896 19.1203 33.3496 16.6394L29.7371 20.2519C30.8715 21.7924 31.5428 23.6938 31.5428 25.7494C31.5428 30.8729 27.3745 35.0412 22.251 35.0412C17.1274 35.0412 12.9591 30.8729 12.9591 25.7494C12.9591 20.6258 17.1274 16.4575 22.251 16.4575C24.3065 16.4575 26.2079 17.1289 27.7485 18.2633L31.3609 14.6508C28.8799 12.6106 25.706 11.3843 22.2509 11.3843ZM42.2164 0L35.966 6.25041L35.0476 12.9526L41.7497 12.0341L48.0001 5.78372L43.7812 4.21894L42.2164 0Z" fill="white"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_15444_29927">
+                        <rect width="48.0011" height="48" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </span>
+                <h2 class="text-3xl font-bold text-primary mb-4">Our mission</h2>
+                <p class="text-xl leading-[36px] text-justify">
+                  At <b class="text-primary"> RAMSPEED CY </b>, our mission is to
+                  provide complete technology solutions that meet every customer's
+                  need. We specialize in the repair and sale of mobile phones,
+                  computers, and tablets, as well as printers and both original and
+                  compatible printing supplies, such as inks, toners, rolls, printing
+                  paper, and more. In addition, we offer mobile accessories, security
+                  cameras, networking systems, and solar installation solutions —
+                  covering needs in energy efficiency, security, lighting, and
+                  connectivity. Our goal is to deliver reliability, quality, and
+                  prompt service by offering products and services that make a real
+                  difference in our customers' daily lives.
+                </p>
+              </div>
+              <!-- Vision -->
+              <div>
+                <span class="bg-primary w-20 h-20 flex items-center justify-center rounded-full mb-8 text-white">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M22.973 13.728C20.3449 13.995 17.9197 15.2611 16.1981 17.2648C14.4766 19.2684 13.5902 21.8567 13.722 24.4951C13.8539 27.1334 14.9938 29.6204 16.9065 31.4425C18.8192 33.2646 21.3586 34.2826 24.0002 34.2864C25.3551 34.2934 26.6979 34.031 27.9505 33.5143C29.203 32.9977 30.3403 32.2371 31.2962 31.2768C33.2218 29.3439 34.3053 26.7283 34.3106 24C34.3106 23.6928 34.3106 23.3376 33.9026 23.3376H31.2002C30.7922 23.3376 30.7922 23.6928 30.7922 24C30.7793 25.8069 30.0651 27.5383 28.8002 28.8288C27.5261 30.0997 25.7999 30.8135 24.0002 30.8135C22.2006 30.8135 20.4744 30.0997 19.2002 28.8288C17.9318 27.5398 17.2141 25.8083 17.1986 24C17.2024 22.1968 17.9201 20.4685 19.1947 19.193C20.4693 17.9175 22.1971 17.1986 24.0002 17.1936C24.3074 17.1936 24.6626 17.1936 24.6626 16.7856V3.16317C24.6767 3.06767 24.6701 2.97025 24.6431 2.87754C24.6162 2.78483 24.5696 2.69902 24.5065 2.62594C24.4434 2.55287 24.3653 2.49424 24.2776 2.45405C24.1898 2.41387 24.0944 2.39307 23.9978 2.39307C23.9013 2.39307 23.8059 2.41387 23.7181 2.45405C23.6303 2.49424 23.5522 2.55287 23.4891 2.62594C23.4261 2.69902 23.3795 2.78483 23.3525 2.87754C23.3256 2.97025 23.3189 3.06767 23.333 3.16317V13.32C23.336 13.4202 23.3011 13.5179 23.2353 13.5935C23.1694 13.6691 23.0775 13.7171 22.9778 13.728H22.973ZM42.2786 11.3808L36.3554 17.28C36.2948 17.3464 36.2205 17.3989 36.1376 17.4337C36.0547 17.4685 35.9653 17.4848 35.8754 17.4816H32.0114C31.7983 17.4902 31.5969 17.5814 31.4498 17.736L24.4034 24.744C24.3432 24.8045 24.2717 24.8525 24.1929 24.8854C24.1142 24.9183 24.0297 24.9353 23.9443 24.9355C23.859 24.9358 23.7744 24.9192 23.6955 24.8867C23.6165 24.8543 23.5447 24.8066 23.4842 24.7464C23.4237 24.6862 23.3756 24.6146 23.3428 24.5359C23.3099 24.4571 23.2929 24.3726 23.2927 24.2873C23.2924 24.2019 23.309 24.1173 23.3415 24.0384C23.3739 23.9595 23.4216 23.8877 23.4818 23.8272L30.4802 16.8384C30.569 16.7646 30.6375 16.6696 30.6795 16.5621C30.7215 16.4547 30.7355 16.3383 30.7202 16.224V12.384C30.7227 12.2981 30.7422 12.2135 30.7776 12.1352C30.8131 12.057 30.8637 11.9865 30.9266 11.928L36.917 5.97117C37.0107 5.88042 37.1292 5.81935 37.2575 5.79564C37.3857 5.77194 37.5182 5.78664 37.6381 5.8379C37.7581 5.88917 37.8603 5.97472 37.9318 6.08382C38.0033 6.19292 38.041 6.32072 38.0402 6.45117V9.86877C38.0396 9.92253 38.0497 9.97587 38.07 10.0257C38.0902 10.0755 38.1203 10.1207 38.1583 10.1587C38.1963 10.1967 38.2415 10.2268 38.2913 10.247C38.3411 10.2673 38.3945 10.2774 38.4482 10.2768H41.8082C41.9407 10.2711 42.0719 10.3059 42.1841 10.3766C42.2963 10.4473 42.3844 10.5505 42.4365 10.6724C42.4886 10.7944 42.5024 10.9294 42.4759 11.0593C42.4494 11.1893 42.3839 11.3081 42.2882 11.4L42.2786 11.3808ZM36.0386 23.3184H44.9858C45.1615 23.3184 45.33 23.3882 45.4542 23.5124C45.5784 23.6366 45.6482 23.8051 45.6482 23.9808C45.6482 24.1565 45.5784 24.3249 45.4542 24.4492C45.33 24.5734 45.1615 24.6432 44.9858 24.6432H41.5154C41.4606 24.638 41.4052 24.645 41.3534 24.6636C41.3015 24.6823 41.2544 24.7122 41.2154 24.7512C41.1764 24.7901 41.1466 24.8372 41.1279 24.8891C41.1092 24.941 41.1022 24.9963 41.1074 25.0512C40.8583 28.5559 39.5828 31.9097 37.4402 34.6944C35.0591 37.7246 31.7261 39.8638 27.9794 40.7664C27.6722 40.8192 27.3122 40.7664 27.3122 40.3584V35.4096C27.324 35.3266 27.3591 35.2487 27.4135 35.1849C27.4679 35.1212 27.5393 35.0742 27.6194 35.0496C29.3488 34.4466 30.9204 33.4623 32.2178 32.1696C34.3942 30.0062 35.6248 27.0686 35.6402 24C35.6402 23.6928 35.6402 23.3376 36.0482 23.3376L36.0386 23.3184ZM24.6578 36V44.928C24.6437 45.0945 24.5675 45.2497 24.4444 45.3628C24.3213 45.4759 24.1602 45.5386 23.993 45.5386C23.8259 45.5386 23.6648 45.4759 23.5417 45.3628C23.4186 45.2497 23.3424 45.0945 23.3282 44.928V41.568C23.3324 41.4675 23.2979 41.3692 23.2318 41.2933C23.1658 41.2174 23.0732 41.1697 22.973 41.16C19.3117 40.9148 15.8262 39.4995 13.0304 37.1229C10.2345 34.7462 8.27651 31.534 7.44503 27.96C7.34423 27.6528 7.44503 27.3504 7.80023 27.3504H12.5522C12.6452 27.3435 12.7375 27.3702 12.8124 27.4258C12.8873 27.4813 12.9398 27.5618 12.9602 27.6528C13.7328 29.9699 15.2146 31.9852 17.1959 33.4135C19.1773 34.8418 21.5577 35.6107 24.0002 35.6112C24.3074 35.6112 24.6626 35.6112 24.6626 36.0192L24.6578 36ZM11.9378 24.624H3.05303C2.87735 24.624 2.70886 24.5542 2.58464 24.43C2.46041 24.3057 2.39063 24.1373 2.39062 23.9616C2.39062 23.7859 2.46041 23.6174 2.58464 23.4932C2.70886 23.369 2.87735 23.2992 3.05303 23.2992H6.52343C6.63386 23.3095 6.74419 23.2784 6.83293 23.2118C6.92166 23.1453 6.98244 23.0481 7.00343 22.9392C7.18581 19.2809 8.52593 15.7752 10.8303 12.9281C13.1348 10.081 16.2843 8.03984 19.8242 7.09917C19.8851 7.08813 19.9475 7.09028 20.0075 7.10547C20.0674 7.12066 20.1234 7.14853 20.1716 7.18721C20.2199 7.22588 20.2592 7.27446 20.2871 7.32966C20.3149 7.38486 20.3306 7.4454 20.333 7.50717V12.6528C20.3408 12.7392 20.3202 12.8258 20.2743 12.8995C20.2284 12.9731 20.1597 13.0298 20.0786 13.0608C18.4691 13.6418 17.005 14.5655 15.7874 15.768C14.6989 16.8451 13.8343 18.127 13.2436 19.5399C12.6529 20.9528 12.3478 22.4686 12.3458 24C12.3458 24.3072 12.3458 24.6624 11.9378 24.6624V24.624ZM29.0498 23.2992H28.3874C28.3347 23.2975 28.2827 23.3112 28.2376 23.3384C28.1924 23.3657 28.1561 23.4054 28.133 23.4528L25.6274 25.9536C23.4338 28.1136 20.1602 24.7968 22.3106 22.656L24.5042 20.4096C24.5505 20.3851 24.5893 20.3485 24.6164 20.3037C24.6434 20.2589 24.6578 20.2075 24.6578 20.1552V18.9312C24.651 18.8252 24.6059 18.7253 24.5308 18.6502C24.4557 18.5751 24.3558 18.53 24.2498 18.5232C23.145 18.483 22.0539 18.7776 21.1194 19.3682C20.1849 19.9588 19.4506 20.818 19.0128 21.8331C18.5749 22.8482 18.454 23.9719 18.6658 25.057C18.8776 26.142 19.4122 27.1378 20.1996 27.9137C20.987 28.6897 21.9905 29.2097 23.0785 29.4056C24.1666 29.6014 25.2884 29.464 26.297 29.0114C27.3056 28.5587 28.1539 27.8119 28.7308 26.8689C29.3076 25.9258 29.5862 24.8305 29.5298 23.7264C29.5125 23.6119 29.4543 23.5076 29.3661 23.4326C29.2779 23.3576 29.1656 23.3171 29.0498 23.3184V23.2992Z" fill="white"/>
+                  </svg>
+                </span>
+                <h2 class="text-3xl font-bold text-primary mb-4">Our vision</h2>
+                <p class="text-xl leading-[36px] text-justify">
+                  Our aim is to remain a trusted and recognizable name in Cyprus in
+                  the field of technology. Our vision is continuous growth and
+                  innovation, providing modern, sustainable, and affordable technology
+                  solutions that cover every area — from mobile and computer repairs
+                  to security systems, networking infrastructures, and photovoltaic
+                  installations. We believe in the power of technology to make life
+                  easier, safer, and more connected.
+                </p>
+              </div>
+              <!-- History -->
+              <div>
+                <span class="bg-primary w-20 h-20 flex items-center justify-center rounded-full mb-8 text-white">
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M45 23.9999C45 29.5695 42.7875 34.9109 38.8492 38.8492C34.911 42.7874 29.5695 44.9999 24 44.9999C18.4305 44.9999 13.089 42.7874 9.15076 38.8492C5.21249 34.9109 3 29.5695 3 23.9999C3 23.6021 3.15804 23.2206 3.43934 22.9393C3.72064 22.658 4.10218 22.4999 4.5 22.4999C4.89782 22.4999 5.27936 22.658 5.56066 22.9393C5.84196 23.2206 6 23.6021 6 23.9999C5.99383 28.017 7.32957 31.921 9.79519 35.0924C12.2608 38.2637 15.7151 40.5207 19.6097 41.505C23.5043 42.4894 27.6161 42.1447 31.2924 40.5257C34.9688 38.9067 37.9991 36.1061 39.9023 32.5685C41.8055 29.0309 42.4726 24.959 41.7978 20.999C41.1229 17.0391 39.1447 13.418 36.1771 10.7105C33.2096 8.00297 29.4228 6.36423 25.4177 6.05433C21.4126 5.74444 17.4187 6.78115 14.07 8.99993H15C15.3978 8.99993 15.7794 9.15796 16.0607 9.43927C16.342 9.72057 16.5 10.1021 16.5 10.4999C16.5 10.8978 16.342 11.2793 16.0607 11.5606C15.7794 11.8419 15.3978 11.9999 15 11.9999H10.5C10.1022 11.9999 9.72064 11.8419 9.43934 11.5606C9.15804 11.2793 9 10.8978 9 10.4999V5.99993C9 5.6021 9.15804 5.22057 9.43934 4.93927C9.72064 4.65796 10.1022 4.49993 10.5 4.49993C10.8978 4.49993 11.2794 4.65796 11.5607 4.93927C11.842 5.22057 12 5.6021 12 5.99993V6.77093C15.1482 4.57688 18.8375 3.28759 22.667 3.04314C26.4965 2.79869 30.3198 3.60843 33.7215 5.38439C37.1231 7.16034 39.9729 9.83458 41.9613 13.1165C43.9498 16.3985 45.0007 20.1626 45 23.9999ZM37.5 23.9999C37.5 26.67 36.7082 29.2801 35.2248 31.5001C33.7414 33.7202 31.633 35.4505 29.1662 36.4723C26.6994 37.4941 23.985 37.7614 21.3663 37.2405C18.7475 36.7196 16.3421 35.4339 14.4541 33.5459C12.566 31.6579 11.2803 29.2524 10.7594 26.6336C10.2385 24.0149 10.5058 21.3005 11.5276 18.8337C12.5494 16.3669 14.2797 14.2585 16.4998 12.7751C18.7199 11.2917 21.33 10.4999 24 10.4999C27.5792 10.5039 31.0107 11.9275 33.5416 14.4584C36.0724 16.9893 37.496 20.4207 37.5 23.9999ZM29.3325 25.7519L25.5 23.1974V16.4999C25.5 16.1021 25.342 15.7206 25.0607 15.4393C24.7794 15.158 24.3978 14.9999 24 14.9999C23.6022 14.9999 23.2206 15.158 22.9393 15.4393C22.658 15.7206 22.5 16.1021 22.5 16.4999V23.9999C22.5 24.2468 22.5609 24.4899 22.6773 24.7076C22.7937 24.9253 22.9621 25.1109 23.1675 25.2479L27.6675 28.2479C27.9985 28.4687 28.4036 28.549 28.7938 28.4711C29.184 28.3931 29.5272 28.1634 29.748 27.8324C29.9688 27.5014 30.0491 27.0963 29.9711 26.7061C29.8932 26.316 29.6635 25.9727 29.3325 25.7519Z" fill="white"/>
+                  </svg>
+                </span>
+                <h2 class="text-3xl font-bold text-primary mb-4">Our story</h2>
+                <p class="text-xl leading-[36px] text-justify">
+                  <b class="text-primary"> RAMSPEED CY </b> has its roots in
+                  <b class="text-primary">Onoufrios Enterprises LTD</b>, founded
+                  by Mr. Onoufrios Onoufriou in 2003. In its early years, the company
+                  specialized in printers and printing supplies such as computers,
+                  inks, toners, printing papers , rolls, and security systems. Over
+                  the years, the business evolved and expanded its scope, investing in
+                  new technologies, networking systems, and related services. Today,
+                  <b class="text-primary"> RAMSPEED CY</b> stands as a complete
+                  technology center, offering repairs and sales of mobile phones,
+                  computers, tablets, security cameras, solar solutions, and a wide
+                  range of tech products that meet every modern need.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PromotionalVideo -->
+      <div class="py-8 sm:py-12 bg-[url('/about-promo-video.png')] text-white relative z-0">
+        <div class="absolute top-0 left-0 w-full h-full bg-black/50 -z-10"></div>
+        <div class="container mx-auto px-4 lg:px-0">
+          <div class="max-w-md">
+            <div class="flex flex-col gap-6">
+              <h2 class="text-3xl md:text-5xl font-black text-white leading-10 md:leading-[64px]">
+                Your trusted and reliable ratail store
+              </h2>
+              <p class="text-md text-[#B8B8B8] leading-7">
+                Praesent sed semper metus. Nunc aliquet dolor mauris, et fringilla
+                elit gravida eget. Nunc consequat auctor urna a placerat.
+              </p>
+              <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.3844 11.9989L7.89375 3.74888C7.78018 3.67883 7.64998 3.64034 7.51658 3.63739C7.38318 3.63444 7.25141 3.66713 7.13486 3.7321C7.0183 3.79706 6.92119 3.89194 6.85354 4.00695C6.78589 4.12197 6.75015 4.25295 6.75 4.38638V20.8864C6.75015 21.0198 6.78589 21.1508 6.85354 21.2658C6.92119 21.3808 7.0183 21.4757 7.13486 21.5407C7.25141 21.6056 7.38318 21.6383 7.51658 21.6354C7.64998 21.6324 7.78018 21.5939 7.89375 21.5239L21.3844 13.2739C21.4952 13.2084 21.5869 13.1151 21.6507 13.0033C21.7145 12.8916 21.748 12.7651 21.748 12.6364C21.748 12.5077 21.7145 12.3812 21.6507 12.2694C21.5869 12.1576 21.4952 12.0644 21.3844 11.9989Z" fill="white"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="bg-[#f4f4f4]">
+        <div class="container mx-auto px-4 lg:px-0">
+          <div class="py-8 sm:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-18">
+              <div class="flex flex-row items-center gap-6">
+                <span class="scale-70 md:scale-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="#0068C8">
+                    <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                  </svg>
+                </span>
+                <div class="space-y-2 md:space-y-4">
+                  <h3 class="text-xl lg:text-3xl text-black font-bold">Free delivery</h3>
+                  <p class="text-xs sm:text-base">FREE SHIPPING ON ALL ORDER</p>
+                </div>
+              </div>
+              <div class="flex flex-row items-center gap-6">
+                <span class="scale-70 md:scale-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="#0068C8">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                  </svg>
+                </span>
+                <div class="space-y-2 md:space-y-4">
+                  <h3 class="text-xl lg:text-3xl text-black font-bold">Returns</h3>
+                  <p class="text-xs sm:text-base">BACK GUARANTEE UNDER 7 DAYS</p>
+                </div>
+              </div>
+              <div class="flex flex-row items-center gap-6">
+                <span class="scale-70 md:scale-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="#0068C8">
+                    <path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/>
+                  </svg>
+                </span>
+                <div class="space-y-2 md:space-y-4">
+                  <h3 class="text-xl lg:text-3xl text-black font-bold">Support 24/7</h3>
+                  <p class="text-xs sm:text-base">SUPPORTS ONLINE 24/7 A DAY</p>
+                </div>
+              </div>
+              <div class="flex flex-row items-center gap-6">
+                <span class="scale-70 md:scale-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="#0068C8">
+                    <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                  </svg>
+                </span>
+                <div class="space-y-2 md:space-y-4">
+                  <h3 class="text-xl lg:text-3xl text-black font-bold">Payment</h3>
+                  <p class="text-xs sm:text-base">100% PAYMENT SECURITY</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FlashSaleToday -->
+      <div class="container mx-auto px-4 lg:px-0">
+        <div class="py-8 sm:py-12">
+          <div class="w-full">
+            <div class="flex flex-row mb-8">
+              <h2 class="text-3xl font-black text-black capitalize">
+                Flash Sale Today
+              </h2>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              <!-- Product cards (4 items) -->
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center p-3 sm:p-6">
+                  <img src="/controller.png" alt="Product" class="h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="p-3 sm:p-6 flex flex-col gap-3">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                    Air buds, beat the sound with ultimate mode
+                  </h3>
+                  <div class="flex flex-col sm:flex-row items-start gap-1 sm:items-center justify-between text-sm mb-4">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264671</span></span>
+                  </div>
+                  <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl font-bold text-primary">€300.45</span>
+                    <span class="text-gray-400 line-through">€320.45</span>
+                  </div>
+                  <div class="flex flex-row items-center gap-4 mb-3 sm:mb-6">
+                    <div class="flex items-center border rounded-md overflow-hidden">
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">–</button>
+                      <div class="w-12 h-10 flex items-center justify-center border-x bg-white"><span class="text-sm">01</span></div>
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">+</button>
+                    </div>
+                    <button class="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide whitespace-nowrap cursor-pointer">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center p-3 sm:p-6">
+                  <img src="/controller.png" alt="Product" class="h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="p-3 sm:p-6 flex flex-col gap-3">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                    Air buds, beat the sound with ultimate mode
+                  </h3>
+                  <div class="flex flex-col sm:flex-row items-start gap-1 sm:items-center justify-between text-sm mb-4">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264671</span></span>
+                  </div>
+                  <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl font-bold text-primary">€300.45</span>
+                    <span class="text-gray-400 line-through">€320.45</span>
+                  </div>
+                  <div class="flex flex-row items-center gap-4 mb-3 sm:mb-6">
+                    <div class="flex items-center border rounded-md overflow-hidden">
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">–</button>
+                      <div class="w-12 h-10 flex items-center justify-center border-x bg-white"><span class="text-sm">01</span></div>
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">+</button>
+                    </div>
+                    <button class="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide whitespace-nowrap cursor-pointer">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center p-3 sm:p-6">
+                  <img src="/controller.png" alt="Product" class="h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="p-3 sm:p-6 flex flex-col gap-3">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                    Air buds, beat the sound with ultimate mode
+                  </h3>
+                  <div class="flex flex-col sm:flex-row items-start gap-1 sm:items-center justify-between text-sm mb-4">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264671</span></span>
+                  </div>
+                  <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl font-bold text-primary">€300.45</span>
+                    <span class="text-gray-400 line-through">€320.45</span>
+                  </div>
+                  <div class="flex flex-row items-center gap-4 mb-3 sm:mb-6">
+                    <div class="flex items-center border rounded-md overflow-hidden">
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">–</button>
+                      <div class="w-12 h-10 flex items-center justify-center border-x bg-white"><span class="text-sm">01</span></div>
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">+</button>
+                    </div>
+                    <button class="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide whitespace-nowrap cursor-pointer">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center p-3 sm:p-6">
+                  <img src="/controller.png" alt="Product" class="h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="p-3 sm:p-6 flex flex-col gap-3">
+                  <h3 class="text-lg font-semibold text-gray-900 mb-3 line-clamp-2">
+                    Air buds, beat the sound with ultimate mode
+                  </h3>
+                  <div class="flex flex-col sm:flex-row items-start gap-1 sm:items-center justify-between text-sm mb-4">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264671</span></span>
+                  </div>
+                  <div class="flex items-center gap-3 mb-6">
+                    <span class="text-2xl font-bold text-primary">€300.45</span>
+                    <span class="text-gray-400 line-through">€320.45</span>
+                  </div>
+                  <div class="flex flex-row items-center gap-4 mb-3 sm:mb-6">
+                    <div class="flex items-center border rounded-md overflow-hidden">
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">–</button>
+                      <div class="w-12 h-10 flex items-center justify-center border-x bg-white"><span class="text-sm">01</span></div>
+                      <button class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors">+</button>
+                    </div>
+                    <button class="flex-1 bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-md transition-colors duration-200 text-sm uppercase tracking-wide whitespace-nowrap cursor-pointer">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#F8F8F8]">
+    <div class="w-full mx-auto">
+      <div class="py-8 sm:py-12 border-y border-[#ebebeb]">
+        <div class="px-4 sm:px-0 w-full text-sm container mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-14">
+            <div class="sm:col-span-1 lg:col-span-2">
+              <a href="/">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  class="logo block h-auto w-auto max-w-[297px] max-h-[100px] object-contain max-[576px]:max-w-[200px]"
+                />
+              </a>
+              <p class="text-sm mt-6 font-semibold text-black">
+                <a href="mailto:Info@ramspeedcy.com">Info@ramspeedcy.com</a>
+              </p>
+              <p class="text-sm mt-2 font-semibold text-black">
+                <a href="tel:+35724400601">+357 24-400601</a>
+              </p>
+            </div>
+
+            <!-- About Us -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">About Us</h2>
+                <a href="/about-us" class="hover:text-black transition font-medium">About Us</a>
+                <a href="/contact-us" class="hover:text-black transition font-medium">Contact us</a>
+              </div>
+            </div>
+
+            <!-- Support -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Support</h2>
+                <a href="/track-repair" class="hover:text-black transition font-medium">Track your repair</a>
+                <a href="/contact-us" class="hover:text-black transition font-medium">Contact us</a>
+                <a href="/repair-terms" class="hover:text-black transition font-medium">Repair terms</a>
+                <a href="/haul-away" class="hover:text-black transition font-medium">Haul Away</a>
+                <a href="/security-center" class="hover:text-black transition font-medium">Security Center</a>
+                <a href="/contact" class="hover:text-black transition font-medium">Contact</a>
+              </div>
+            </div>
+
+            <!-- Order -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Order</h2>
+                <a href="/check-order" class="hover:text-black transition font-medium">Check Order</a>
+                <a href="/delivery-pickup" class="hover:text-black transition font-medium">Delivery &amp; Pickup</a>
+                <a href="/returns" class="hover:text-black transition font-medium">Returns</a>
+                <a href="/exchanges" class="hover:text-black transition font-medium">Exchanges</a>
+                <a href="/gift-cards" class="hover:text-black transition font-medium">Gift Cards</a>
+              </div>
+            </div>
+
+            <!-- Terms & Policies -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Terms &amp; Policies</h2>
+                <a href="/privacy-policy" class="hover:text-black transition font-medium">Privacy Policy</a>
+                <a href="/limited-warranty" class="hover:text-black transition font-medium">Limited Warranty</a>
+                <a href="/returns-cancellation-policy" class="hover:text-black transition font-medium">Returns and Cancellation Policy</a>
+                <a href="/developers" class="hover:text-black transition font-medium">Developers</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trending tags -->
+          <div class="w-full pt-8 sm:pt-12">
+            <div class="mb-4">
+              <h2 class="text-2xl font-black text-black">Trending Tags:</h2>
+            </div>
+            <div class="flex flex-row flex-wrap gap-2 lg:gap-5">
+              <a href="/shop-now/tags/shoes" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Shoes</a>
+              <a href="/shop-now/tags/smartphones" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Smartphones</a>
+              <a href="/shop-now/tags/electronics" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Electronics</a>
+              <a href="/shop-now/tags/running" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Running</a>
+              <a href="/shop-now/tags/accessories" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Accessories</a>
+            </div>
+
+            <!-- Payment logos -->
+            <div class="flex flex-row flex-wrap items-end justify-end gap-5 mt-8">
+              <img src="/mastercard.png" alt="Mastercard" class="w-12 h-8 object-contain" />
+              <img src="/paypal.png" alt="Paypal" class="w-12 h-8 object-contain" />
+              <img src="/visa.png" alt="Visa" class="w-12 h-8 object-contain" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="p-6 text-center">
+        <p class="font-semibold">© Ecomall. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

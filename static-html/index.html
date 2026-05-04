@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAMSPEED CY - Static Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700&family=Public+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0068c8",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --font-geist-mulish: "Mulish", system-ui, sans-serif;
+      --font-geist-public-sans: "Public Sans", system-ui, sans-serif;
+      --radius: 0.625rem;
+    }
+    body {
+      font-family: var(--font-geist-mulish);
+      font-size: 16px;
+    }
+    .marquee-inner {
+      animation: marqueeScroll 15s linear infinite;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    textarea { resize: none; }
+  </style>
+</head>
+
+<body class="relative flex flex-col antialiased bg-[#F8F8F8]">
+  <!-- ================= HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <!-- Top bar -->
+    <div class="bg-primary text-white">
+      <div class="container mx-auto px-4 lg:px-0 py-3 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div class="flex items-center gap-4 text-xs sm:text-sm">
+          <span>English</span>
+          <span class="hidden sm:inline-block text-white/80">Free Shipping On All Orders Over €100</span>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 text-[10px] sm:text-xs font-semibold">
+          <a href="/flash-sale" class="px-3 py-1.5 bg-yellow-400 text-[#3F3F3F] rounded-lg">Flash Sale</a>
+          <a href="/rma-form" class="px-3 py-1.5 bg-black text-white rounded-lg">RMA Form</a>
+          <a href="/repair-tracking" class="px-3 py-1.5 bg-black text-white rounded-lg">Track your repair</a>
+          <a href="/about-us" class="px-3 py-1.5 bg-black text-white rounded-lg">About Us</a>
+          <a href="/contact-us" class="px-3 py-1.5 bg-black text-white rounded-lg">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main header -->
+    <div class="bg-white">
+      <div class="container mx-auto px-4 lg:px-0 py-4 flex flex-col sm:flex-row items-center gap-4">
+        <!-- Logo -->
+        <a href="/" class="flex items-center justify-center sm:justify-start w-full sm:w-auto">
+          <img
+            src="/logo.png"
+            alt="logo"
+            class="h-auto w-auto max-h-[80px] max-w-[240px] object-contain"
+          />
+        </a>
+
+        <!-- Search -->
+        <form class="flex-1 max-w-[600px] w-full">
+          <div class="flex items-center border border-primary bg-white h-[46px] rounded-xl overflow-hidden pl-4 gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#6B7280" viewBox="0 0 24 24">
+              <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.39-1.41 1.41-4.39-4.39A8 8 0 1 1 10 2m0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12"/>
+            </svg>
+            <input
+              type="text"
+              class="w-full h-full outline-none text-sm text-gray-500"
+              placeholder="Search Your Product"
+            />
+            <button
+              type="submit"
+              class="bg-primary text-white text-sm font-semibold px-4 h-9 rounded-md mr-[5px]"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
+        <!-- Right account + cart -->
+        <div class="hidden lg:flex items-center gap-6">
+          <a href="tel:+35724400601" class="flex items-center gap-3 text-sm font-semibold text-black">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">☎</span>
+            <span class="flex flex-col leading-tight">
+              <span class="text-xs text-gray-500">Need Help?</span>
+              <span class="text-primary font-bold">+357 24-400601</span>
+            </span>
+          </a>
+          <div class="relative group">
+            <a href="/my-account/login" class="flex items-center gap-2 text-sm font-semibold text-black">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">👤</span>
+              <span>Account</span>
+            </a>
+          </div>
+          <div class="relative">
+            <a href="/shopping-cart" class="flex items-center gap-2 text-sm font-semibold text-black">
+              <span class="relative inline-flex">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white text-xs">🛒</span>
+                <span class="absolute -top-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] text-white ring-2 ring-white">2</span>
+              </span>
+              <span class="flex flex-col leading-tight">
+                <span>My Cart</span>
+                <span class="text-xs text-primary">€279.99</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop main nav (simplified DesktopCategories) -->
+      <div class="border-t border-gray-100">
+        <div class="container mx-auto px-4 lg:px-0">
+          <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-800 py-3">
+            <a href="/" class="hover:text-primary">Home</a>
+            <a href="/shop-now/networking" class="hover:text-primary">Networking</a>
+            <a href="/shop-now/laptop-desktop" class="hover:text-primary">Laptop/desktop</a>
+            <a href="/shop-now/television" class="hover:text-primary">Television</a>
+            <a href="/shop-now/printers" class="hover:text-primary">Printers</a>
+            <a href="/shop-now/phones" class="hover:text-primary">Phones</a>
+            <a href="/shop-now/mobile-phone-accessories" class="hover:text-primary">Mobile phone accessories</a>
+            <a href="/shop-now/car-accessories" class="hover:text-primary">Car accessories</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT (app/page.js) ================= -->
+  <main class="flex-1">
+    <!-- Top light gray background -->
+    <div class="bg-[#F8F8F8]">
+      <!-- HeaderCategories (icons row) -->
+      <section class="container mx-auto px-4 lg:px-0 py-8 sm:pb-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">🎧</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Headphone</h2>
+          </div>
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">🖨️</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Printers</h2>
+          </div>
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">📺</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Television</h2>
+          </div>
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">🔊</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Speaker</h2>
+          </div>
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">🖥️</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Desktop</h2>
+          </div>
+          <div class="p-3 rounded-2xl flex flex-col md:flex-row gap-3 items-center justify-center cursor-pointer border border-gray-200 hover:border-primary bg-white transition">
+            <span class="text-2xl">🎮</span>
+            <h2 class="text-[#454f5b] text-sm sm:text-lg font-bold capitalize">Games</h2>
+          </div>
+        </div>
+      </section>
+
+      <!-- Container with Slider + WeekDeal + BestDeals + Upcoming + Featured + BottomFeatured -->
+      <section class="container mx-auto px-4 lg:px-0 2xl:px-0 pb-8">
+        <!-- Slider -->
+        <div class="pb-8">
+          <div class="w-full h-auto lg:h-[500px] bg-[#192c57] rounded-2xl">
+            <div class="w-full h-full grid grid-cols-1 md:grid-cols-2 gap-8 py-12">
+              <div class="pl-10 lg:pl-20 flex items-start justify-center flex-col">
+                <p class="bg-[#dd2831] text-xs uppercase font-semibold text-white rounded px-4 py-1.5 mb-4">
+                  Weekend Deal
+                </p>
+                <h2 class="text-white text-xl sm:text-4xl font-black md:text-[64px] mb-2">
+                  All New <br />
+                  For A Better You
+                </h2>
+                <p class="text-white text-base sm:text-2xl uppercase">
+                  Amazing Discounts And Deals
+                </p>
+                <p class="my-5 flex items-center gap-4 text-white">
+                  <span>From</span>
+                  <span class="text-[#FCC904] text-3xl font-bold flex items-center gap-2">
+                    <span>€</span>
+                    <span>300.45</span>
+                  </span>
+                </p>
+                <a
+                  href="/shop-now"
+                  class="bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-medium transition-colors text-sm sm:text-base md:text-lg uppercase tracking-wide cursor-pointer inline-block w-fit"
+                >
+                  SHOP NOW
+                </a>
+              </div>
+              <div class="flex items-center justify-center">
+                <img
+                  src="/slider-1.png"
+                  alt="slider-1"
+                  class="max-h-[418px] h-[200px] object-contain sm:h-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Week Deal -->
+        <section class="py-8 sm:py-12">
+          <h2 class="text-3xl font-black text-black mb-6 capitalize">
+            Deal of the week
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left product -->
+            <div class="lg:col-span-3">
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                  <img src="/controller.png" alt="Product" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-3">
+                  <h3 class="text-sm font-semibold text-gray-900">
+                    Air buds, beat the sound with ultimate mode
+                  </h3>
+                  <div class="text-xs text-gray-600 flex justify-between">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264671</span></span>
+                  </div>
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-primary text-lg font-bold">€300.45</span>
+                    <span class="text-gray-400 line-through">€320.45</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Middle countdown -->
+            <div class="lg:col-span-6">
+              <div class="bg-[url('/weakdeals.png')] bg-no-repeat bg-center bg-cover text-white border-2 border-primary rounded-2xl p-8 sm:p-12 h-full flex flex-col gap-5">
+                <div class="flex flex-col gap-5 max-w-[50%]">
+                  <h2 class="text-2xl sm:text-5xl font-bold text-white">
+                    50% OFF
+                  </h2>
+                  <p class="text-white text-xs sm:text-base leading-relaxed px-1">
+                    Grab the best deal today with ultimate exploration
+                  </p>
+                  <div class="flex justify-start gap-3 sm:gap-4">
+                    <div class="bg-primary text-white rounded-lg px-3 sm:px-4 py-3 min-w-[60px] sm:min-w-[70px]">
+                      <div class="text-xl sm:text-2xl font-bold leading-none">10</div>
+                      <div class="text-xs mt-1">Hours</div>
+                    </div>
+                    <div class="bg-primary text-white rounded-lg px-3 sm:px-4 py-3 min-w-[60px] sm:min-w-[70px]">
+                      <div class="text-xl sm:text-2xl font-bold leading-none">41</div>
+                      <div class="text-xs mt-1">Min</div>
+                    </div>
+                    <div class="bg-primary text-white rounded-lg px-3 sm:px-4 py-3 min-w-[60px] sm:min-w-[70px]">
+                      <div class="text-xl sm:text-2xl font-bold leading-none">22</div>
+                      <div class="text-xs mt-1">Secs</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right product -->
+            <div class="lg:col-span-3">
+              <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                  <img src="/trending-1.png" alt="Product" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-3">
+                  <h3 class="text-sm font-semibold text-gray-900">
+                    Samsung Galaxy Series – Ultimate performance
+                  </h3>
+                  <div class="text-xs text-gray-600 flex justify-between">
+                    <span>Availability: <span class="text-green-600 font-medium">6 pcs</span></span>
+                    <span>SKU: <span class="text-blue-600">A264672</span></span>
+                  </div>
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-primary text-lg font-bold">€899.00</span>
+                    <span class="text-gray-400 line-through">€950.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Best Deals -->
+        <section class="py-8 sm:py-12">
+          <h2 class="text-3xl font-black text-black mb-6">
+            Deals of the day
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Left products -->
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="flex-1 max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
+                  <img src="/controller.png" alt="Headset" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-2">
+                  <h3 class="text-sm font-semibold text-gray-900">Gaming Headset</h3>
+                  <p class="text-xs text-gray-500">
+                    Immersive surround sound with noise-cancelling mic.
+                  </p>
+                  <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                    <span class="text-primary">€79.99</span>
+                    <span class="text-gray-400 line-through text-xs">€129.99</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-1 max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
+                  <img src="/upcoming-1.png" alt="Speaker" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-2">
+                  <h3 class="text-sm font-semibold text-gray-900">Wireless Speaker</h3>
+                  <p class="text-xs text-gray-500">
+                    Portable Bluetooth speaker with deep bass.
+                  </p>
+                  <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                    <span class="text-primary">€59.99</span>
+                    <span class="text-gray-400 line-through text-xs">€89.99</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right promo banners (3 tiles) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="md:col-span-2 bg-[url('/deals-1.png')] bg-center bg-no-repeat bg-cover p-10 rounded-2xl">
+                <div class="flex flex-col justify-center gap-4 max-w-[50%]">
+                  <h3 class="text-black font-black text-2xl">Headphones</h3>
+                  <p class="text-black text-xl">
+                    Integrated control and mode with swift sound, reduced noise
+                  </p>
+                  <a
+                    href="/shop-now"
+                    class="bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-lg font-medium transition-colors text-sm sm:text-base uppercase tracking-wide cursor-pointer inline-block w-fit"
+                  >
+                    SHOP NOW
+                  </a>
+                </div>
+              </div>
+              <div class="bg-[url('/deals-2.png')] bg-center bg-no-repeat bg-cover p-6 sm:p-10 rounded-2xl flex flex-col items-center text-center justify-center gap-4 h-full">
+                <h3 class="text-white font-black text-2xl">Headphones</h3>
+                <p class="text-white text-sm">
+                  Integrated control and mode with swift sound, reduced noise
+                </p>
+                <a
+                  href="/shop-now"
+                  class="bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-lg font-medium transition-colors text-sm sm:text-base uppercase tracking-wide cursor-pointer inline-block w-fit"
+                >
+                  SHOP NOW
+                </a>
+              </div>
+              <div class="bg-[url('/deals-3.png')] bg-center bg-no-repeat bg-cover p-6 sm:p-10 rounded-2xl flex flex-col items-center text-center justify-center gap-4 h-full">
+                <h3 class="text-white font-black text-2xl">
+                  Protection cover
+                </h3>
+                <p class="text-white text-sm">
+                  Integrated control and mode with swift sound, reduced noise
+                </p>
+                <a
+                  href="/shop-now"
+                  class="bg-primary hover:bg-primary/90 text-white px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-lg font-medium transition-colors text-sm sm:text-base uppercase tracking-wide cursor-pointer inline-block w-fit"
+                >
+                  SHOP NOW
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Upcoming Products (NewProducts) -->
+        <section class="py-8 sm:py-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <img src="/upcoming-1.png" alt="Upcoming 1" class="w-full rounded-2xl object-cover max-h-[370px] h-[370px]" />
+            <img src="/upcoming-2.png" alt="Upcoming 2" class="w-full rounded-2xl object-cover max-h-[370px] h-[370px]" />
+            <img src="/upcoming-3.png" alt="Upcoming 3" class="w-full rounded-2xl object-cover max-h-[370px] h-[370px]" />
+            <img src="/upcoming-4.png" alt="Upcoming 4" class="w-full rounded-2xl object-cover max-h-[370px] h-[370px]" />
+          </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-8 sm:py-12">
+          <div class="flex flex-row justify-between items-end mb-8">
+            <h2 class="text-3xl font-black text-black">Featured Products</h2>
+            <a href="/shop-now" class="text-black font-semibold text-sm">View all</a>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+            <!-- simple product cards -->
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+              <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                <img src="/trending-1.png" alt="Featured 1" class="h-full object-contain" />
+              </div>
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-900">Smart TV 55"</h3>
+                <p class="text-xs text-gray-500">4K UHD, HDR, Smart features.</p>
+                <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                  <span class="text-primary">€699.00</span>
+                  <span class="text-gray-400 line-through text-xs">€799.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+              <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                <img src="/iphone.png" alt="Featured 2" class="h-full object-contain" />
+              </div>
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-900">Smartphone</h3>
+                <p class="text-xs text-gray-500">128GB, OLED display, 5G.</p>
+                <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                  <span class="text-primary">€999.00</span>
+                  <span class="text-gray-400 line-through text-xs">€1099.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+              <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                <img src="/tv-main.jpg" alt="Featured 3" class="h-full object-contain" />
+              </div>
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-900">Ultra HD TV</h3>
+                <p class="text-xs text-gray-500">Dolby Vision, HDR10+.</p>
+                <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                  <span class="text-primary">€849.00</span>
+                  <span class="text-gray-400 line-through text-xs">€929.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+              <div class="w-full h-48 bg-gray-100 flex items-center justify-center">
+                <img src="/playstation.png" alt="Featured 4" class="h-full object-contain" />
+              </div>
+              <div class="p-4 flex flex-col gap-2">
+                <h3 class="text-sm font-semibold text-gray-900">Gaming Console</h3>
+                <p class="text-xs text-gray-500">Next-gen performance, 4K gaming.</p>
+                <div class="flex items-center justify-between text-sm font-semibold mt-2">
+                  <span class="text-primary">€499.00</span>
+                  <span class="text-gray-400 line-through text-xs">€549.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom Featured -->
+        <section class="py-8 sm:py-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="flex-1 max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
+                  <img src="/controller.png" alt="Bottom Product" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-2">
+                  <h3 class="text-sm font-semibold text-gray-900">Wireless Controller</h3>
+                  <p class="text-xs text-gray-500">Ergonomic design, low latency.</p>
+                </div>
+              </div>
+              <div class="flex-1 max-w-md mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
+                  <img src="/trending-1.png" alt="Bottom Product 2" class="h-full object-contain" />
+                </div>
+                <div class="p-4 flex flex-col gap-2">
+                  <h3 class="text-sm font-semibold text-gray-900">Graphic Card</h3>
+                  <p class="text-xs text-gray-500">High performance gaming GPU.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <a href="#">
+                <img
+                  src="/bottomnewproduct.png"
+                  alt="New Product Banner"
+                  class="h-full w-full object-cover rounded-2xl"
+                />
+              </a>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <!-- Trending Products -->
+    <section class="bg-[#f4f4f4]">
+      <div class="container mx-auto px-4 lg:px-0">
+        <div class="py-8 sm:py-12">
+          <h2 class="text-3xl font-black text-black mb-8">
+            Explore our trending products
+          </h2>
+          <div class="flex flex-col lg:flex-row gap-5">
+            <div class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-sm overflow-hidden grid grid-cols-1 sm:grid-cols-2 p-4 sm:p-6 gap-4 sm:gap-6">
+              <div class="flex items-center justify-center">
+                <div class="max-w-[365px] w-full max-h-[365px] overflow-hidden rounded-lg">
+                  <img
+                    src="/trending-1.png"
+                    alt="Trending Product"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-col justify-center gap-4 px-2 sm:px-0">
+                <span class="max-w-max inline-block bg-primary text-white py-2 px-5 rounded-lg text-xs sm:text-sm uppercase tracking-wide">
+                  NEW PRODUCT
+                </span>
+                <h2 class="text-xl sm:text-3xl font-bold text-black leading-tight">
+                  Gigabyte GeForce 4060
+                </h2>
+                <div class="flex items-center text-sm sm:text-base text-gray-700 font-semibold">
+                  <span class="mr-2">Availability:</span>
+                  <span class="text-primary">6 pcs</span>
+                </div>
+                <div class="flex items-center space-x-4 font-semibold">
+                  <span class="text-xl sm:text-2xl font-bold text-primary">
+                    €300.45
+                  </span>
+                  <span class="text-base sm:text-lg line-through text-gray-400">
+                    €320.45
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticker -->
+    <section class="bg-white">
+      <div class="container mx-auto px-4 lg:px-0">
+        <div class="py-8 sm:py-12">
+          <div class="relative overflow-hidden w-full max-w-6xl mx-auto select-none">
+            <div class="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
+            <div class="flex marquee-inner will-change-transform">
+              <!-- repeating logos -->
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/slack.svg" alt="slack" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/framer.svg" alt="framer" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/netflix.svg" alt="netflix" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/google.svg" alt="google" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/linkedin.svg" alt="linkedin" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/instagram.svg" alt="instagram" class="mx-4 md:mx-8 h-8 w-auto" />
+              <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/facebook.svg" alt="facebook" class="mx-4 md:mx-8 h-8 w-auto" />
+            </div>
+            <div class="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="bg-[url('/newsletter-bg.jpg')] bg-cover bg-center py-10 md:p-12.5 relative">
+      <div class="absolute inset-0 bg-black/50"></div>
+      <div class="relative z-10 container mx-auto px-4 lg:px-0">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col lg:flex-row items-center justify-center p-4 sm:p-8 bg-white gap-6 md:gap-18 rounded-2xl">
+            <div class="max-w-full lg:max-w-[35%]">
+              <h1 class="text-xl md:text-4xl text-center font-black text-black">
+                Sign Up For Newsletter &amp; Get 20% Off
+              </h1>
+            </div>
+            <form class="w-full lg:w-2/3 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-0">
+              <input
+                type="email"
+                required
+                placeholder="Enter your email address"
+                class="border border-black h-12 sm:h-13 px-3 rounded-md sm:rounded-r-none outline-none w-full"
+              />
+              <button
+                type="submit"
+                class="h-12 sm:h-13 px-6 sm:px-10 md:px-12 font-black uppercase text-white bg-black hover:bg-black/90 transition-all rounded-md sm:rounded-l-none"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="bg-[#f4f4f4]">
+      <div class="container mx-auto px-4 lg:px-0">
+        <div class="py-8 sm:py-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-18">
+            <div class="flex flex-row items-center gap-6">
+              <span class="text-3xl text-primary">🚚</span>
+              <div class="space-y-2 md:space-y-4">
+                <h3 class="text-xl lg:text-3xl text-black font-bold">Free delivery</h3>
+                <p class="text-xs sm:text-base">FREE SHIPPING ON ALL ORDER</p>
+              </div>
+            </div>
+            <div class="flex flex-row items-center gap-6">
+              <span class="text-3xl text-primary">💰</span>
+              <div class="space-y-2 md:space-y-4">
+                <h3 class="text-xl lg:text-3xl text-black font-bold">Returns</h3>
+                <p class="text-xs sm:text-base">BACK GUARANTEE UNDER 7 DAYS</p>
+              </div>
+            </div>
+            <div class="flex flex-row items-center gap-6">
+              <span class="text-3xl text-primary">🎧</span>
+              <div class="space-y-2 md:space-y-4">
+                <h3 class="text-xl lg:text-3xl text-black font-bold">Support 24/7</h3>
+                <p class="text-xs sm:text-base">SUPPORTS ONLINE 24/7 A DAY</p>
+              </div>
+            </div>
+            <div class="flex flex-row items-center gap-6">
+              <span class="text-3xl text-primary">💳</span>
+              <div class="space-y-2 md:space-y-4">
+                <h3 class="text-xl lg:text-3xl text-black font-bold">Payment</h3>
+                <p class="text-xs sm:text-base">100% PAYMENT SECURITY</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#F8F8F8]">
+    <div class="w-full mx-auto">
+      <div class="py-8 sm:py-12 border-y border-[#ebebeb]">
+        <div class="px-4 sm:px-0 w-full text-sm container mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-14">
+            <div class="sm:col-span-1 lg:col-span-2">
+              <a href="/">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  class="logo block h-auto w-auto max-w-[297px] max-h-[100px] object-contain max-[576px]:max-w-[200px]"
+                />
+              </a>
+              <p class="text-sm mt-6 font-semibold text-black">
+                <a href="mailto:Info@ramspeedcy.com">Info@ramspeedcy.com</a>
+              </p>
+              <p class="text-sm mt-2 font-semibold text-black">
+                <a href="tel:+35724400601">+357 24-400601</a>
+              </p>
+            </div>
+
+            <!-- About Us -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">About Us</h2>
+                <a href="/about-us" class="hover:text-black transition font-medium">About Us</a>
+                <a href="/contact-us" class="hover:text-black transition font-medium">Contact us</a>
+              </div>
+            </div>
+
+            <!-- Support -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Support</h2>
+                <a href="/track-repair" class="hover:text-black transition font-medium">Track your repair</a>
+                <a href="/contact-us" class="hover:text-black transition font-medium">Contact us</a>
+                <a href="/repair-terms" class="hover:text-black transition font-medium">Repair terms</a>
+                <a href="/haul-away" class="hover:text-black transition font-medium">Haul Away</a>
+                <a href="/security-center" class="hover:text-black transition font-medium">Security Center</a>
+                <a href="/contact" class="hover:text-black transition font-medium">Contact</a>
+              </div>
+            </div>
+
+            <!-- Order -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Order</h2>
+                <a href="/check-order" class="hover:text-black transition font-medium">Check Order</a>
+                <a href="/delivery-pickup" class="hover:text-black transition font-medium">Delivery &amp; Pickup</a>
+                <a href="/returns" class="hover:text-black transition font-medium">Returns</a>
+                <a href="/exchanges" class="hover:text-black transition font-medium">Exchanges</a>
+                <a href="/gift-cards" class="hover:text-black transition font-medium">Gift Cards</a>
+              </div>
+            </div>
+
+            <!-- Terms & Policies -->
+            <div class="flex flex-col lg:items-center lg:justify-start">
+              <div class="flex flex-col text-sm space-y-2.5">
+                <h2 class="font-semibold mb-6 text-black">Terms &amp; Policies</h2>
+                <a href="/privacy-policy" class="hover:text-black transition font-medium">Privacy Policy</a>
+                <a href="/limited-warranty" class="hover:text-black transition font-medium">Limited Warranty</a>
+                <a href="/returns-cancellation-policy" class="hover:text-black transition font-medium">Returns and Cancellation Policy</a>
+                <a href="/developers" class="hover:text-black transition font-medium">Developers</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trending tags -->
+          <div class="w-full pt-8 sm:pt-12">
+            <div class="mb-4">
+              <h2 class="text-2xl font-black text-black">Trending Tags:</h2>
+            </div>
+            <div class="flex flex-row flex-wrap gap-2 lg:gap-5">
+              <!-- a few example tags -->
+              <a href="/shop-now/tags/shoes" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Shoes</a>
+              <a href="/shop-now/tags/smartphones" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Smartphones</a>
+              <a href="/shop-now/tags/electronics" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Electronics</a>
+              <a href="/shop-now/tags/running" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Running</a>
+              <a href="/shop-now/tags/accessories" class="hover:text-primary bg-white border border-[#919eab] hover:border-primary transition duration-100 rounded-md md:rounded-xl px-3 md:px-5 py-1 md:py-2 text-sm">Accessories</a>
+            </div>
+
+            <!-- Payment logos -->
+            <div class="flex flex-row flex-wrap items-end justify-end gap-5 mt-8">
+              <img src="/mastercard.png" alt="Mastercard" class="w-12 h-8 object-contain" />
+              <img src="/paypal.png" alt="Paypal" class="w-12 h-8 object-contain" />
+              <img src="/visa.png" alt="Visa" class="w-12 h-8 object-contain" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="p-6 text-center">
+        <p class="font-semibold">© Ecomall. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+

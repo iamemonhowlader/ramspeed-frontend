@@ -1,0 +1,176 @@
+/* Custom Styles for MikeOnouf Administration Dashboard */
+
+:root {
+  --primary-color: #007bff;
+  --primary-glow: rgba(0, 123, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --border-color: #f1f3f5;
+  --text-dark: #2d3436;
+  --text-muted: #636e72;
+}
+
+body {
+  background-color: #fafafa;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  color: var(--text-dark);
+}
+
+/* Glassmorphism Header */
+.glass-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* Premium Navigation Links */
+.nav-link-premium {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.nav-link-premium:hover {
+  background-color: #f8f9fa;
+  color: var(--primary-color);
+}
+
+.nav-link-premium.active {
+  background-color: var(--primary-glow);
+  color: var(--primary-color);
+  border-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Search Bar */
+.search-container-premium {
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+}
+
+.search-input-premium {
+  background-color: #f8f9fa;
+  border: 1px solid #eee;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  transition: all 0.3s;
+}
+
+.search-input-premium:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 4px var(--primary-glow);
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.search-icon-premium {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+  font-size: 0.9rem;
+}
+
+/* Quick Action Buttons */
+.btn-action-premium {
+  color: var(--text-muted);
+  border-radius: 10px;
+  transition: all 0.2s;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-action-premium:hover {
+  background-color: var(--primary-glow);
+  color: var(--primary-color);
+}
+
+/* Dashboard Cards */
+.card-premium {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Overrides */
+@media (max-width: 991.98px) {
+  .xl-hidden {
+    display: block !important;
+  }
+}
+/* Product Cards */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  border: none;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Upload Area */
+.upload-area {
+  transition: all 0.2s;
+  background-color: #f8f9fa;
+  border: 2px dashed #dee2e6;
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-glow);
+}
+
+/* Animations */
+.transition-slow { transition: all 0.5s ease; }
+.cursor-pointer { cursor: pointer; }
+
+/* Custom Colors Overlay */
+.table-primary.table-opacity-10 {
+  background-color: rgba(0, 123, 255, 0.05) !important;
+}
+
+.smaller { font-size: 0.8rem; }
+.fw-black { font-weight: 900; }
+.letter-spacing-1 { letter-spacing: 1px; }
+
+/* Dropdown Premium */
+.dropdown-menu {
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-glow);
+    color: var(--primary-color);
+}

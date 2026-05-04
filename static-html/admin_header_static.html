@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Final Fixed Version</title>
+    
+    <!-- CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0068C8',
+                            foreground: '#ffffff',
+                            600: '#0068C8',
+                            700: '#0056a6',
+                        },
+                        dark: '#101828',
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F9FAFB; margin: 0; padding: 0; }
+        
+        /* FIX: Prevent Table from Stacking Vertically */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 1500px; /* Forces horizontal scroll instead of vertical stack */
+            table-layout: auto;
+        }
+
+        /* React-style Table Header */
+        .th-custom {
+            background-color: #F7F8F9;
+            border: 1px solid #E8E8E8;
+            height: 80px; /* h-20 in React */
+            color: #0068C8;
+            font-weight: 700;
+            font-size: 12px;
+            text-align: center;
+            padding: 0 10px;
+            white-space: nowrap;
+        }
+
+        /* React-style Table Cell */
+        .td-custom {
+            border: 1px solid #E8E8E8;
+            height: 80px; /* h-20 in React */
+            padding: 0 10px;
+            font-size: 12px;
+            color: #101828;
+            vertical-align: middle;
+        }
+
+        /* Responsive height for smaller screens like React h-15 */
+        @media (max-width: 1280px) {
+            .th-custom, .td-custom { height: 60px; }
+        }
+
+        /* Custom Scrollbar for the table container */
+        .table-scroll-container::-webkit-scrollbar { height: 6px; }
+        .table-scroll-container::-webkit-scrollbar-track { background: #f1f1f1; }
+        .table-scroll-container::-webkit-scrollbar-thumb { background: #0068C8; border-radius: 10px; }
+
+        /* Dropdown Simple Logic */
+        .dropdown-parent { position: relative; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; z-index: 50; min-width: 180px; }
+        .dropdown-parent:hover .dropdown-content { display: block; }
+
+        /* Sub-dropdown Logic */
+        .sub-dropdown-parent { position: relative; }
+        .sub-dropdown-content { 
+            display: none; 
+            position: absolute; 
+            top: 0; 
+            left: 100%; 
+            z-index: 60; 
+            padding-left: 5px;
+        }
+        .sub-dropdown-parent:hover > .sub-dropdown-content { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50/50">
+
+    <header class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+        <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between gap-4">
+            
+            <!-- LEFT: Logo & Mobile Trigger -->
+            <div class="flex items-center gap-3">
+                <div class="xl:hidden">
+                    <button id="openSidebar" class="p-2 hover:bg-primary/5 text-gray-600 rounded-lg focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <a href="/" class="flex items-center gap-2">
+                    <!-- Ensure logo doesn't hang if missing -->
+                    <img src="logo.png"  alt="Logo" class="h-8 md:h-[5.5rem] w-auto object-contain">
+                    <!-- <span class="hidden lg:inline-block text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-0.5 rounded border border-gray-100">Admin</span> -->
+                </a>
+            </div>
+
+            <!-- CENTER: Desktop Navigation -->
+            <nav class="hidden xl:flex items-center gap-1">
+                <!-- Home -->
+                <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/5 text-primary shadow-sm border border-primary/10 font-bold text-xs">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span>Home</span>
+                </a>
+
+                <!-- Menu -->
+                <a href="#" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-bold text-xs transition-colors">
+                    <i data-lucide="menu" class="w-4 h-4"></i>
+                    <span>Menu</span>
+                </a>
+
+                <!-- Shop Management -->
+                <div class="dropdown-parent group">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 font-bold text-xs focus:outline-none transition-all">
+                        <i data-lucide="store" class="w-4 h-4"></i>
+                        <span>Shop Management</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="dropdown-content pt-2">
+                        <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Orders</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Expenses</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Old Orders</a>
+                            
+                            <div class="sub-dropdown-parent">
+                                <button class="w-full px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium flex justify-between items-center">
+                                    <span>Store Stock</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                                <!-- Sub Menu -->
+                                <div class="sub-dropdown-content">
+                                    <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">All Stock</a>
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Active Stock</a>
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Inactive Stock</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Receipts</a>
+                            
+                            <div class="sub-dropdown-parent">
+                                <button class="w-full px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium flex justify-between items-center">
+                                    <span>Balance Sheets</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                                <div class="sub-dropdown-content">
+                                    <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">1st Balance Sheet</a>
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">2nd Balance Sheet</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Store Information</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Change Logo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Management -->
+                <div class="dropdown-parent group">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 font-bold text-xs focus:outline-none transition-all">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                        <span>Users Management</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="dropdown-content pt-2">
+                        <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                            <div class="sub-dropdown-parent">
+                                <button class="w-full px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium flex justify-between items-center">
+                                    <span>Members</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                                <div class="sub-dropdown-content">
+                                    <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Members</a>
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Clients</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-dropdown-parent">
+                                <button class="w-full px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium flex justify-between items-center">
+                                    <span>Users</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                                <div class="sub-dropdown-content">
+                                    <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Accounts</a>
+                                        <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Access Levels</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 font-medium">Suppliers</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customization -->
+                <div class="dropdown-parent group">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all font-bold text-xs focus:outline-none">
+                        <i data-lucide="globe" class="w-4 h-4"></i>
+                        <span>Customization</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="dropdown-content pt-2">
+                        <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium">Advertisements</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium">Custom Navbar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing -->
+                <div class="dropdown-parent group">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all font-bold text-xs focus:outline-none">
+                        <i data-lucide="trending-up" class="w-4 h-4"></i>
+                        <span>Marketing</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="dropdown-content pt-2">
+                        <div class="w-56 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium">Statistics</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium">Email Newsletter</a>
+                            <a href="#" class="block px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium">SMS</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More -->
+                <div class="dropdown-parent group">
+                    <button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all font-bold text-xs focus:outline-none">
+                        <i data-lucide="settings" class="w-4 h-4"></i>
+                        <span>More</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 ml-1 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    <div class="dropdown-content pt-2">
+                        <div class="w-64 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                            <div class="sub-dropdown-parent">
+                                <button class="w-full px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-50 font-medium flex justify-between items-center">
+                                    <span>Backups Management</span>
+                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                </button>
+                                <div class="sub-dropdown-content" style="left: -100%; padding-right: 10px; margin-right: -5px; padding-left: 0; margin-left: 0;">
+                                    <div class="w-72 bg-white border border-gray-200 shadow-2xl rounded-xl p-1">
+                                        <a href="#" class="block px-3 py-2 text-[10px] font-bold text-gray-700 hover:bg-blue-50 rounded-lg">RAMSPEEDCY BACKUP</a>
+                                        <a href="#" class="block px-3 py-2 text-[10px] font-bold text-gray-700 hover:bg-blue-50 rounded-lg">MEANDMALL BACKUP</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="block px-3 py-2 text-sm text-red-600 rounded-lg hover:bg-red-50 font-bold mt-1 border-t border-gray-50 pt-3">Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- RIGHT: Actions & Profile -->
+            <div class="flex items-center gap-2 sm:gap-4 flex-1 justify-end">
+                <!-- Search -->
+                <div class="hidden md:block w-64 lg:w-80">
+                    <div class="relative group">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search..." class="w-full bg-gray-50 border border-gray-200 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all">
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="flex items-center gap-1 sm:gap-2">
+                    <button class="relative p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                    </button>
+                    <button class="p-2 text-gray-500 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Profile -->
+                <div class="flex items-center gap-3 pl-2 border-l border-gray-100 cursor-pointer group">
+                    <div class="relative">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="w-10 h-10 rounded-full border-2 border-transparent group-hover:border-primary/20 transition-all">
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div class="hidden sm:block">
+                        <p class="font-bold text-sm text-gray-800 leading-tight">John Karter</p>
+                        <p class="text-xs text-gray-400 font-medium">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity"></div>
+
+    <!-- Mobile Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-80 bg-white z-[70] -translate-x-full shadow-2xl overflow-y-auto no-scrollbar">
+        <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
+            <div class="flex items-center gap-3">
+                <img src="image.png"  alt="Logo" class="h-8 w-auto">
+                <!-- <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Admin</span> -->
+            </div>
+            <button id="closeSidebar" class="p-2 hover:bg-gray-100 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <nav class="p-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-bold text-sm">
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span>Home Dashboard</span>
+            </a>
+            <div class="mobile-accordion">
+                <button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-100 text-gray-700 font-bold text-sm hover:bg-gray-50">
+                    <i data-lucide="store" class="w-5 h-5"></i>
+                    <span class="flex-1 text-left">Shop Management</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform arrow"></i>
+                </button>
+                <div class="hidden flex-col gap-1 mt-1 pl-4 content">
+                    <a href="#" class="px-4 py-2 rounded-lg text-sm text-gray-500 hover:bg-blue-50">Orders</a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-sm text-gray-500 hover:bg-blue-50">Expenses</a>
+                </div>
+            </div>
+            <div class="pt-10">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 bg-red-50 font-bold text-sm">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="space-y-20 pb-20">
+        
+        <!-- 2. HERO / ADMIN PANEL SECTION -->
+        <section class="relative w-full py-16 px-4">
+            <!-- Background Layer -->
+            <div class="absolute inset-0 z-0">
+                <img src="/dashboard/image5.jpg" onerror="this.src='https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069'" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/40"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 flex justify-center">
+                <div class="bg-[#F5FAFF] rounded-2xl shadow-2xl p-6 md:p-12 lg:px-20 lg:py-16 max-w-2xl w-full border border-white/20 backdrop-blur-sm">
+                    <h1 class="text-2xl md:text-3xl font-semibold text-dark">Administrator control panel</h1>
+                    <p class="text-gray-500 text-sm md:text-base mt-4 mb-8">Manage your stock, products, and supplier details efficiently.</p>
+
+                    <form class="space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700">All</label>
+                            <select class="w-full bg-white border border-gray-200 rounded-lg p-3.5 text-sm font-semibold outline-none focus:border-primary">
+                                <option>Select Product</option>
+                                <option>X box series - 1TB</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700"> All Suppliers </label>
+                            <select class="w-full bg-white border border-gray-200 rounded-lg p-3.5 text-sm font-semibold outline-none focus:border-primary">
+                                <option>Select Supplier</option>
+                                <option>MS ELECTRONICS</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700">Search Products</label>
+                            <input type="text" placeholder="Search products" class="w-full bg-white border border-gray-200 rounded-lg p-3.5 text-sm font-semibold outline-none focus:border-primary placeholder:text-gray-300">
+                        </div>
+                        <div class="pt-2">
+                            <button type="submit" class="w-full md:w-auto px-12 py-3.5 bg-primary text-white rounded-lg font-bold hover:bg-white hover:text-primary border border-primary transition-all active:scale-95 shadow-lg shadow-primary/20 text-sm">
+                                Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PRODUCT TABLE SECTION -->
+        <section class="max-w-[1920px] mx-auto px-4 md:px-8">
+            <div class="mb-10">
+                <h1 class="text-dark font-bold text-3xl lg:text-4xl mb-2">
+                    Manage your products <span class="text-primary">Without Stock</span>
+                </h1>
+                <p class="text-gray-500 font-medium">Displaying all items that are currently unavailable for sale.</p>
+            </div>
+
+            
+            <div class="table-scroll-container overflow-x-auto rounded-xl border border-gray-100 shadow-sm bg-white">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th-custom">Item ID</th>
+                            <th class="th-custom">Image</th>
+                            <th class="th-custom" style="text-align: left; min-width: 250px;">Name</th>
+                            <th class="th-custom">Price <br> $</th>
+                            <th class="th-custom">Price <br> €</th>
+                            <th class="th-custom">Selling price <br> €</th>
+                            <th class="th-custom">Price in Cyprus <br> €</th>
+                            <th class="th-custom">CY+ PROF/TAX <br> €</th>
+                            <th class="th-custom">Wholesaler <br> €</th>
+                            <th class="th-custom">Store <br> profit (%)</th>
+                            <th class="th-custom">Wholesaler <br> profit (%)</th>
+                            <th class="th-custom">Discount <br> price (%)</th>
+                            <th class="th-custom">Code</th>
+                            <th class="th-custom">Supplier</th>
+                            <th class="th-custom">Offers</th>
+                            <th class="th-custom">New arrival</th>
+                            <th class="th-custom">Flash Sale</th>
+                            <th class="th-custom">Active</th>
+                            <th class="th-custom" style="border-right: 0;">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <script>
+                            for(let i=0; i<6; i++) {
+                                document.write(`
+                                    <tr class="${i % 2 !== 0 ? 'bg-[#EFEFEF]' : 'bg-white'}">
+                                        <td class="td-custom text-center font-bold">2250</td>
+                                        <td class="td-custom text-center">
+                                            <div class="w-12 h-12 mx-auto bg-white rounded border border-gray-100 p-1 flex items-center justify-center">
+                                                <img src="pd.png" class="max-w-full max-h-full object-contain">
+                                            </div>
+                                        </td>
+                                        <td class="td-custom font-bold leading-snug" style="min-width: 250px;">X box series - 1TB Gaming oil digital console</td>
+                                        <td class="td-custom text-center font-bold">345.00</td>
+                                        <td class="td-custom text-center font-bold">356.00</td>
+                                        <td class="td-custom text-center font-bold">356.00</td>
+                                        <td class="td-custom text-center font-bold">356.00</td>
+                                        <td class="td-custom text-center font-bold">356.00</td>
+                                        <td class="td-custom text-center font-bold">356.00</td>
+                                        <td class="td-custom text-center">
+                                            <span class="text-[#00D68F] bg-[#CCFCEB] border border-[#00D68F] rounded px-2 py-1 font-bold text-[10px]">85</span>
+                                        </td>
+                                        <td class="td-custom text-center">
+                                            <span class="text-[#66DE8F] bg-[#DCFFE6] border border-[#66DE8F] rounded px-2 py-1 font-bold text-[10px]">0</span>
+                                        </td>
+                                        <td class="td-custom text-center">
+                                            <span class="text-[#8095FF] bg-[#E4E8FF] border border-[#8095FF] rounded px-2 py-1 font-bold text-[10px]">19</span>
+                                        </td>
+                                        <td class="td-custom font-semibold text-gray-500">Telephone cord</td>
+                                        <td class="td-custom font-semibold text-gray-500">MS ELECTRONICS</td>
+                                        <td class="td-custom text-center">
+                                            <span class="bg-primary text-white rounded-full px-3 py-1 text-[10px] font-bold">OFFERS</span>
+                                        </td>
+                                        <td class="td-custom text-center">
+                                            <span class="bg-[#FF6B9C] text-white rounded-full px-3 py-1 text-[10px] font-bold">NEW</span>
+                                        </td>
+                                        <td class="td-custom text-center">
+                                            <span class="bg-primary text-white rounded-full px-3 py-1 text-[10px] font-bold">FLASH</span>
+                                        </td>
+                                        <td class="td-custom text-center">
+                                            <div class="h-8 w-8 mx-auto flex items-center justify-center text-[#51BA00] border border-[#51BA00] rounded bg-white">
+                                                <i data-lucide="check" class="w-4 h-4"></i>
+                                            </div>
+                                        </td>
+                                        <td class="td-custom text-center" style="border-right: 0;">
+                                            <div class="flex items-center gap-2">
+                                                <button class="bg-primary text-white border border-primary px-4 py-1.5 rounded font-bold hover:bg-white hover:text-primary transition-all text-[11px]">Edit</button>
+                                                <button class="border border-red-600 text-red-600 px-4 py-1.5 rounded font-bold hover:bg-red-600 hover:text-white transition-all text-[11px]">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `);
+                            }
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script>
+        lucide.createIcons();
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        const toggleSidebar = (isOpen) => {
+            if (isOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
+        };
+
+        openBtn.addEventListener('click', () => toggleSidebar(true));
+        closeBtn.addEventListener('click', () => toggleSidebar(false));
+        overlay.addEventListener('click', () => toggleSidebar(false));
+
+        document.querySelectorAll('.mobile-accordion button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const arrow = btn.querySelector('.arrow');
+                content.classList.toggle('hidden');
+                content.classList.toggle('flex');
+                arrow.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+</body>
+</html>

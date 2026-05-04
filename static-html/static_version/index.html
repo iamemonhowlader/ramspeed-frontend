@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAMSPEED CY | Home</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&family=Mulish:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            color: white;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+        .product-card {
+            border: 0;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Public Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <span class="text-primary">RAM</span>SPEED
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navPublic">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navPublic">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+                    <li class="nav-item"><a class="nav-link active fw-semibold" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="shop.html">Shop Now</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="shop.html">Trending</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="flash-sale.html">Deals</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="login.html" class="btn btn-outline-dark px-4 rounded-pill small fw-bold">Login</a>
+                    <a href="register.html" class="btn btn-primary px-4 rounded-pill small fw-bold shadow-sm">Sign Up</a>
+                    <div class="position-relative ms-2 cursor-pointer" onclick="location.href='cart.html'">
+                        <i class="bi bi-cart3 fs-4"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Hero Slider Area -->
+        <div class="hero-section px-5">
+            <div class="max-w-md">
+                <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">New Arrival 2026</span>
+                <h1 class="display-3 fw-bold mb-4">Unleash Your<br>Speed Potential</h1>
+                <p class="lead mb-5 opacity-75">Premium performance accessories and electronics for the modern fast-paced lifestyle.</p>
+                <div class="hstack gap-3">
+                    <a href="shop.html" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold">Shop Now</a>
+                    <a href="#" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold">Explore</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deals of the Week -->
+        <section class="py-5 my-5">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="fw-bold mb-0">Deal of the <span class="text-primary">week</span></h2>
+                <a href="#" class="text-primary text-decoration-none fw-bold">View All <i class="bi bi-arrow-right"></i></a>
+            </div>
+            <div class="row g-4">
+                <div class="col-6 col-md-3">
+                    <div class="card product-card cursor-pointer" onclick="location.href='product-detail.html'">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                        <div class="card-body">
+                            <h6 class="text-muted small mb-1">Electronics</h6>
+                            <h6 class="fw-bold mb-2">Wireless Headphones Pro</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-primary fw-bold">€129.00</span>
+                                <span class="text-muted text-decoration-line-through small">€159.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                        <div class="card-body">
+                            <h6 class="text-muted small mb-1">Accessories</h6>
+                            <h6 class="fw-bold mb-2">Modern Watch Series X</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-primary fw-bold">€299.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                        <div class="card-body">
+                            <h6 class="text-muted small mb-1">Shoes</h6>
+                            <h6 class="fw-bold mb-2">Sport Running Shoes</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-primary fw-bold">€85.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1526170315870-ef6d82f583ad?auto=format&fit=crop&q=80&w=500" class="card-img-top" alt="Product">
+                        <div class="card-body">
+                            <h6 class="text-muted small mb-1">Cameras</h6>
+                            <h6 class="fw-bold mb-2">Vintage Camera 35mm</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-primary fw-bold">€450.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-5 my-5 bg-dark text-white rounded-5 overflow-hidden position-relative">
+            <div class="container py-5 text-center position-relative z-2">
+                <h2 class="display-5 fw-bold mb-3">Keep In Touch</h2>
+                <p class="lead opacity-75 mb-5 mx-auto" style="max-width: 600px;">Subscribe to our newsletter and get 10% off your first purchase plus latest updates on new arrivals.</p>
+                <form class="d-flex gap-2 max-w-md mx-auto justify-content-center" style="max-width: 500px;">
+                    <input type="email" class="form-control form-control-lg rounded-pill" placeholder="Your email address">
+                    <button class="btn btn-primary btn-lg rounded-pill px-5 fw-bold">Subscribe</button>
+                </form>
+            </div>
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-10" style="background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);"></div>
+        </section>
+    </div>
+
+    <!-- Public Footer -->
+    <footer class="bg-white border-top py-5 mt-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="navbar-brand fw-bold fs-3 mb-4 d-block" href="#">
+                        <span class="text-primary">RAM</span>SPEED
+                    </a>
+                    <p class="text-muted mb-4">Leading the way in high-performance electronics and lifestyle accessories. Quality guaranteed.</p>
+                    <div class="hstack gap-3">
+                        <a href="#" class="btn btn-light rounded-circle p-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-light rounded-circle p-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-light rounded-circle p-2"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold mb-4">Quick Links</h6>
+                    <ul class="list-unstyled d-grid gap-2 small">
+                        <li><a href="shop.html" class="text-muted text-decoration-none">Shop Now</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">New Arrivals</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Best Sellers</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold mb-4">Account</h6>
+                    <ul class="list-unstyled d-grid gap-2 small">
+                        <li><a href="login.html" class="text-muted text-decoration-none">Login</a></li>
+                        <li><a href="register.html" class="text-muted text-decoration-none">Register</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">My Orders</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-4">Contact Us</h6>
+                    <div class="small">
+                        <p class="text-muted mb-2"><i class="bi bi-geo-alt me-2"></i> Limassol, Cyprus</p>
+                        <p class="text-muted mb-2"><i class="bi bi-envelope me-2"></i> info@ramspeedcy.com</p>
+                        <p class="text-muted mb-0"><i class="bi bi-telephone me-2"></i> +357 12345678</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mt-5 pt-4 text-center">
+                <p class="text-muted small mb-0">&copy; 2026 RAMSPEED CY. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

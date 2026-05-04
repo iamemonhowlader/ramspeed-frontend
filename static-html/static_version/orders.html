@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders | MikeOnouf</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header (Same as Dashboard) -->
+    <header class="glass-header sticky-top py-2">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link d-xl-none p-0 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list fs-2"></i>
+                    </button>
+                    <a href="dashboard.html" class="navbar-brand fw-bold fs-4 d-flex align-items-center text-decoration-none">
+                        <span class="text-primary">Mike</span>Onouf
+                    </a>
+                </div>
+                <nav class="d-none d-xl-flex align-items-center gap-1">
+                    <a href="dashboard.html" class="nav-link-premium">
+                        <i class="bi bi-house"></i> Home
+                    </a>
+                    <a href="menu-products.html" class="nav-link-premium">
+                        <i class="bi bi-menu-button-wide"></i> Menu
+                    </a>
+                    <div class="dropdown">
+                        <button class="nav-link-premium border-0 bg-transparent dropdown-toggle active" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-shop"></i> Shop Management
+                        </button>
+                        <ul class="dropdown-menu border-0 shadow-lg rounded-4">
+                            <li><a class="dropdown-item active" href="orders.html">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Expenses</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Store Information</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="d-flex align-items-center justify-content-end gap-2 gap-sm-4 flex-grow-1">
+                    <div class="search-container-premium d-none d-md-block">
+                        <i class="bi bi-search search-icon-premium"></i>
+                        <input type="text" class="search-input-premium form-control" placeholder="Search invoices...">
+                    </div>
+                    <div class="d-flex align-items-center gap-2 ps-2">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="rounded-circle border" width="40" height="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fw-bold"><span class="text-primary">Mike</span>Onouf</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-4">
+            <nav class="nav flex-column gap-2">
+                <a href="dashboard.html" class="nav-link-premium py-3">
+                    <i class="bi bi-house fs-5"></i> Home
+                </a>
+                <a href="orders.html" class="nav-link-premium active py-3">
+                    <i class="bi bi-shop fs-5"></i> Orders
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-5 bg-light min-vh-100">
+        <div class="container-fluid px-lg-5">
+            
+            <!-- Page Heading -->
+            <div class="row align-items-center mb-5">
+                <div class="col">
+                    <h1 class="fw-bold mb-1">Orders</h1>
+                    <p class="text-muted">Customize your order information here</p>
+                </div>
+                <div class="col-auto d-flex gap-2">
+                    <button class="btn btn-outline-secondary px-4 rounded-3 hstack gap-2">
+                        <i class="bi bi-file-earmark-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-primary px-4 rounded-3 shadow-sm hstack gap-2">
+                        <i class="bi bi-layout-text-window"></i> Trial Balance
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="row g-4 mb-5">
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="card card-premium p-4">
+                        <div class="hstack justify-content-between mb-3">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"><i class="bi bi-bar-chart-line fs-4"></i></div>
+                        </div>
+                        <h6 class="text-muted small">Total Sales</h6>
+                        <h3 class="fw-bold">€300.45</h3>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="card card-premium p-4">
+                        <div class="hstack justify-content-between mb-3">
+                            <div class="bg-success bg-opacity-10 p-2 rounded-3 text-success"><i class="bi bi-cash-stack fs-4"></i></div>
+                        </div>
+                        <h6 class="text-muted small">Estimated Profit</h6>
+                        <h3 class="fw-bold">€300.45</h3>
+                    </div>
+                </div>
+                <!-- Wide Secondary Stats -->
+                <div class="col-12 col-xl-6">
+                    <div class="card card-premium p-4 h-100">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-6 border-end">
+                                <div class="hstack gap-3">
+                                    <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info"><i class="bi bi-wallet2 fs-4"></i></div>
+                                    <div>
+                                        <h6 class="text-muted small mb-0">Total Expenses</h6>
+                                        <h4 class="fw-bold mb-0">€300.45</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="hstack gap-3">
+                                    <div class="bg-danger bg-opacity-10 p-3 rounded-circle text-danger"><i class="bi bi-box-seam fs-4"></i></div>
+                                    <div>
+                                        <h6 class="text-muted small mb-0">Cyprus Stock</h6>
+                                        <h4 class="fw-bold mb-0">300.45</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter & Search -->
+            <div class="card card-premium p-4 mb-4">
+                <div class="row g-3 align-items-end">
+                    <div class="col-lg-6">
+                        <label class="form-label small fw-semibold">Search orders</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" placeholder="Search by customer name or invoice number">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3">
+                        <label class="form-label small fw-semibold">Date Range</label>
+                        <input type="text" class="form-control" placeholder="15/06/2023 - 25/12/2024">
+                    </div>
+                    <div class="col-md-2 col-lg-3">
+                        <button class="btn btn-primary w-100 py-2">Search Orders</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="card card-premium overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">Invoice #</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4 fw-semibold text-primary">INV-2024-001</td>
+                                <td>Oct 12, 2024</td>
+                                <td>
+                                    <div class="fw-medium">Robert Wilson</div>
+                                    <div class="text-muted smaller">robert@example.com</div>
+                                </td>
+                                <td class="fw-bold">€1,450.00</td>
+                                <td><span class="badge text-bg-light border text-dark">Credit Card</span></td>
+                                <td><span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-10">Paid</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-light btn-sm"><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-light btn-sm"><i class="bi bi-download"></i></button>
+                                </td>
+                            </tr>
+                            <tr class="bg-light bg-opacity-50">
+                                <td class="ps-4 fw-semibold text-primary">INV-2024-002</td>
+                                <td>Oct 10, 2024</td>
+                                <td>
+                                    <div class="fw-medium">Emily Davis</div>
+                                    <div class="text-muted smaller">emily.d@example.com</div>
+                                </td>
+                                <td class="fw-bold">€890.00</td>
+                                <td><span class="badge text-bg-light border text-dark">Bank Transfer</span></td>
+                                <td><span class="badge rounded-pill bg-warning bg-opacity-10 text-warning border border-warning border-opacity-10">Pending</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-light btn-sm"><i class="bi bi-eye"></i></button>
+                                    <button class="btn btn-light btn-sm"><i class="bi bi-download"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 bg-white border-top text-center">
+        <p class="mb-0 text-muted small">&copy; 2026 MikeOnouf. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

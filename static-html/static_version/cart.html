@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | RAMSPEED CY</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="index.html">
+                <span class="text-primary">RAM</span>SPEED
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm p-4 p-lg-5 rounded-4">
+                        <div class="d-none d-md-grid grid-cols-cart border-bottom pb-3 mb-4 fw-bold text-primary small text-uppercase" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 20px;">
+                            <div>Products</div>
+                            <div>Price</div>
+                            <div>Quantity</div>
+                            <div>Sub-Total</div>
+                        </div>
+
+                        <!-- Cart Item -->
+                        <div class="row align-items-center mb-4 pb-4 border-bottom g-3">
+                            <div class="col-md-5 d-flex align-items-center gap-3">
+                                <button class="btn btn-outline-danger btn-sm rounded-circle p-1"><i class="bi bi-x fs-5"></i></button>
+                                <div class="bg-light p-2 rounded-3" style="width: 80px; height: 80px;">
+                                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=200" class="img-fluid" alt="cart item">
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 fw-bold">Xbox Series - 1TB Console</h6>
+                                    <span class="text-muted smaller">SKU: <span class="text-primary">A264671</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-md-center">
+                                <span class="d-md-none text-muted me-2">Price:</span>
+                                <span>€300.45</span>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm m-auto" style="max-width: 120px;">
+                                    <button class="btn btn-outline-secondary">-</button>
+                                    <input type="text" class="form-control text-center" value="03">
+                                    <button class="btn btn-outline-secondary">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2 text-md-end">
+                                <span class="d-md-none text-muted me-2">Sub-total:</span>
+                                <span class="fw-bold text-dark">€901.35</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="shop.html" class="btn btn-outline-primary px-4 py-3 rounded-3 fw-bold uppercase small">Return to Shop</a>
+                            <button class="btn btn-primary px-4 py-3 rounded-3 fw-bold uppercase small">Empty Cart</button>
+                        </div>
+
+                        <!-- Coupon -->
+                        <div class="mt-5">
+                            <h6 class="fw-bold mb-3">Coupon Code</h6>
+                            <div class="d-flex gap-2">
+                                <input type="text" class="form-control py-3" placeholder="Enter coupon code">
+                                <button class="btn btn-primary px-4 py-3 rounded-3 fw-bold">APPLY</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Summary -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm p-4 p-lg-5 rounded-4 sticky-top" style="top: 100px;">
+                        <h5 class="fw-bold mb-4 uppercase">Cart Details</h5>
+                        <div class="border-bottom mb-4">
+                            <div class="d-flex gap-3 mb-4">
+                                <div class="bg-light rounded p-2" style="width: 60px; height: 60px;">
+                                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=100" class="img-fluid" alt="">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="small fw-bold mb-1">Xbox Series - 1TB Console</p>
+                                    <p class="smaller text-muted mb-0">3 x <span class="text-primary fw-bold">€300.45</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold mb-3">Shipping</h6>
+                        <div class="mb-4">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="ship" id="ship1" checked>
+                                <label class="form-check-label d-flex justify-content-between w-100" for="ship1">
+                                    <span>Free shipping</span> <span class="text-success fw-bold">Free</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="ship" id="ship2">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="ship2">
+                                    <span>Akis pickup:</span> <span class="fw-bold text-dark">€5.00</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="border-top pt-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Sub-total</span>
+                                <span class="fw-bold">€901.35</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Discount</span>
+                                <span class="fw-bold">€24.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4 pb-2">
+                                <span class="text-muted">Tax</span>
+                                <span class="fw-bold">€32.24</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-top pt-4">
+                                <h4 class="fw-bold">Total</h4>
+                                <h4 class="fw-bold text-primary">€914.59</h4>
+                            </div>
+                        </div>
+
+                        <a href="checkout.html" class="btn btn-primary w-100 py-4 mt-4 rounded-4 fw-bold fs-5 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                            Proceed to Checkout <i class="bi bi-arrow-right fs-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 bg-white text-center border-top mt-5">
+        <p class="mb-0 text-muted small">&copy; 2026 RAMSPEED CY. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
