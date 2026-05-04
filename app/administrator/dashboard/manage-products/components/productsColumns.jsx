@@ -3,7 +3,8 @@
 import { Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 import Image from "next/image";
 
 const TableHeader = ({ children, className }) => {
@@ -63,7 +64,7 @@ export const productsColumns = [
     accessorKey: "image",
     header: () => <TableHeader>Image</TableHeader>,
     cell: ({ row }) => {
-      const image = row.getValue("image");
+      const image = row.getValue("image") || "/controller.png";
       return (
         <TableCell className="flex items-center justify-center p-2 overflow-hidden">
           <div className="w-12 h-12 relative">
@@ -267,9 +268,10 @@ export const productsColumns = [
     header: () => <TableHeader>Supplier</TableHeader>,
     cell: ({ row }) => {
       const supplier = row.getValue("supplier");
+      const supplierName = typeof supplier === 'object' ? supplier?.full_name : supplier;
       return (
         <TableCell className="px-3">
-          <span className="font-semibold ">{supplier}</span>
+          <span className="font-semibold ">{supplierName || "N/A"}</span>
         </TableCell>
       );
     },
@@ -339,7 +341,23 @@ export const productsColumns = [
   {
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
-    cell: ({ row }) => { 
+    cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (confirm("Are you sure you want to delete this product?")) {
+          try {
+            const response = await apiFetch(`/api/admin/products/delete/${row.original.id}`, {
+              method: "DELETE",
+            });
+            if (response.success) {
+              toast.success("Product deleted successfully!");
+              window.location.reload();
+            }
+          } catch (error) {
+            toast.error(error.message || "Failed to delete product");
+          }
+        }
+      };
+
       return (
         <TableCell className={"space-x-1"}>
           <Link
@@ -352,7 +370,7 @@ export const productsColumns = [
 
           <button
             className="border hover:bg-red-600 hover:text-white transition-ease-in-out cursor-pointer text-red-600 border-red-600 font-semibold rounded-md px-5 py-2"
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
           >
             Delete
           </button>

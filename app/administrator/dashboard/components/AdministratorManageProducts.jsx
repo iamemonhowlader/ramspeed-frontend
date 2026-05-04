@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Type definitions for better code maintainability
 const PRODUCT_TYPES = {
@@ -226,6 +227,7 @@ const AdministratorManageProducts = () => {
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
   const [processingActions, setProcessingActions] = useState(new Set());
+  const router = useRouter();
 
   // Data transformation with memoization for performance
   const transformedProducts = useMemo(() => {
@@ -491,13 +493,10 @@ const AdministratorManageProducts = () => {
               </td>
               <td className="whitespace-nowrap border-2 border-transparent">
                 <button
-                  onClick={() => handleEditProduct(product.id)}
-                  disabled={processingActions.has(`edit-${product.id}`)}
-                  className="px-4 py-3 bg-[#CAE6FF] border-primary text-primary font-bold cursor-pointer inline-block border-1 rounded-md h-full w-full hover:bg-[#B0DAFF] transition-colors disabled:opacity-50"
+                  onClick={() => router.push(`/administrator/dashboard/products/edit/${product.id}`)}
+                  className="px-4 py-3 bg-[#CAE6FF] border-primary text-primary font-bold cursor-pointer inline-block border-1 rounded-md h-full w-full hover:bg-[#B0DAFF] transition-colors"
                 >
-                  {processingActions.has(`edit-${product.id}`)
-                    ? "Editing..."
-                    : "Edit"}
+                  Edit
                 </button>
               </td>
               <td className="whitespace-nowrap border-2 border-transparent">

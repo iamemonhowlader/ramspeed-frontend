@@ -1,14 +1,15 @@
 "use client";
 
 import z from "zod";
-import ImageContainerDashboard from "../../components/Common/ImageContainerDashboard";
+import ImageContainerDashboard from "@/app/administrator/dashboard/components/Common/ImageContainerDashboard";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import notImplemented from "@/lib/notImplemented";
-import FormSelect from "../../components/Common/FormSelect";
+import FormSelect from "@/app/administrator/dashboard/components/Common/FormSelect";
+import { apiFetch } from "@/lib/api";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const schema = z.object({
   menuNameUK: z.string().min(1, "Menu Name is required"),
@@ -18,6 +19,10 @@ const schema = z.object({
 });
 
 const AddMenuItem = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const parentId = searchParams.get("parent") || 0;
+
   const {
     register,
     handleSubmit,
@@ -32,21 +37,36 @@ const AddMenuItem = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await apiFetch("/api/admin/menu/store", {
+        method: "POST",
+        body: JSON.stringify({
+          name: data.menuNameUK,
+          namegr: data.menuNameGreece,
+          active_page: data.active,
+          type: data.type === 'category' ? 1 : 4, // 1 for category, 4 for product listing in legacy
+          parent: parentId,
+        }),
+      });
+
+      if (response.success) {
+        toast.success("Menu item added successfully!");
+        router.push("/administrator/dashboard/menu-products");
+      }
+    } catch (error) {
+      toast.error(error.message || "Failed to add menu item");
+    }
   };
 
   const onCancel = () => {
-    toast.info("User update canceled");
-    reset();
+    router.back();
   };
 
   return (
     <ImageContainerDashboard
       bg="#F5FAFF"
-      title={"Edit New menu item"}
+      title={"New menu item"}
       subtitle={"Add your new menu item"}
       image={"/dashboard/image2.png"}
     >
@@ -74,14 +94,8 @@ const AddMenuItem = () => {
             label={"Active Page"}
             alignment="row"
             options={[
-              {
-                label: "Yes",
-                value: "yes",
-              },
-              {
-                label: "No",
-                value: "no",
-              },
+              { label: "Yes", value: "yes" },
+              { label: "No", value: "no" },
             ]}
             placeholder={"Select"}
             error={errors?.active}
@@ -93,25 +107,10 @@ const AddMenuItem = () => {
             label={"Type"}
             alignment="row"
             options={[
-              {
-                label: "Category",
-                value: "category",
-              },
-
-              {
-                label: "Content Page",
-                value: "contentPage",
-              },
-
-              {
-                label: "Image Gallery",
-                value: "imageGallery",
-              },
-
-              {
-                label: "Product Listing",
-                value: "productListing",
-              },
+              { label: "Category", value: "category" },
+              { label: "Product Listing", value: "productListing" },
+              // { label: "Content Page", value: "contentPage" },
+              // { label: "Image Gallery", value: "imageGallery" },
             ]}
             placeholder={"Select"}
             error={errors?.type}
@@ -119,8 +118,7 @@ const AddMenuItem = () => {
           />
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 xl:gap-4 w-full">
+        <div className="flex gap-2 xl:gap-4 w-full pt-6">
           <Button
             type="button"
             variant="outline"

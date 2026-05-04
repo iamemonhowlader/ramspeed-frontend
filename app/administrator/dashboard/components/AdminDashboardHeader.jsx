@@ -172,7 +172,6 @@ const AdminDashboardHeader = () => {
           {/* Profile */}
           <div className="flex-shrink-0">
             <AvatarDashboard
-              image="https://randomuser.me/api/portraits/men/32.jpg"
               size={40}
             />
           </div>

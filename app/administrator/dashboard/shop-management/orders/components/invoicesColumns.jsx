@@ -247,12 +247,14 @@ export const invoicesColumns = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const orderId = row.original.id;
       const { details, invoice, pdf } = row.original.options;
+      
       return (
         <TableCell className="space-x-2 flex justify-center">
           {details && (
             <Link
-              href={`/administrator/dashboard/shop-management/orders/${row.original.invoiceNo}`}
+              href={`/administrator/dashboard/shop-management/orders/${orderId}`}
             >
               <button className="bg-[#0068C8] cursor-pointer text-white border border-[#0068C8] hover:bg-white hover:text-[#0068C8] transition rounded-md font-semibold px-3 py-1 flex items-center gap-1">
                 <Info size={14} /> Details
@@ -261,7 +263,7 @@ export const invoicesColumns = [
           )}
           {invoice && (
             <button
-              onClick={() => notImplemented()}
+              onClick={() => window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/admin/orders/invoice/${orderId}`, '_blank')}
               className="border border-[#8095FF] cursor-pointer text-[#8095FF] hover:bg-[#8095FF] hover:text-white transition rounded-md font-semibold px-3 py-1 flex items-center gap-1"
             >
               <FileText size={14} /> Invoice
@@ -269,7 +271,7 @@ export const invoicesColumns = [
           )}
           {pdf && (
             <button
-              onClick={() => notImplemented()}
+              onClick={() => window.open(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/admin/orders/pdf/${orderId}`, '_blank')}
               className="border border-[#FF6B9C] cursor-pointer text-[#FF6B9C] hover:bg-[#FF6B9C] hover:text-white transition rounded-md font-semibold px-3 py-1 flex items-center gap-1"
             >
               <FileDown size={14} /> PDF

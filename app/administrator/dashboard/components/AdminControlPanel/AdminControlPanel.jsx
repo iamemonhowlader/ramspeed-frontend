@@ -5,23 +5,28 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import notImplemented from "@/lib/notImplemented";
 import FormSelect from "../Common/FormSelect";
+import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 // Zod schema for validation
 const schema = z.object({
-  productName: z.string().min(1, "Product name is required"),
-  supplierName: z.string().min(1, "Supplier name is required"),
-  products: z.string().min(1, "Products field is required"),
+  productName: z.string().optional(),
+  supplierName: z.string().optional(),
+  products: z.string().optional(),
 });
 
 const ProductSupplierForm = () => {
+  const [categories, setCategories] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors, isSubmitting },
-    reset,
+    formState: { isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -31,15 +36,32 @@ const ProductSupplierForm = () => {
     },
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiFetch("/api/admin/dashboard-data");
+        if (response.success) {
+          setCategories(response.categories.map(c => ({ label: c.name, value: c.id.toString() })));
+          setSuppliers(response.suppliers.map(s => ({ label: s.full_name, value: s.id.toString() })));
+        }
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+    const params = new URLSearchParams();
+    if (data.productName && data.productName !== "all") params.append("Category", data.productName);
+    if (data.supplierName && data.supplierName !== "all") params.append("Supplier", data.supplierName);
+    if (data.products) params.append("s", data.products);
+    
+    router.push(`/administrator/dashboard/manage-products?${params.toString()}`);
   };
 
   return (
     <div className="w-[70vw] lg:w-[510px]">
-      {" "}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 lg:space-y-6"
@@ -48,14 +70,9 @@ const ProductSupplierForm = () => {
           className={"w-full"}
           name="productName"
           control={control}
-          label="Product Name"
-          options={[
-            { label: "Product 1", value: "product-1" },
-            { label: "Product 2", value: "product-2" },
-            { label: "Product 3", value: "product-3" },
-          ]}
-          placeholder="Select Product"
-          error={errors?.productName}
+          label="Category"
+          options={[{ label: "All Categories", value: "all" }, ...categories]}
+          placeholder="Select Category"
         />
 
         <FormSelect
@@ -63,30 +80,24 @@ const ProductSupplierForm = () => {
           name="supplierName"
           control={control}
           label="Supplier Name"
-          options={[
-            { label: "Supplier A", value: "supplier-a" },
-            { label: "Supplier B", value: "supplier-b" },
-            { label: "Supplier C", value: "supplier-c" },
-          ]}
+          options={[{ label: "All Suppliers", value: "all" }, ...suppliers]}
           placeholder="Select Supplier"
-          error={errors?.supplierName}
         />
 
         <Input
-          label="Products"
+          label="Search Text"
           id="products"
-          placeholder="Search products"
-          error={errors?.products}
+          placeholder="Product name or code"
           {...register("products")}
         />
 
         <div className="flex items-center gap-2 md:gap-5 mt-8 flex-col md:flex-row ">
           <Button
-            className={"w-full flex-1 md:w-auto"}
+            className={"w-full flex-1 md:w-auto bg-blue-600 hover:bg-blue-700"}
             type="submit"
             disabled={isSubmitting}
           >
-            Search
+            Search Products
           </Button>
         </div>
       </form>

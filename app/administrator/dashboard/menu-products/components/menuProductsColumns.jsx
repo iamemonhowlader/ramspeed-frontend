@@ -4,7 +4,8 @@ import { Check, ChevronsDown, ChevronsUp, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import NestedIcon from "@/components/svg/NestedIcon";
 import Link from "next/link";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 const TableHeader = ({ children }) => {
   return (
@@ -48,15 +49,9 @@ export const menuProductsColumns = [
       const level = row.original.level;
       const name = row.getValue("name");
 
-      // Calculate left padding based on level (e.g., 20px per level)
-      const paddingLeft = level * 40;
-
       return (
         <TableCell className={"lg:pl-15 "}>
-          <div
-            className={`flex items-center ${level === 2 ? "pl-10" : ""} `}
-            // style={{ paddingLeft: `${paddingLeft}px` }}
-          >
+          <div className={`flex items-center ${level === 2 ? "pl-10" : ""} `}>
             {level > 0 && (
               <NestedIcon className={"scale-50 lg:scale-70 -mt-3"} />
             )}
@@ -71,25 +66,26 @@ export const menuProductsColumns = [
     header: () => <TableHeader>Type</TableHeader>,
     cell: ({ row }) => {
       const type = row.getValue("type");
+      const typeLabel = type == 1 ? "Category" : type == 4 ? "Listing" : "Other";
 
       return (
         <TableCell
           className={`flex items-center justify-center font-semibold ${
-            type === "Category"
+            type == 1
               ? "text-[#69A200] border-[#69A200]"
               : "text-[#FFBB38] border-[#FFBB38]"
           }`}
         >
-          {type}
+          {typeLabel}
         </TableCell>
       );
     },
   },
   {
-    accessorKey: "active",
+    accessorKey: "active_page",
     header: () => <TableHeader>Active</TableHeader>,
     cell: ({ row }) => {
-      const active = row.getValue("active");
+      const active = row.getValue("active_page") === 'yes';
 
       return (
         <TableCell
@@ -99,7 +95,7 @@ export const menuProductsColumns = [
               : "text-red-400 border-red-600"
           }`}
         >
-          {!!active ? (
+          {active ? (
             <Check size={10} className="scale-150" />
           ) : (
             <X size={10} className="scale-150" />
@@ -112,49 +108,73 @@ export const menuProductsColumns = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const { id, type } = row.original;
+
+      const handleDelete = async () => {
+        if (confirm("Are you sure you want to delete this menu item?")) {
+          try {
+            const response = await apiFetch(`/api/admin/menu/delete/${id}`, {
+              method: "DELETE",
+            });
+            if (response.success) {
+              toast.success("Menu item deleted!");
+              window.location.reload();
+            }
+          } catch (error) {
+            toast.error(error.message || "Failed to delete");
+          }
+        }
+      };
+
       return (
         <div className="flex items-center">
-          {/* add  */}
-          <TableCell
-            onClick={() => notImplemented()}
-            className={"flex-1 cursor-pointer flex items-center justify-center"}
-          >
-            <p className="bg-[#FF6B9C] text-white rounded-full px-2 ">Add</p>
-          </TableCell>
-
-          {/* manage  */}
-          <Link
-            href={"/administrator/dashboard/manage-products"}
-            className="flex-2 "
-          >
-            <TableCell
-              className={
-                "text-white hover:text-[#0068C8]  transition-ease-in-out bg-[#0068C8] hover:bg-white border-[#0068C8] transition-ease-in-out flex items-center justify-center"
-              }
+          {/* add - only for categories/listing (1, 2, 4) */}
+          {(type == 1 || type == 2 || type == 4) && (
+            <Link
+              href={`/administrator/dashboard/menu-products/add?parent=${id}`}
+              className={"flex-1 cursor-pointer flex items-center justify-center"}
             >
-              Manage products
-            </TableCell>
-          </Link>
+              <TableCell className="w-full h-full flex items-center justify-center">
+                <p className="bg-[#FF6B9C] text-white rounded-full px-2">Add</p>
+              </TableCell>
+            </Link>
+          )}
 
-          {/* edit  */}
+          {/* manage - only for product listing (4) */}
+          {type == 4 && (
+            <Link
+              href={`/administrator/dashboard/manage-products?Category=${id}`}
+              className="flex-2 "
+            >
+              <TableCell
+                className={
+                  "text-white hover:text-[#0068C8] bg-[#0068C8] hover:bg-white border-[#0068C8] transition-all flex items-center justify-center whitespace-nowrap px-4"
+                }
+              >
+                Manage products
+              </TableCell>
+            </Link>
+          )}
+
+          {/* edit */}
           <Link
-            href={`/administrator/dashboard/menu-products/edit/${row.original.id}`}
+            href={`/administrator/dashboard/menu-products/edit/${id}`}
             className="flex-1"
           >
             <TableCell
               className={
-                "text-white hover:text-[#068909]  transition-ease-in-out bg-[#068909] hover:bg-white border-[#068909] flex items-center justify-center"
+                "text-white hover:text-[#068909] bg-[#068909] hover:bg-white border-[#068909] transition-all flex items-center justify-center px-4"
               }
             >
               Edit
             </TableCell>
           </Link>
 
-          {/* delete  */}
+          {/* delete */}
           <TableCell
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
             className={
-              "flex-1 cursor-pointer text-white hover:text-[#DD2831] hover:bg-white bg-[#DD2831] transition-ease-in-out border-[#DD2831] flex items-center justify-center"
+              "flex-1 cursor-pointer text-white hover:text-[#DD2831] hover:bg-white bg-[#DD2831] transition-all border-[#DD2831] flex items-center justify-center px-4"
             }
           >
             Delete

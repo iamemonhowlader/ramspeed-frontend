@@ -22,6 +22,7 @@ export function DataTable({
   rowColored = false,
   markRow,
   markRowColor,
+  loading = false,
 }) {
   const table = useReactTable({
     data,
@@ -54,7 +55,13 @@ export function DataTable({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center font-semibold text-gray-500">
+                  Loading data...
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 const marked = row?.original[markRow];
 
