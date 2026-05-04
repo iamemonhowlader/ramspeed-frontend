@@ -5,7 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "react-toastify";
 
 // -----------------------------
 // Zod validation schema
@@ -36,10 +37,25 @@ const SettingTab = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Password updated:", data);
-    reset();
-    notImplemented();
+  const onSubmit = async (data) => {
+    try {
+      const response = await apiFetch("/api/frontend/account/update", {
+        method: "POST",
+        body: JSON.stringify({
+          current_password: data.currentPassword,
+          password: data.newPassword,
+        }),
+      });
+
+      if (response.success) {
+        toast.success("Password updated successfully!");
+        reset();
+      } else {
+        toast.error(response.message || "Failed to update password");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating password");
+    }
   };
 
   return (

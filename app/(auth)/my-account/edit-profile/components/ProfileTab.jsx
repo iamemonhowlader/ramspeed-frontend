@@ -6,36 +6,92 @@ import z from "zod";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { apiFetch } from "@/lib/api";
+import { toast } from "react-toastify";
+import useAuthStore from "@/store/authStore";
 
 // Validation Schema
 const schema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  mobile: z
+  fullName: z.string().min(1, "Full name is required"),
+  phone: z
     .string()
-    .min(10, "Mobile number must be at least 10 digits")
-    .regex(/^[0-9]+$/, "Invalid mobile number"),
+    .min(8, "Phone number is too short")
+    .regex(/^[0-9+ ]+$/, "Invalid phone number"),
   email: z.string().email("Invalid email address"),
   city: z.string().min(1, "City is required"),
   postCode: z.string().min(1, "Post code is required"),
   country: z.string().min(1, "Country is required"),
-  street: z.string().min(1, "Street address is required"),
+  address: z.string().min(1, "Address is required"),
 });
 
 const ProfileTab = () => {
+  const { user, setUser } = useAuthStore();
+  const [loading, setLoading] = useState(true);
+
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log("Profile updated:", data);
-    reset();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await apiFetch("/api/frontend/account");
+        if (response.success && response.data) {
+          const profile = response.data;
+          setValue("fullName", profile.full_name || "");
+          setValue("email", profile.email || "");
+          setValue("phone", profile.phone || "");
+          setValue("address", profile.address || "");
+          setValue("city", profile.city || "");
+          setValue("postCode", profile.post_code || "");
+          setValue("country", profile.country || "");
+        }
+      } catch (error) {
+        toast.error("Failed to fetch profile");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [setValue]);
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await apiFetch("/api/frontend/account/update", {
+        method: "POST",
+        body: JSON.stringify({
+          full_name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          city: data.city,
+          post_code: data.postCode,
+          country: data.country
+        }),
+      });
+
+      if (response.success) {
+        toast.success("Profile updated successfully!");
+        // Update local user state if needed
+        if (user) {
+          setUser({ ...user, full_name: data.fullName, email: data.email });
+        }
+      } else {
+        toast.error(response.message || "Failed to update profile");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating profile");
+    }
   };
+
+  if (loading) return <div className="p-10 text-center">Loading profile...</div>;
 
   return (
     <div className="w-full">
@@ -48,7 +104,7 @@ const ProfileTab = () => {
       <div className="p-3 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-10">
         <div className="flex justify-center md:justify-start">
           <Avatar className="size-28 md:size-30 xl:size-[176px]">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.full_name || "User")}&background=0068c8&color=fff`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </div>
@@ -58,23 +114,19 @@ const ProfileTab = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6"
         >
+          <div className="col-span-1 sm:col-span-2">
+            <Input
+              label="Full Name"
+              placeholder="Enter full name"
+              {...register("fullName")}
+              error={errors.fullName}
+            />
+          </div>
           <Input
-            label="First Name"
-            placeholder="Enter first name"
-            {...register("firstName")}
-            error={errors.firstName}
-          />
-          <Input
-            label="Last Name"
-            placeholder="Enter last name"
-            {...register("lastName")}
-            error={errors.lastName}
-          />
-          <Input
-            label="Mobile Number"
-            placeholder="Enter mobile number"
-            {...register("mobile")}
-            error={errors.mobile}
+            label="Phone Number"
+            placeholder="Enter phone number"
+            {...register("phone")}
+            error={errors.phone}
           />
           <Input
             label="Email Address"
@@ -101,10 +153,10 @@ const ProfileTab = () => {
             error={errors.country}
           />
           <Input
-            label="Street Address"
-            placeholder="Enter street address"
-            {...register("street")}
-            error={errors.street}
+            label="Full Address"
+            placeholder="Enter full address"
+            {...register("address")}
+            error={errors.address}
           />
 
           {/* Submit Button */}
