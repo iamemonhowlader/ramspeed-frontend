@@ -16,13 +16,13 @@ const DesktopCategories = () => {
 
     return (
         <div
-            className="min-[1024px]:flex min-[1024px]:basis-auto grow-[1] items-center w-full hidden"
+            className="flex basis-auto grow-[1] items-center justify-center w-full overflow-hidden"
             id="navbarSupportedContent"
         >
-            <ul className="navbar-nav flex min-[1024px]:flex-row items-center relative z-[3]  max-[1200px]:mr-[-5px] max-[1024px]:m-[0]">
-                <li className="nav-item dropdown relative group mr-[25px] max-[1400px]:mr-[20px] max-[1200px]:mr-[30px]">
+            <ul className="navbar-nav flex flex-nowrap lg:flex-wrap justify-start lg:justify-center items-center relative z-[3] w-full gap-x-4 lg:gap-x-6 xl:gap-x-8 gap-y-2 py-2 overflow-x-auto hide-scrollbar px-2 lg:px-0">
+                <li className="nav-item dropdown relative group shrink-0">
                     <Link
-                        className="nav-link dropdown-toggle text-[14px] font-semibold block text-[#000] z-[1] flex items-center relative py-6 px-[8px] transition duration-300 hover:text-primary"
+                        className="nav-link dropdown-toggle text-[13px] xl:text-[14px] font-semibold text-[#000] z-[1] flex items-center relative py-2 xl:py-4 transition duration-300 hover:text-primary whitespace-nowrap uppercase"
                         href="/"
                     >
                         Home
@@ -31,10 +31,10 @@ const DesktopCategories = () => {
                 {Array.isArray(categories) && categories.slice(0, 7).map((category) => (
                     <li
                         key={category.id}
-                        className="nav-item dropdown relative group mr-[25px] max-[1400px]:mr-[20px] max-[1200px]:mr-[30px]"
+                        className="nav-item dropdown relative group shrink-0"
                     >
                         <Link
-                            className="nav-link dropdown-toggle text-[14px] font-semibold block text-[#000] z-[1] flex items-center relative py-6 px-[8px] transition duration-300 hover:text-primary"
+                            className="nav-link dropdown-toggle text-[13px] xl:text-[14px] font-semibold text-[#000] z-[1] flex items-center relative py-2 xl:py-4 transition duration-300 hover:text-primary whitespace-nowrap uppercase"
                             href={`/shop-now?category=${category.id}`}
                         >
                             {category.name}

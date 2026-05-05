@@ -351,8 +351,8 @@ const Header = () => {
         <div className="cr-fix mb-4 md:mb-8 w-full pb-0 transition-all duration-300 opacity-100 max-h-[999px]">
           <div className="flex flex-wrap relative items-center mx-auto container shadow-[1px_1px_15px_-1px_#1447e6] rounded-2xl">
             <div className="cr-menu-list w-full relative flex items-center flex-row justify-center">
-              <nav className="justify-between relative flex flex-nowrap items-center px-4 lg:px-0">
-                <a href="#" className="navbar-toggler py-[7px] px-[14px] hidden max-[1024px]:flex" onClick={(e) => { e.preventDefault(); setIsMenuOpen(true); }}>
+              <nav className="justify-between w-full relative flex flex-nowrap items-center px-4 lg:px-0">
+                <a href="#" className="navbar-toggler shrink-0 py-[7px] px-[14px] hidden max-[1024px]:flex" onClick={(e) => { e.preventDefault(); setIsMenuOpen(true); }}>
                   <RiMenu3Fill size={20} color="#000" />
                 </a>
                 <DesktopCategories />
