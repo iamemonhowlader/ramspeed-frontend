@@ -8,11 +8,13 @@ import DataTable from "@/components/common/DataTable/DataTable";
 import Link from "next/link";
 import suppliersColumns from "./components/suppliersColumns";
 import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 const SupplierPage = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedSuppliers, setSelectedSuppliers] = useState([]);
 
   const fetchSuppliers = async () => {
     setLoading(true);
@@ -25,6 +27,35 @@ const SupplierPage = () => {
       console.error("Failed to fetch suppliers:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteSelected = async () => {
+    if (selectedSuppliers.length === 0) {
+      toast.error("Please select at least one supplier to delete");
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to delete ${selectedSuppliers.length} supplier(s)?`)) return;
+
+    try {
+      const deletePromises = selectedSuppliers.map(supplierId =>
+        apiFetch(`/api/admin/suppliers/delete/${supplierId}`, { method: 'DELETE' })
+      );
+
+      const results = await Promise.all(deletePromises);
+      const failedCount = results.filter(result => !result.success).length;
+
+      if (failedCount === 0) {
+        toast.success(`${selectedSuppliers.length} supplier(s) deleted successfully`);
+        setSelectedSuppliers([]);
+        fetchSuppliers();
+      } else {
+        toast.error(`Failed to delete ${failedCount} supplier(s)`);
+      }
+    } catch (error) {
+      console.error("Error deleting suppliers:", error);
+      toast.error("Failed to delete suppliers");
     }
   };
 
@@ -51,13 +82,19 @@ const SupplierPage = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button variant={"destructive"}>Delete Selected</Button>
+        <Button 
+          variant={"destructive"}
+          onClick={handleDeleteSelected}
+          disabled={selectedSuppliers.length === 0}
+        >
+          Delete Selected {selectedSuppliers.length > 0 && `(${selectedSuppliers.length})`}
+        </Button>
       </div>
 
       {/* table container  */}
       <DataTable 
         rowColored 
-        columns={suppliersColumns(fetchSuppliers)} 
+        columns={suppliersColumns(fetchSuppliers, selectedSuppliers, setSelectedSuppliers)} 
         data={data} 
         loading={loading}
       />

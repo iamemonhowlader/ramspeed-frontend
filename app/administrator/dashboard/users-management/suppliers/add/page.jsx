@@ -4,7 +4,8 @@ import DashboardFormContainer from "@/app/administrator/dashboard/components/Das
 import InputPassword from "@/components/common/InputPassword";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -53,6 +54,7 @@ const schema = z
   });
 
 const AddSuppliers = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -66,10 +68,43 @@ const AddSuppliers = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await apiFetch('/api/admin/suppliers/store', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: data.companyName,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          active: data.active,
+          cperson: data.contactPerson,
+          profit: 0,
+          cyprofit: 0,
+          cysupprofit: 0,
+          cytax: 0,
+          phone: data.phone,
+          fax: '',
+          vat_num: data.vatNumber,
+          reg_num: data.companyRegisterNumber,
+          address: data.address,
+          post_code: data.postCode,
+          city: data.city,
+          country: data.country,
+          website: data.website
+        })
+      });
+
+      if (response.success) {
+        toast.success("Supplier added successfully");
+        router.push('/administrator/dashboard/users-management/suppliers');
+      } else {
+        toast.error(response.message || "Failed to add supplier");
+      }
+    } catch (error) {
+      console.error("Error adding supplier:", error);
+      toast.error("Failed to add supplier");
+    }
   };
 
   const onCancel = () => {

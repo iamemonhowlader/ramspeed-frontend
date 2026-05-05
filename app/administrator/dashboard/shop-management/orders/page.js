@@ -75,7 +75,7 @@ const OrdersPage = () => {
             status: order.status.charAt(0).toUpperCase() + order.status.slice(1),
             shipped: order.delivered === "yes" ? "Yes" : "No",
             vat0: order.ZeroVAT === 1 ? "Yes" : "No",
-            cancelled: order.cancelled === "yes",
+            cancelled: order.cancelled === "yes" || order.cancelled === true,
             options: { details: true, invoice: true, pdf: true }
           };
         });

@@ -2,7 +2,6 @@ import HeaderCategories from "@/components/common/Header/HeaderCategories";
 import NewsLetter from "@/components/common/NewsLetter";
 import Slider from "@/components/common/Slider";
 import BestDeals from "@/components/Widgets/BestDeals/BestDeals";
-import BottomFeatured from "@/components/Widgets/BottomFeatured/BottomFeatured";
 import FeaturedProducts from "@/components/Widgets/FeaturedProducts/FeaturedProducts";
 import Features from "@/components/Widgets/Features/Features";
 import Ticker from "@/components/Widgets/Ticker/Ticker";
@@ -38,11 +37,7 @@ const HomePage = () => {
           <div className="py-8 sm:py-12">
             <FeaturedProducts />
           </div>
-          {/* Bottom Featured */}
-          <div className="py-8 sm:py-12">
-            <BottomFeatured />
-          </div>
-        </div>
+                  </div>
       </div>
       <div className="bg-[#f4f4f4]">
         <div className="container mx-auto px-4 lg:px-0">

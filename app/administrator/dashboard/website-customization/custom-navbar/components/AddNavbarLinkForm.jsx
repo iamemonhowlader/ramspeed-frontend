@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 
 // Zod schema
 const schema = z.object({
@@ -28,10 +29,31 @@ const AddNavbarLinkForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const result = await apiFetch('/api/admin/menu/store', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: data.linkName,
+          namegr: data.linkName, // For now, same as English name
+          active_page: data.fullLink,
+          type: 'custom',
+          parent: 0 // Top-level menu item
+        })
+      });
+
+      if (result.success) {
+        toast.success("Navbar link added successfully");
+        reset();
+        // Refresh the page to show new data
+        window.location.reload();
+      } else {
+        toast.error(result.message || "Failed to add navbar link");
+      }
+    } catch (error) {
+      console.error("Error adding navbar link:", error);
+      toast.error("Failed to add navbar link");
+    }
   };
 
   return (

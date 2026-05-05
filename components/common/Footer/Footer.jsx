@@ -64,7 +64,7 @@ const Footer = () => {
                 <div className="sm:col-span-1 lg:col-span-2">
                   <Link href="/">
                     <Image
-                      src="/logo.png"
+                      src="/logo.jpg"
                       alt="logo"
                       width={297}
                       height={100}

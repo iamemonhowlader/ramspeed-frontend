@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/lib/api";
 
 const Logo = () => {
-  const [logoPath, setLogoPath] = useState("/logo.png");
+  const [logoPath, setLogoPath] = useState("/logo.jpg");
 
   useEffect(() => {
     const fetchLogo = async () => {

@@ -207,7 +207,7 @@ const Header = () => {
               <div className="top-header py-0 flex flex-row gap-[20px] justify-between items-center relative z-[4] max-[576px]:block max-[576px]:py-4">
                 {/* Logo */}
                 <Link href="/" className="cr-logo flex items-center max-[576px]:mb-[15px] max-[576px]:justify-center">
-                  <Image src="/logo.png" alt="logo" width={297} height={100} className="logo block h-auto w-auto max-w-[297px] max-h-[100px] object-contain max-[576px]:max-w-[200px]" />
+                  <Image src="/logo.jpg" alt="logo" width={297} height={100} className="logo block h-auto w-auto max-w-[297px] max-h-[100px] object-contain max-[576px]:max-w-[200px]" />
                 </Link>
 
                 {/* Search bar */}

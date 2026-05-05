@@ -4,6 +4,8 @@ import { Check, X, FileText, FileDown, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 
 // Reuse your shared components
@@ -230,15 +232,37 @@ export const invoicesColumns = [
     header: () => <TableHeader>Cancelled</TableHeader>,
     cell: ({ row }) => {
       const cancelled = row.getValue("cancelled");
+      const orderId = row.original.id;
+      
+      const handleToggleCancel = async () => {
+        try {
+          const response = await apiFetch(`/api/admin/orders/toggle-cancel/${orderId}`, {
+            method: 'POST'
+          });
+          
+          if (response.success) {
+            toast.success(`Order ${cancelled ? 'un-cancelled' : 'cancelled'} successfully`);
+            // Refresh the page to show updated data
+            window.location.reload();
+          } else {
+            toast.error(response.message || "Failed to update order status");
+          }
+        } catch (error) {
+          toast.error("Failed to update order status");
+        }
+      };
+
       return (
         <TableCell className="flex justify-center">
-          {/* {cancelled ? (
-            <Check className="text-[#51BA00]" size={18} />
-          ) : (
-            <X className="text-red-500" size={18} />
-          )} */}
-
-          <Checkbox className={"cursor-pointer"} />
+          <div className="flex items-center gap-2">
+            <Checkbox 
+              checked={cancelled === true || cancelled === 'yes'}
+              disabled={cancelled === true || cancelled === 'yes'}
+              onChange={handleToggleCancel}
+              className="cursor-pointer"
+            />
+            <span className="text-xs font-medium">Cancelled</span>
+          </div>
         </TableCell>
       );
     },

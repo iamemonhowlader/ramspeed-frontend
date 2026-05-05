@@ -34,7 +34,26 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-export const suppliersColumns = (onDelete) => [
+export const suppliersColumns = (onDelete, selectedSuppliers, setSelectedSuppliers) => [
+  {
+    id: "select",
+    header: () => <TableHeader>Select</TableHeader>,
+    cell: ({ row }) => (
+      <TableCell>
+        <Checkbox
+          checked={selectedSuppliers.includes(row.original.id)}
+          onCheckedChange={(checked) => {
+            if (checked) {
+              setSelectedSuppliers([...selectedSuppliers, row.original.id]);
+            } else {
+              setSelectedSuppliers(selectedSuppliers.filter(id => id !== row.original.id));
+            }
+          }}
+          className="bg-white cursor-pointer"
+        />
+      </TableCell>
+    ),
+  },
   {
     accessorKey: "id",
     header: () => <TableHeader>ID</TableHeader>,
@@ -111,16 +130,20 @@ export const suppliersColumns = (onDelete) => [
               Edit
             </Button>
           </Link>
-          <Button
-            variant={"outline"}
-            onClick={() => toast.info("View products coming soon")}
-            size={"sm"}
-            className={
-              "border-[#179BD7] flex-1 text-[#179BD7] font-medium hover:bg-[#179BD7]"
-            }
+          <Link
+            className="flex-1"
+            href={`/administrator/dashboard/users-management/suppliers/products/${row.original.id}`}
           >
-            Products
-          </Button>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              className={
+                "border-[#179BD7] flex-1 text-[#179BD7] font-medium hover:bg-[#179BD7]"
+              }
+            >
+              Products
+            </Button>
+          </Link>
           <Button
             variant={"outline"}
             onClick={handleDelete}

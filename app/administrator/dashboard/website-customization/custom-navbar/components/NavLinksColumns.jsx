@@ -3,7 +3,8 @@
 import { cn } from "@/lib/utils";
 import BadgeTable from "@/components/common/BadgeTable";
 import { Check, Cross, X } from "lucide-react";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
@@ -34,7 +35,7 @@ const TableCell = ({ children, className, wrap = false, ...props }) => (
   </div>
 );
 
-export const NavLinksColumns = [
+export const NavLinksColumns = (onDelete) => [
   {
     accessorKey: "serial",
     header: () => <TableHeader>Serial</TableHeader>,
@@ -58,25 +59,32 @@ export const NavLinksColumns = [
     id: "options",
     header: () => <TableHeader>Options</TableHeader>,
     cell: ({ row }) => {
+      const handleDelete = async () => {
+        if (!confirm("Are you sure you want to delete this menu item?")) return;
+        
+        try {
+          const response = await apiFetch(`/api/admin/menu/delete/${row.original.id}`, {
+            method: 'DELETE'
+          });
+          
+          if (response.success) {
+            toast.success("Menu item deleted successfully");
+            onDelete && onDelete();
+          } else {
+            toast.error(response.message || "Failed to delete menu item");
+          }
+        } catch (error) {
+          toast.error("Failed to delete menu item");
+        }
+      };
+
       return (
         <TableCell className="flex justify-center gap-1  px-0">
-          {/* delete  */}
-          {/* <Button
-            variant={"outline"}
-            className={
-              "font-medium py-1 rounded-full bg-[#396AFF] hover:bg-white text-white hover:text-[#396AFF] "
-            }
-            size={"sm"}
-            onClick={() => notImplemented()}
-          >
-            Delete
-          </Button> */}
-
           <Button
             variant={"outline"}
             className={"font-medium flex-1"}
             size={"sm"}
-            onClick={() => notImplemented()}
+            onClick={handleDelete}
           >
             Delete
           </Button>

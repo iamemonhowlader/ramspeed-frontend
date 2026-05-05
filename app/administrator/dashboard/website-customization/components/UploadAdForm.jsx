@@ -7,21 +7,29 @@ import ImageUpload from "../../shop-management/change-logo/components/ImageUploa
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import notImplemented from "@/lib/notImplemented";
+import { apiFetch } from "@/lib/api";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 // Zod schema for form validation
 const schema = z.object({
   adLocation: z.string().min(1, "Ad location is required"),
   adLink: z.string().url("Invalid URL").min(1, "Ad link is required"),
+  image: z.any().refine((file) => file?.length > 0, "Image is required"),
 });
 
 const UploadAdForm = () => {
+  const router = useRouter();
+  const [uploadedImage, setUploadedImage] = useState(null);
+  
   const {
     register,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -30,10 +38,36 @@ const UploadAdForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    notImplemented();
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append('ad_location', data.adLocation);
+      formData.append('ad_link', data.adLink);
+      
+      if (data.image && data.image[0]) {
+        formData.append('image', data.image[0]);
+      }
+
+      const result = await apiFetch('/api/admin/advertisements/store', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      if (result.success) {
+        toast.success("Advertisement added successfully");
+        reset();
+        setUploadedImage(null);
+        router.push('/administrator/dashboard/website-customization/advertisement');
+      } else {
+        toast.error(result.message || "Failed to add advertisement");
+      }
+    } catch (error) {
+      console.error("Error adding advertisement:", error);
+      toast.error("Failed to add advertisement");
+    }
   };
 
   const onCancel = () => {
@@ -122,8 +156,32 @@ const UploadAdForm = () => {
           Upload image here
         </p>
 
-        {/* Image upload (no validation) */}
-        <ImageUpload label="" />
+        {/* Image upload with validation */}
+        <div className="space-y-2">
+          <input
+            type="file"
+            accept="image/*"
+            {...register("image")}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                setUploadedImage(e.target.files[0]);
+              }
+            }}
+          />
+          {errors?.image && (
+            <p className="text-red-500 text-sm">{errors.image.message}</p>
+          )}
+          {uploadedImage && (
+            <div className="mt-2">
+              <img 
+                src={URL.createObjectURL(uploadedImage)} 
+                alt="Preview" 
+                className="w-full h-32 object-cover rounded-md"
+              />
+            </div>
+          )}
+        </div>
 
         {/* actions */}
         <div className="flex items-center gap-2 md:gap-5 mt-8 flex-col md:flex-row ">

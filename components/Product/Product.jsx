@@ -96,21 +96,21 @@ export default function Product({ data, ProductlayoutItem }) {
             <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold ${
               parseInt(product.availability_cy) >= 3 ? "text-green-700 bg-green-50" :
               parseInt(product.availability_cy) >= 1 ? "text-orange-700 bg-orange-50" :
-              (parseInt(product.availability) > 0 ? "text-blue-700 bg-blue-50" : "text-red-700 bg-red-50")
+              (parseInt(product.availability) > 0 || parseInt(product.availability_cy) > 0) ? "text-blue-700 bg-blue-50" : "text-red-700 bg-red-50"
             }`}>
               <span className={`w-1.5 h-1.5 rounded-full ${
                 parseInt(product.availability_cy) >= 3 ? "bg-green-500" :
                 parseInt(product.availability_cy) >= 1 ? "bg-orange-500" :
-                (parseInt(product.availability) > 0 ? "bg-blue-500" : "bg-red-500")
+                (parseInt(product.availability) > 0 || parseInt(product.availability_cy) > 0) ? "bg-blue-500" : "bg-red-500"
               }`}></span>
               {parseInt(product.availability_cy) >= 3 ? (
-                <>In Stock – Available Now / Σε Απόθεμα</>
+                <span>In Stock – Available Now / Σε Απόθεμα</span>
               ) : parseInt(product.availability_cy) >= 1 ? (
-                <>Low Stock – Only few left / Περιορισμένο Απόθεμα</>
+                <span>Low Stock – Only few left / Περιορισμένο Απόθεμα</span>
               ) : parseInt(product.availability) > 0 ? (
-                <>Available on Order / Διαθέσιμο κατόπιν παραγγελίας</>
+                <span>Available on Order / Διαθέσιμο κατόπιν παραγγελίας</span>
               ) : (
-                <>Out of Stock / Εξαντλημένο</>
+                <span>Out of Stock / Εξαντλημένο</span>
               )}
             </div>
           </div>
